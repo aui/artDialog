@@ -1172,9 +1172,7 @@ artDialog.fn = artDialog.prototype = {
         };
         
             
-        $div.bind('click', function () {
-            that._reset();
-        }).bind('dblclick', function () {
+        $div.bind('dblclick', function () {
             that._click('cancel');
         });
         
