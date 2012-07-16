@@ -1,0 +1,72 @@
+@charset "utf-8";
+/*
+ * artDialog skin
+ * http://code.google.com/p/artdialog/
+ * (c) 2009-2012 TangBin, http://www.planeArt.cn
+ *
+ * This is licensed under the GNU LGPL, version 2.1 or later.
+ * For details, see: http://creativecommons.org/licenses/LGPL/2.1/
+ */
+ 
+/* common start */
+body { _margin:0; _height:100%; }/*IE6 BUG*/ 
+.d-outer { text-align:left; }
+.d-border, .d-dialog { border:0 none; margin:0; border-collapse:collapse; width:auto; }
+.d-nw, .d-n, .d-ne, .d-w, .d-c, .d-e, .d-sw, .d-s, .d-se, .d-header, .d-main, .d-footer { padding:0; }
+.d-header, .d-button { font: 12px/1.11 'Microsoft Yahei', Tahoma, Arial, Helvetica, STHeiti; _font-family:Tahoma,Arial,Helvetica,STHeiti; -o-font-family: Tahoma, Arial; }
+.d-title { overflow:hidden; text-overflow: ellipsis; cursor:default; }
+.d-state-noTitle .d-title { display:none; }
+.d-close { display:block; position:absolute; text-decoration:none; outline:none; _cursor:pointer; }
+.d-close:hover { text-decoration:none; }
+.d-main { text-align:center; vertical-align:middle; min-width:9em; }
+.d-content { display:inline-block; display:block\0/*IE8 BUG*/; display:inline-block\9\0; *zoom:1; *display:inline; text-align:left; border:0 none;  }
+.d-content.d-state-full { display:block; width:100%; margin:0; padding:0!important; height:100%; }
+.d-loading { width:96px; height:32px; text-align:left; text-indent:-999em; overflow:hidden; background:url(loading.gif) no-repeat center center; }
+.d-buttons { padding:8px; text-align:right; white-space:nowrap; }
+.d-button { margin-left:15px; padding: 0 8px; cursor: pointer; display: inline-block; min-height:2.2em; text-align: center; *padding:4px 10px; *height:2em; letter-spacing:2px; font-family: Tahoma, Arial/9!important; width:auto; overflow:visible; *width:1; color: #333; border: 1px solid #999; border-radius: 5px; background: #DDD; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#DDDDDD'); background: linear-gradient(top, #FFF, #DDD); background: -moz-linear-gradient(top, #FFF, #DDD); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFF), to(#DDD)); text-shadow: 0px 1px 1px rgba(255, 255, 255, .5);; box-shadow: 0 1px 0 rgba(255, 255, 255, .7),  0 -1px 0 rgba(0, 0, 0, .09); -moz-transition:-moz-box-shadow linear .2s; -webkit-transition: -webkit-box-shadow linear .2s; transition: box-shadow linear .2s; }
+.d-button::-moz-focus-inner, .d-button::-moz-focus-outer { border:0 none; padding:0; margin:0; }
+.d-button:focus { outline:none 0; border-color:#426DC9; box-shadow:0 0 8px rgba(66, 109, 201, .9); }
+.d-button:hover { color:#000; border-color:#666; }
+.d-button:active { border-color:#666; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DDDDDD', endColorstr='#FFFFFF'); background: linear-gradient(top, #DDD, #FFF); background: -moz-linear-gradient(top, #DDD, #FFF); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#DDD), to(#FFF)); box-shadow:inset 0 1px 1em rgba(0, 0, 0, .6), inset 0 1px 1em rgba(0, 0, 0, .3); }
+.d-button[disabled] { cursor:default; color:#666; background:#DDD; border: 1px solid #999; filter:alpha(opacity=50); opacity:.5; box-shadow:none; }
+.d-state-highlight { color: #FFF; border: 1px solid #1c6a9e; background: #2288cc; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bbee', endColorstr='#2288cc'); background: linear-gradient(top, #33bbee, #2288cc); background: -moz-linear-gradient(top, #33bbee, #2288cc); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#33bbee), to(#2288cc)); text-shadow: -1px -1px 1px #1c6a9e; }
+.d-state-highlight:hover { color:#FFF; border-color:#0F3A56; }
+.d-state-highlight:active { border-color:#1c6a9e; filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#33bbee', endColorstr='#2288cc'); background: linear-gradient(top, #33bbee, #2288cc); background: -moz-linear-gradient(top, #33bbee, #2288cc); background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#33bbee), to(#2288cc)); }
+.d-mask { background:#000; filter:alpha(opacity=70); opacity:.7; }
+/* common end */
+
+.d-inner { background:#FFF; }
+.d-titleBar { width:100%; }
+.d-title { position:absolute; left:0; top:0; width:100%; height:22px; text-align:left; text-indent:-999em; font-size:0; }
+.d-nw, .d-ne, .d-sw, .d-se, .d-n, .d-s, .d-close { background-image:url(idialog/idialog_s.png); background-repeat:no-repeat; }
+.d-nw { width:15px; height:15px; background-position: 0 0; }
+.d-ne { width:15px; height:15px; background-position: -15px 0; }
+.d-sw { width:15px; height:15px; background-position: 0 -15px; }
+.d-se { width:15px; height:15px; background-position: -15px -15px; }
+.d-close { position:absolute; right:-8px; top:-8px; _z-index:1; width:34px; height:34px; _font-size:0; _line-height:0; text-indent:-9999em; background-position:0 -60px; }
+.d-close:hover { background-position:0 -94px; }
+.d-n, .d-s { background-repeat:repeat-x; }
+.d-n { background-position: 0 -30px; }
+.d-s { background-position: 0 -45px; }
+.d-w, .d-e { background-image:url(idialog/idialog_s2.png); background-repeat:repeat-y; }
+.d-w { background-position:left top; }
+.d-e { background-position: right bottom; }
+@media screen and (min-width:0) {/* css3 */
+	.d-nw, .d-ne, .d-sw, .d-se{ width:5px; height:5px; }
+	.d-nw, .d-n, .d-ne, .d-w, .d-e, .d-sw, .d-s, .d-se { background:none; }
+	.d-sw, .d-s, .d-se { background:url(idialog/idialog_s.png) repeat-x 0 -45px; }
+	.d-sw { border-radius:0 0 0 5px; }
+	.d-se { border-radius:0 0 5px 0; }
+	.d-outer { border:1px solid #929292; border-radius:5px; box-shadow:0 3px 8px rgba(0, 0, 0, .2); -moz-transition:-moz-box-shadow linear .2s; -webkit-transition: -webkit-box-shadow linear .2s; transition: -webkit-box-shadow linear .2s; }
+	.d-border { border-radius:5px; background:#FFF; }
+	.d-state-drag { box-shadow:none; }
+	.d-state-lock { box-shadow:0 3px 26px rgba(0, 0, 0, .9); }
+	.d-outer:active { box-shadow:0 0 5px rgba(0, 0, 0, .1)!important; }
+	.d-state-drag { box-shadow:none!important; }
+	.d-close { right:-16px; top:-16px; }
+	.d-outer { -webkit-transform: scale(0); transform: scale(0); -webkit-transition: -webkit-box-shadow .2s ease-in-out, -webkit-transform .2s ease-in-out; transition: box-shadow .2s ease-in-out, transform .2s ease-in-out; }
+	.d-state-visible { -webkit-transform: scale(1); transform: scale(1); }
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {/* apple | webkit */
+	.d-close { right:auto; left:-16px; top:-16px; }
+}
