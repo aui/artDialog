@@ -44,3 +44,7 @@ artDialog 是一个精心设计的 web 对话框控件，它继承与延伸了�
 * 中国移动
 * 中国电信
 * ...
+
+## 演示
+
+http://aui.github.com/artDialog/
