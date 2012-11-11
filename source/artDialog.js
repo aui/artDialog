@@ -1,6 +1,6 @@
 /*!
-* artDialog 5.0.1
-* Date: 2012-07-16
+* artDialog 5.0.2
+* Date: 2012-11-11
 * https://github.com/aui/artDialog
 * (c) 2009-2012 TangBin, http://www.planeArt.cn
 *
@@ -574,6 +574,7 @@ if (document.compatMode === 'BackCompat') {
 
 var _singleton,
     _count = 0,
+    _root = $(document.getElementsByTagName('html')[0]),
     _expando = 'artDialog' + + new Date,
     _isIE6 = window.VBArray && !window.XMLHttpRequest,
     _isMobile = 'createTouch' in document && !('onmousemove' in document)
@@ -666,7 +667,7 @@ var artDialog = function (config, ok, cancel) {
         _singleton.constructor(config) : new artDialog.fn.constructor(config);
 };
 
-artDialog.version = '5.0.1';
+artDialog.version = '5.0.2';
 
 artDialog.fn = artDialog.prototype = {
     
@@ -803,8 +804,13 @@ artDialog.fn = artDialog.prototype = {
             top = (wh - oh) * 382 / 1000 + dt,// 黄金比例
             style = wrap.style;
 
-        style.left = Math.max(left, dl) + 'px';
-        style.top = Math.max(top, dt) + 'px';
+        style.left = Math.max(parseInt(left), dl) + 'px';
+        style.top = Math.max(parseInt(top), dt) + 'px';
+
+        if (this._follow) {
+            this._follow.removeAttribute(_expando + 'follow');
+            this._follow = null;
+        }
         
         return this;
     },
@@ -890,8 +896,8 @@ artDialog.fn = artDialog.prototype = {
         : setTop;
         
         
-        style.left = setLeft + 'px';
-        style.top = setTop + 'px';
+        style.left = parseInt(setLeft) + 'px';
+        style.top = parseInt(setTop) + 'px';
         
         
         this._follow && this._follow.removeAttribute(expando);
@@ -1011,8 +1017,7 @@ artDialog.fn = artDialog.prototype = {
         var dom = this.dom,
             $wrap = dom.wrap,
             list = artDialog.list,
-            beforeunload = this.config.beforeunload,
-            follow = this.config.follow;
+            beforeunload = this.config.beforeunload;
         
         if (beforeunload && beforeunload.call(this) === false) {
             return this;
@@ -1024,9 +1029,9 @@ artDialog.fn = artDialog.prototype = {
         };
         
         
-        if (follow) {
-            follow.removeAttribute(_expando + 'follow');
-        };
+        if (this._follow) {
+            this._follow.removeAttribute(_expando + 'follow');
+        }
         
         
         if (this._elemBack) {
@@ -1251,7 +1256,7 @@ artDialog.fn = artDialog.prototype = {
     
     // 重置位置
     _reset: function () {
-        var elem = this.config.follow;
+        var elem = this.config.follow || this._follow;
         elem ? this.follow(elem) : this.position();
     },
     
@@ -1525,6 +1530,7 @@ this.artDialog = $.dialog = $.artDialog = artDialog;
 29. show 参数与方法更名为 visible
 30. 修正重复调用 close 方法出现的错误
 31. 修正设定了follow后再使用content()方法导致其居中的问题
+32. 修复居中可能导致左边框显示不出的问题
 
 */
 
