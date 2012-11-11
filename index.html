@@ -530,7 +530,7 @@ pre.sh_sourceCode .sh_predef_func { color: #099; font-weight: normal; font-style
           <dt>概述</dt>
           <dd>(默认值: false) 开启锁屏遮罩。<br />
             <br />
-            中断用户对话框之外的交互，用于显示非常重要的操作/消息。建议只在适合的时候使用它。遮罩还可以设置颜色与透明度，参见： <a href="#options-background">background</a> 与 <a href="#options-opacity">opacity</a> </dd>
+            中断用户对话框之外的交互，用于显示非常重要的操作/消息。建议只在适合的时候使用它。遮罩的颜色与透明度可在皮肤CSS中设置。</dd>
           <dt>类型</dt>
           <dd>Boolean</dd>
           <dt>示例</dt>
@@ -633,7 +633,7 @@ art.dialog.get('id-demo').title('8888888888');</pre>
     beforeunload: function () {
         return confirm('确定关闭对话框吗');
     }
-}, function () {});</pre>
+});</pre>
             <a class="runCode" href="#options-beforeunload-demo">运行</a></dd>
         </dl>
       </li>
