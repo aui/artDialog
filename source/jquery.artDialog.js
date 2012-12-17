@@ -624,7 +624,7 @@ artDialog.fn = artDialog.prototype = {
             that._click('cancel');
         });
         
-        if ($.browser.msie && $.browser.version <= 6) {
+        if (_isIE6) {
             $div.html('<iframe style="position:absolute;top:0;left:0;height:100%;width:100%;border:0;"></iframe>');
         }
         
