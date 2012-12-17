@@ -341,7 +341,7 @@ $.removeData = function (elem, name) {
 
 $.uuid = 0;
 $.cache = {};
-$.expando = '@cache' + + new Date;
+$.expando = '@cache' + (+ new Date);
 
 // 标记元素唯一身份
 function uuid (elem) {
@@ -575,7 +575,7 @@ if (document.compatMode === 'BackCompat') {
 var _singleton,
     _count = 0,
     _root = $(document.getElementsByTagName('html')[0]),
-    _expando = 'artDialog' + + new Date,
+    _expando = 'artDialog' + (+ new Date),
     _isIE6 = window.VBArray && !window.XMLHttpRequest,
     _isMobile = 'createTouch' in document && !('onmousemove' in document)
         || /(iPhone|iPad|iPod)/i.test(navigator.userAgent),
@@ -1181,6 +1181,10 @@ artDialog.fn = artDialog.prototype = {
             that._click('cancel');
         });
         
+        if (_isIE6) {
+            $div.html('<iframe style="position:absolute;top:0;left:0;height:100%;width:100%;border:0;"></iframe>');	
+        }
+         
         document.body.appendChild(div);
         
         this._lockMask = $div;
