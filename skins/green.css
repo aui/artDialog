@@ -1,8 +1,8 @@
 @charset "utf-8";
 /*
  * artDialog skin
- * http://code.google.com/p/artdialog/
- * (c) 2009-2012 TangBin, http://www.planeArt.cn
+ * https://github.com/aui/artDialog
+ * (c) 2009-2013 TangBin, http://www.planeArt.cn
  *
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://creativecommons.org/licenses/LGPL/2.1/
@@ -10,7 +10,7 @@
  
 /* common start */
 body { _margin:0; _height:100%; }/*IE6 BUG*/ 
-.d-outer { text-align:left; }
+.d-outer { text-align:left; outline:none 0; }
 .d-border, .d-dialog { border:0 none; margin:0; border-collapse:collapse; width:auto; }
 .d-nw, .d-n, .d-ne, .d-w, .d-c, .d-e, .d-sw, .d-s, .d-se, .d-header, .d-main, .d-footer { padding:0; }
 .d-header, .d-button { font: 12px/1.11 'Microsoft Yahei', Tahoma, Arial, Helvetica, STHeiti; _font-family:Tahoma,Arial,Helvetica,STHeiti; -o-font-family: Tahoma, Arial; }
