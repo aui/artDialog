@@ -157,8 +157,8 @@ DragEvent.prototype = {
         .bind('mousemove', this.over)
         .bind('mouseup', this.end);
             
-        this._sClientX = event.clientX;
-        this._sClientY = event.clientY;
+        this.x = event.clientX;
+        this.y = event.clientY;
         this.onstart(event.clientX, event.clientY);
 
         return false;
@@ -167,11 +167,9 @@ DragEvent.prototype = {
     // 正在拖拽
     // onover: function () {},
     over: function (event) {		
-        this._mClientX = event.clientX;
-        this._mClientY = event.clientY;
         this.onover(
-            event.clientX - this._sClientX,
-            event.clientY - this._sClientY
+            event.clientX - this.x,
+            event.clientY - this.y
         );
         
         return false;
