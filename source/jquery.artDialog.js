@@ -1,23 +1,26 @@
 /*!
-* artDialog 5.0.1
-* Date: 2012-07-16
+* artDialog 5.0.3
+* Date: 2013-02-20
 * https://github.com/aui/artDialog
-* (c) 2009-2012 TangBin, http://www.planeArt.cn
+* (c) 2009-2013 TangBin, http://www.planeArt.cn
 *
 * This is licensed under the GNU LGPL, version 2.1 or later.
 * For details, see: http://creativecommons.org/licenses/LGPL/2.1/
 */
 
+
 ;(function ($, window, undefined) {
 
-// artDialog Ö»Ö§³Ö xhtml 1.0 »òÕßÒÔÉÏµÄ DOCTYPE ÉùÃ÷
+// artDialog åªæ”¯æŒ xhtml 1.0 æˆ–è€…ä»¥ä¸Šçš„ DOCTYPE å£°æ˜
 if (document.compatMode === 'BackCompat') {
     throw new Error('artDialog: Document types require more than xhtml1.0');
 };
 
 var _singleton,
     _count = 0,
-    _expando = 'artDialog' + + new Date,
+    _activeElement = document.activeElement,
+    _root = $(document.getElementsByTagName('html')[0]),
+    _expando = 'artDialog' + (+ new Date),
     _isIE6 = window.VBArray && !window.XMLHttpRequest,
     _isMobile = 'createTouch' in document && !('onmousemove' in document)
         || /(iPhone|iPad|iPod)/i.test(navigator.userAgent),
@@ -38,7 +41,7 @@ var artDialog = function (config, ok, cancel) {
     var elem = config.follow = this.nodeType === 1 && this || config.follow;
         
     
-    // ºÏ²¢Ä¬ÈÏÅäÖÃ
+    // åˆå¹¶é»˜è®¤é…ç½®
     for (var i in defaults) {
         if (config[i] === undefined) {
             config[i] = defaults[i];
@@ -56,12 +59,13 @@ var artDialog = function (config, ok, cancel) {
             api.follow(elem)
         };
         api.zIndex().focus();
+        _activeElement = document.activeElement;
         return api;
     };
     
     
     
-    // Ä¿Ç°Ö÷Á÷ÒÆ¶¯Éè±¸¶ÔfixedÖ§³Ö²»ºÃ
+    // ç›®å‰ä¸»æµç§»åŠ¨è®¾å¤‡å¯¹fixedæ”¯æŒä¸å¥½ï¼Œç¦ç”¨æ­¤ç‰¹æ€§
     if (!_isFixed) {
         config.fixed = false;
     };
@@ -72,7 +76,7 @@ var artDialog = function (config, ok, cancel) {
     };
     
     
-    // È·¶¨°´Å¥
+    // ç¡®å®šæŒ‰é’®
     if (ok !== undefined) {
         config.ok = ok;
     };
@@ -87,7 +91,7 @@ var artDialog = function (config, ok, cancel) {
     };
     
     
-    // È¡Ïû°´Å¥
+    // å–æ¶ˆæŒ‰é’®
     if (cancel !== undefined) {
         config.cancel = cancel;
     };
@@ -100,7 +104,7 @@ var artDialog = function (config, ok, cancel) {
         });
     };
     
-    // ¸üĞÂ zIndex È«¾ÖÅäÖÃ
+    // æ›´æ–° zIndex å…¨å±€é…ç½®
     artDialog.defaults.zIndex = config.zIndex;
     
     _count ++;
@@ -109,17 +113,19 @@ var artDialog = function (config, ok, cancel) {
         _singleton.constructor(config) : new artDialog.fn.constructor(config);
 };
 
-artDialog.version = '5.0.1';
+artDialog.version = '5.0.2';
 
 artDialog.fn = artDialog.prototype = {
     
     /** @inner */
     constructor: function (config) {
         var dom;
+
+        _activeElement = document.activeElement;
         
         this.closed = false;
         this.config = config;
-        this.dom = dom = this.dom || this._getDom();
+        this.dom = dom = this.dom || this._innerHTML(config);
         
         config.skin && dom.wrap.addClass(config.skin);
         
@@ -151,8 +157,8 @@ artDialog.fn = artDialog.prototype = {
     
     
     /**
-    * ÉèÖÃÄÚÈİ
-    * @param	{String, HTMLElement, Object}	ÄÚÈİ (¿ÉÑ¡)
+    * è®¾ç½®å†…å®¹
+    * @param    {String, HTMLElement, Object}   å†…å®¹ (å¯é€‰)
     */
     content: function (message) {
     
@@ -175,7 +181,7 @@ artDialog.fn = artDialog.prototype = {
         
         if (message && message.nodeType === 1) {
         
-            // ÈÃ´«ÈëµÄÔªËØÔÚ¶Ô»°¿ò¹Ø±Õºó¿ÉÒÔ·µ»Øµ½Ô­À´µÄµØ·½
+            // è®©ä¼ å…¥çš„å…ƒç´ åœ¨å¯¹è¯æ¡†å…³é—­åå¯ä»¥è¿”å›åˆ°åŸæ¥çš„åœ°æ–¹
             display = message.style.display;
             prev = message.previousSibling;
             next = message.nextSibling;
@@ -206,8 +212,8 @@ artDialog.fn = artDialog.prototype = {
     
     
     /**
-    * ÉèÖÃ±êÌâ
-    * @param	{String, Boolean}	±êÌâÄÚÈİ. Îª false ÔòÒş²Ø±êÌâÀ¸
+    * è®¾ç½®æ ‡é¢˜
+    * @param    {String, Boolean}   æ ‡é¢˜å†…å®¹. ä¸º false åˆ™éšè—æ ‡é¢˜æ 
     */
     title: function (content) {
     
@@ -228,7 +234,7 @@ artDialog.fn = artDialog.prototype = {
     },
     
 
-    /** @inner Î»ÖÃ¾ÓÖĞ */
+    /** @inner ä½ç½®å±…ä¸­ */
     position: function () {
     
         var dom = this.dom,
@@ -243,20 +249,25 @@ artDialog.fn = artDialog.prototype = {
             ow = wrap.offsetWidth,
             oh = wrap.offsetHeight,
             left = (ww - ow) / 2 + dl,
-            top = top = (oh < 4 * wh / 7 ? wh * 0.382 - oh / 2 : (wh - oh) / 2) + dt,
+            top = (wh - oh) * 382 / 1000 + dt,// é»„é‡‘æ¯”ä¾‹
             style = wrap.style;
 
-        style.left = Math.max(left, dl) + 'px';
-        style.top = Math.max(top, dt) + 'px';
+        style.left = Math.max(parseInt(left), dl) + 'px';
+        style.top = Math.max(parseInt(top), dt) + 'px';
+
+        if (this._follow) {
+            this._follow.removeAttribute(_expando + 'follow');
+            this._follow = null;
+        }
         
         return this;
     },
     
     
     /**
-    *	³ß´ç
-    *	@param	{Number, String}	¿í¶È
-    *	@param	{Number, String}	¸ß¶È
+    *   å°ºå¯¸
+    *   @param  {Number, String}    å®½åº¦
+    *   @param  {Number, String}    é«˜åº¦
     */
     size: function (width, height) {
     
@@ -278,8 +289,8 @@ artDialog.fn = artDialog.prototype = {
     
     
     /**
-    * ¸úËæÔªËØ
-    * @param	{HTMLElement}
+    * è·Ÿéšå…ƒç´ 
+    * @param    {HTMLElement}
     */
     follow: function (elem) {
     
@@ -287,7 +298,7 @@ artDialog.fn = artDialog.prototype = {
             config = this.config;
         
         
-        // Òş²ØÔªËØ²»¿ÉÓÃ
+        // éšè—å…ƒç´ ä¸å¯ç”¨
         if (!elem || !elem.offsetWidth && !elem.offsetHeight) {
         
             return this.position(this._left, this._top);
@@ -298,21 +309,25 @@ artDialog.fn = artDialog.prototype = {
             dom = this.dom,
             $window = dom.window,
             $document = dom.document,
+            
             winWidth = $window.width(),
             winHeight = $window.height(),
             docLeft =  $document.scrollLeft(),
             docTop = $document.scrollTop(),
             offset = $elem.offset(),
+            
             width = elem.offsetWidth,
             height = elem.offsetHeight,
             left = fixed ? offset.left - docLeft : offset.left,
             top = fixed ? offset.top - docTop : offset.top,
+            
             wrap = this.dom.wrap[0],
             style = wrap.style,
             wrapWidth = wrap.offsetWidth,
             wrapHeight = wrap.offsetHeight,
             setLeft = left - (wrapWidth - width) / 2,
             setTop = top + height,
+            
             dl = fixed ? 0 : docLeft,
             dt = fixed ? 0 : docTop;
             
@@ -329,8 +344,8 @@ artDialog.fn = artDialog.prototype = {
         : setTop;
         
         
-        style.left = setLeft + 'px';
-        style.top = setTop + 'px';
+        style.left = parseInt(setLeft) + 'px';
+        style.top = parseInt(setTop) + 'px';
         
         
         this._follow && this._follow.removeAttribute(expando);
@@ -342,7 +357,7 @@ artDialog.fn = artDialog.prototype = {
     
     
     /**
-    * ×Ô¶¨Òå°´Å¥
+    * è‡ªå®šä¹‰æŒ‰é’®
     * @example
         button({
             value: 'login',
@@ -412,7 +427,7 @@ artDialog.fn = artDialog.prototype = {
     },
     
     
-    /** ÏÔÊ¾¶Ô»°¿ò */
+    /** æ˜¾ç¤ºå¯¹è¯æ¡† */
     visible: function () {
         //this.dom.wrap.show();
         this.dom.wrap.css('visibility', 'visible');
@@ -426,7 +441,7 @@ artDialog.fn = artDialog.prototype = {
     },
     
     
-    /** Òş²Ø¶Ô»°¿ò */
+    /** éšè—å¯¹è¯æ¡† */
     hidden: function () {
         //this.dom.wrap.hide();
         this.dom.wrap.css('visibility', 'hidden');
@@ -440,7 +455,7 @@ artDialog.fn = artDialog.prototype = {
     },
     
     
-    /** ¹Ø±Õ¶Ô»°¿ò */
+    /** å…³é—­å¯¹è¯æ¡† */
     close: function () {
     
         if (this.closed) {
@@ -450,8 +465,7 @@ artDialog.fn = artDialog.prototype = {
         var dom = this.dom,
             $wrap = dom.wrap,
             list = artDialog.list,
-            beforeunload = this.config.beforeunload,
-            follow = this.config.follow;
+            beforeunload = this.config.beforeunload;
         
         if (beforeunload && beforeunload.call(this) === false) {
             return this;
@@ -463,9 +477,9 @@ artDialog.fn = artDialog.prototype = {
         };
         
         
-        if (follow) {
-            follow.removeAttribute(_expando + 'follow');
-        };
+        if (this._follow) {
+            this._follow.removeAttribute(_expando + 'follow');
+        }
         
         
         if (this._elemBack) {
@@ -484,7 +498,7 @@ artDialog.fn = artDialog.prototype = {
         
             $wrap.remove();
         
-        // Ê¹ÓÃµ¥ÀıÄ£Ê½
+        // ä½¿ç”¨å•ä¾‹æ¨¡å¼
         } else {
         
             _singleton = this;
@@ -511,6 +525,11 @@ artDialog.fn = artDialog.prototype = {
             this.hidden();
             
         };
+
+        // æ¢å¤ç„¦ç‚¹ï¼Œç…§é¡¾é”®ç›˜æ“ä½œçš„ç”¨æˆ·
+        if (_activeElement) {
+            _activeElement.focus();
+        }
         
         this.closed = true;
         return this;
@@ -518,8 +537,8 @@ artDialog.fn = artDialog.prototype = {
     
     
     /**
-    * ¶¨Ê±¹Ø±Õ
-    * @param	{Number}	µ¥Î»ºÁÃë, ÎŞ²ÎÊıÔòÍ£Ö¹¼ÆÊ±Æ÷
+    * å®šæ—¶å…³é—­
+    * @param    {Number}    å•ä½æ¯«ç§’, æ— å‚æ•°åˆ™åœæ­¢è®¡æ—¶å™¨
     */
     time: function (time) {
     
@@ -538,7 +557,7 @@ artDialog.fn = artDialog.prototype = {
         return this;
     },
     
-    /** @inner ÉèÖÃ½¹µã */
+    /** @inner è®¾ç½®ç„¦ç‚¹ */
     focus: function () {
 
         if (this.config.focus) {
@@ -546,7 +565,7 @@ artDialog.fn = artDialog.prototype = {
                 try {
                     var elem = this._focus && this._focus[0] || this.dom.close[0];
                     elem && elem.focus();
-                // IE¶Ô²»¿É¼ûÔªËØÉèÖÃ½¹µã»á±¨´í
+                // IEå¯¹ä¸å¯è§å…ƒç´ è®¾ç½®ç„¦ç‚¹ä¼šæŠ¥é”™
                 } catch (e) {};
             //}, 0);
         };
@@ -555,18 +574,18 @@ artDialog.fn = artDialog.prototype = {
     },
     
     
-    /** ÖÃ¶¥¶Ô»°¿ò */
+    /** ç½®é¡¶å¯¹è¯æ¡† */
     zIndex: function () {
     
         var dom = this.dom,
             top = artDialog.focus,
             index = artDialog.defaults.zIndex ++;
         
-        // ÉèÖÃµş¼Ó¸ß¶È
+        // è®¾ç½®å åŠ é«˜åº¦
         dom.wrap.css('zIndex', index);
         this._lockMask && this._lockMask.css('zIndex', index - 1);
         
-        // ÉèÖÃ×î¸ß²ãµÄÑùÊ½
+        // è®¾ç½®æœ€é«˜å±‚çš„æ ·å¼
         top && top.dom.outer.removeClass('d-state-focus');
         artDialog.focus = this;
         dom.outer.addClass('d-state-focus');
@@ -575,7 +594,7 @@ artDialog.fn = artDialog.prototype = {
     },
     
     
-    /** ÉèÖÃÆÁËø */
+    /** è®¾ç½®å±é” */
     lock: function () {
     
         if (this._isLock) {
@@ -624,7 +643,7 @@ artDialog.fn = artDialog.prototype = {
     },
     
     
-    /** ½â¿ªÆÁËø */
+    /** è§£å¼€å±é” */
     unlock: function () {
 
         if (!this._isLock) {
@@ -642,8 +661,8 @@ artDialog.fn = artDialog.prototype = {
     },
     
     
-    // »ñÈ¡ÔªËØ
-    _getDom: function () {
+    // è·å–å…ƒç´ 
+    _innerHTML: function (data) {
     
         var body = document.body;
         
@@ -654,7 +673,13 @@ artDialog.fn = artDialog.prototype = {
         var wrap = document.createElement('div');
             
         wrap.style.cssText = 'position:absolute;left:0;top:0';
-        wrap.innerHTML = artDialog._templates;
+
+        wrap.innerHTML = artDialog._templates
+        .replace(/{([^}]+)}/g, function ($0, $1) {
+            var value = data[$1];
+            return typeof value === 'string' ? value : '';
+        });
+
         body.insertBefore(wrap, body.firstChild);
         
         var name,
@@ -678,7 +703,7 @@ artDialog.fn = artDialog.prototype = {
     },
     
     
-    // °´Å¥»Øµ÷º¯Êı´¥·¢
+    // æŒ‰é’®å›è°ƒå‡½æ•°è§¦å‘
     _click: function (id) {
     
         var fn = this._listeners[id] && this._listeners[id].callback;
@@ -688,21 +713,21 @@ artDialog.fn = artDialog.prototype = {
     },
     
     
-    // ÖØÖÃÎ»ÖÃ
+    // é‡ç½®ä½ç½®
     _reset: function () {
-        var elem = this.config.follow;
+        var elem = this.config.follow || this._follow;
         elem ? this.follow(elem) : this.position();
     },
     
     
-    // ÊÂ¼ş´úÀí
+    // äº‹ä»¶ä»£ç†
     _addEvent: function () {
     
         var that = this,
             dom = this.dom;
         
         
-        // ¼àÌıµã»÷
+        // ç›‘å¬ç‚¹å‡»
         dom.wrap
         .bind('click', function (event) {
         
@@ -729,7 +754,7 @@ artDialog.fn = artDialog.prototype = {
     },
     
     
-    // Ğ¶ÔØÊÂ¼ş´úÀí
+    // å¸è½½äº‹ä»¶ä»£ç†
     _removeEvent: function () {
         this.dom.wrap.unbind();
     }
@@ -751,15 +776,15 @@ $.fn.dialog = $.fn.artDialog = function () {
 
 
 
-/** ×î¶¥²ãµÄ¶Ô»°¿òAPI */
+/** æœ€é¡¶å±‚çš„å¯¹è¯æ¡†API */
 artDialog.focus = null;
 
 
 
 /**
-* ¸ù¾İ ID »ñÈ¡Ä³¶Ô»°¿ò API
-* @param	{String}	¶Ô»°¿ò ID
-* @return	{Object}	¶Ô»°¿ò API (ÊµÀı)
+* æ ¹æ® ID è·å–æŸå¯¹è¯æ¡† API
+* @param    {String}    å¯¹è¯æ¡† ID
+* @return   {Object}    å¯¹è¯æ¡† API (å®ä¾‹)
 */
 artDialog.get = function (id) {
     return id === undefined
@@ -771,7 +796,7 @@ artDialog.list = {};
 
 
 
-// È«¾Ö¿ì½İ¼ü
+// å…¨å±€å¿«æ·é”®
 $(document).bind('keydown', function (event) {
     var target = event.target,
         nodeName = target.nodeName,
@@ -788,8 +813,24 @@ $(document).bind('keydown', function (event) {
 });
 
 
+// é”å±é™åˆ¶tab
+function focusin (event) {
+    var api = artDialog.focus;
+    if (api && api._isLock && !api.dom.wrap[0].contains(event.target)) {
+        event.stopPropagation();
+        api.focus();
+    }
+}
 
-// ä¯ÀÀÆ÷´°¿Ú¸Ä±äºóÖØÖÃ¶Ô»°¿òÎ»ÖÃ
+if ($.fn.live) {
+    $('body').live('focus', focusin);
+}/* else if (document.addEventListener) {
+    document.addEventListener('focus', focusin, true);
+}*/
+
+
+
+// æµè§ˆå™¨çª—å£æ”¹å˜åé‡ç½®å¯¹è¯æ¡†ä½ç½®
 $(window).bind('resize', function () {
     var dialogs = artDialog.list;
     for (var id in dialogs) {
@@ -799,127 +840,125 @@ $(window).bind('resize', function () {
 
 
 
-// XHTML Ä£°å
-// Ê¹ÓÃ uglifyjs Ñ¹ËõÄÜ¹»Ô¤ÏÈ´¦Àí"+"ºÅºÏ²¢×Ö·û´®
-// @see	http://marijnhaverbeke.nl/uglifyjs
+// XHTML æ¨¡æ¿
+// ä½¿ç”¨ uglifyjs å‹ç¼©èƒ½å¤Ÿé¢„å…ˆå¤„ç†"+"å·åˆå¹¶å­—ç¬¦ä¸²
+// @see http://marijnhaverbeke.nl/uglifyjs
 artDialog._templates = 
-'<div class="d-outer">'
-+	'<table class="d-border">'
-+		'<tbody>'
-+			'<tr>'
-+				'<td class="d-nw"></td>'
-+				'<td class="d-n"></td>'
-+				'<td class="d-ne"></td>'
-+			'</tr>'
-+			'<tr>'
-+				'<td class="d-w"></td>'
-+				'<td class="d-c">'
-+					'<div class="d-inner">'
-+					'<table class="d-dialog">'
-+						'<tbody>'
-+							'<tr>'
-+								'<td class="d-header">'
-+									'<div class="d-titleBar">'
-+										'<div class="d-title"></div>'
-+										'<a class="d-close" href="javascript:/*artDialog*/;">'
-+											'\xd7'
-+										'</a>'
-+									'</div>'
-+								'</td>'
-+							'</tr>'
-+							'<tr>'
-+								'<td class="d-main">'
-+									'<div class="d-content"></div>'
-+								'</td>'
-+							'</tr>'
-+							'<tr>'
-+								'<td class="d-footer">'
-+									'<div class="d-buttons"></div>'
-+								'</td>'
-+							'</tr>'
-+						'</tbody>'
-+					'</table>'
-+					'</div>'
-+				'</td>'
-+				'<td class="d-e"></td>'
-+			'</tr>'
-+			'<tr>'
-+				'<td class="d-sw"></td>'
-+				'<td class="d-s"></td>'
-+				'<td class="d-se"></td>'
-+			'</tr>'
-+		'</tbody>'
-+	'</table>'
+'<div class="d-outer" role="dialog" tabindex="-1" aria-labelledby="d-title-{id}" aria-describedby="d-content-{id}">'
++   '<table class="d-border">'
++       '<tbody>'
++           '<tr>'
++               '<td class="d-nw"></td>'
++               '<td class="d-n"></td>'
++               '<td class="d-ne"></td>'
++           '</tr>'
++           '<tr>'
++               '<td class="d-w"></td>'
++               '<td class="d-c">'
++                   '<div class="d-inner">'
++                   '<table class="d-dialog">'
++                       '<tbody>'
++                           '<tr>'
++                               '<td class="d-header">'
++                                   '<div class="d-titleBar">'
++                                       '<div id="d-title-{id}" class="d-title">{title}</div>'
++                                       '<a class="d-close" href="javascript:;">Ã—</a>'
++                                   '</div>'
++                               '</td>'
++                           '</tr>'
++                           '<tr>'
++                               '<td class="d-main">'
++                                   '<div id="d-content-{id}" class="d-content">{content}</div>'
++                               '</td>'
++                           '</tr>'
++                           '<tr>'
++                               '<td class="d-footer">'
++                                   '<div class="d-buttons">{buttons}</div>'
++                               '</td>'
++                           '</tr>'
++                       '</tbody>'
++                   '</table>'
++                   '</div>'
++               '</td>'
++               '<td class="d-e"></td>'
++           '</tr>'
++           '<tr>'
++               '<td class="d-sw"></td>'
++               '<td class="d-s"></td>'
++               '<td class="d-se"></td>'
++           '</tr>'
++       '</tbody>'
++   '</table>'
 +'</div>';
 
 
 
 /**
- * Ä¬ÈÏÅäÖÃ
+ * é»˜è®¤é…ç½®
  */
 artDialog.defaults = {
 
-    // ÏûÏ¢ÄÚÈİ
+    // æ¶ˆæ¯å†…å®¹
     content: '<div class="d-loading"><span>loading..</span></div>',
     
-    // ±êÌâ
+    // æ ‡é¢˜
     title: 'message',
     
-    // ×Ô¶¨Òå°´Å¥
+    // è‡ªå®šä¹‰æŒ‰é’®
     button: null,
     
-    // È·¶¨°´Å¥»Øµ÷º¯Êı
+    // ç¡®å®šæŒ‰é’®å›è°ƒå‡½æ•°
     ok: null,
     
-    // È¡Ïû°´Å¥»Øµ÷º¯Êı
+    // å–æ¶ˆæŒ‰é’®å›è°ƒå‡½æ•°
     cancel: null,
     
-    // ¶Ô»°¿ò³õÊ¼»¯ºóÖ´ĞĞµÄº¯Êı
+    // å¯¹è¯æ¡†åˆå§‹åŒ–åæ‰§è¡Œçš„å‡½æ•°
     initialize: null,
     
-    // ¶Ô»°¿ò¹Ø±ÕÇ°Ö´ĞĞµÄº¯Êı
+    // å¯¹è¯æ¡†å…³é—­å‰æ‰§è¡Œçš„å‡½æ•°
     beforeunload: null,
     
-    // È·¶¨°´Å¥ÎÄ±¾
+    // ç¡®å®šæŒ‰é’®æ–‡æœ¬
     okValue: 'ok',
     
-    // È¡Ïû°´Å¥ÎÄ±¾
+    // å–æ¶ˆæŒ‰é’®æ–‡æœ¬
     cancelValue: 'cancel',
     
-    // ÄÚÈİ¿í¶È
+    // å†…å®¹å®½åº¦
     width: 'auto',
     
-    // ÄÚÈİ¸ß¶È
+    // å†…å®¹é«˜åº¦
     height: 'auto',
     
-    // ÄÚÈİÓë±ß½çÌî³ä¾àÀë
+    // å†…å®¹ä¸è¾¹ç•Œå¡«å……è·ç¦»
     padding: '20px 25px',
     
-    // Æ¤·ôÃû(¶àÆ¤·ô¹²´æÔ¤Áô½Ó¿Ú)
+    // çš®è‚¤å(å¤šçš®è‚¤å…±å­˜é¢„ç•™æ¥å£)
     skin: null,
     
-    // ×Ô¶¯¹Ø±ÕÊ±¼ä
+    // è‡ªåŠ¨å…³é—­æ—¶é—´
     time: null,
     
-    // ÊÇ·ñÖ§³ÖEsc¼ü¹Ø±Õ
+    // æ˜¯å¦æ”¯æŒEscé”®å…³é—­
     esc: true,
     
-    // ÊÇ·ñÖ§³Ö¶Ô»°¿ò°´Å¥×Ô¶¯¾Û½¹
+    // æ˜¯å¦æ”¯æŒå¯¹è¯æ¡†æŒ‰é’®è‡ªåŠ¨èšç„¦
     focus: true,
     
-    // ³õÊ¼»¯ºóÊÇ·ñÏÔÊ¾¶Ô»°¿ò
+    // åˆå§‹åŒ–åæ˜¯å¦æ˜¾ç¤ºå¯¹è¯æ¡†
     visible: true,
     
-    // ÈÃ¶Ô»°¿ò¸úËæÄ³ÔªËØ
+    // è®©å¯¹è¯æ¡†è·ŸéšæŸå…ƒç´ 
     follow: null,
     
-    // ÊÇ·ñËøÆÁ
+    // æ˜¯å¦é”å±
     lock: false,
     
-    // ÊÇ·ñ¹Ì¶¨¶¨Î»
+    // æ˜¯å¦å›ºå®šå®šä½
     fixed: false,
     
-    // ¶Ô»°¿òµş¼Ó¸ß¶ÈÖµ(ÖØÒª£º´ËÖµ²»ÄÜ³¬¹ıä¯ÀÀÆ÷×î´óÏŞÖÆ)
+    // å¯¹è¯æ¡†å åŠ é«˜åº¦å€¼(é‡è¦ï¼šæ­¤å€¼ä¸èƒ½è¶…è¿‡æµè§ˆå™¨æœ€å¤§é™åˆ¶)
     zIndex: 1987
     
 };
@@ -927,43 +966,4 @@ artDialog.defaults = {
 this.artDialog = $.dialog = $.artDialog = artDialog;
 }(this.art || this.jQuery, this));
 
-
-
-
-/* ¸üĞÂ¼ÇÂ¼
-
-1.  follow ²»ÔÙÖ§³Ö String ÀàĞÍ
-2.  button ²ÎÊıÖ»Ö§³Ö Array ÀàĞÍ
-3.  button name ³ÉÔ±¸Ä³É value
-4.  button Ôö¼Ó id ³ÉÔ±
-5.  okVal ²ÎÊı¸üÃûÎª okValue, Ä¬ÈÏÖµÓÉ 'È·¶¨' ¸ÄÎª 'ok'
-6.  cancelVal ²ÎÊı¸üÃûÎª cancelValue, Ä¬ÈÏÖµÓÉ 'È¡Ïû' ¸ÄÎª 'cancel'
-6.  close ²ÎÊı¸üÃûÎª beforeunload
-7.  init ²ÎÊı¸üÃûÎª initialize
-8.  title ²ÎÊıÄ¬ÈÏÖµÓÉ 'ÏûÏ¢' ¸ÄÎª 'message'
-9.  time ²ÎÊıÓë·½·¨²ÎÊıµ¥Î»ÓÉÃë¸ÄÎªºÁÃë
-10. hide ²ÎÊı·½·¨¸üÃûÎª hidden
-11. ÄÚ²¿ÎªÆ¤·ôÔö¼Ó¶¯Ì¬ÑùÊ½ d-state-visible Àà
-12. ¸øÕÚÕÖÔöÌíÑùÊ½ d-mask Àà
-13. background ²ÎÊı±»È¡Ïû, ÓÉ CSS ÎÄ¼ş¶¨Òå
-14. opacity ²ÎÊı±»È¡Ïû, ÓÉ CSS ÎÄ¼ş¶¨Òå
-15. È¡ÏûÍÏ¶¯ÌØĞÔ£¬¸ÄÓÉ²å¼şÖ§³Ö
-16. È¡Ïû left Óë top ²ÎÊı
-17. È¡Ïû¶Ô ie6 Ìá¹© fixed Ö§³Ö£¬×Ô¶¯×ª»»Îª absolute
-18. È¡Ïû¶Ô ie6 Ìá¹© alpha png Ö§³Ö
-19. È¡Ïû¶Ô ie6 Ìá¹© select ±êÇ©ÕÚ¸ÇÖ§³Ö
-20. Ôö¼Ó focus ²ÎÊı
-21. È¡Ïû position ·½·¨
-22. È¡Ïû¶Ô <script type="text/dialog"></script> µÄÖ§³Ö
-23. È¡Ïû¶Ô iframe µÄÖ§³Ö
-24. title ·½·¨²»Ö§³Ö¿Õ²ÎÊı
-25. content ·½·¨²»Ö§³Ö¿Õ²ÎÊı
-26. button ·½·¨µÄ²ÎÊı²»Ö§³ÖÊı×éÀàĞÍ
-27. ÅĞ¶Ï DOCTYPE, ¶Ô xhtml1.0 ÒÔÏÂµÄÒ³Ãæ±¨¸æ´íÎó
-28. ĞŞ¸´ IE8 ¶¯Ì¬µÈĞÂÄÚÈİÊ±Ã»ÓĞ³Å¿ª¶Ô»°¿ò¸ß¶È£¬ÌØÒâÎª ie8 È¡Ïû .d-content { display:inline-block }
-29. show ²ÎÊıÓë·½·¨¸üÃûÎª visible
-30. ĞŞÕıÖØ¸´µ÷ÓÃ close ·½·¨³öÏÖµÄ´íÎó
-31. ĞŞÕıÉè¶¨ÁËfollowºóÔÙÊ¹ÓÃcontent()·½·¨µ¼ÖÂÆä¾ÓÖĞµÄÎÊÌâ
-
-*/
 
