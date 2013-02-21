@@ -113,7 +113,7 @@ var artDialog = function (config, ok, cancel) {
         _singleton.constructor(config) : new artDialog.fn.constructor(config);
 };
 
-artDialog.version = '5.0.2';
+artDialog.version = '5.0.3';
 
 artDialog.fn = artDialog.prototype = {
     
