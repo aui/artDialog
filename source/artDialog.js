@@ -1,6 +1,6 @@
 /*!
-* artDialog 5.0.3
-* Date: 2013-02-20
+* artDialog 5.0.4
+* Date: 2013-02-24
 * https://github.com/aui/artDialog
 * (c) 2009-2013 TangBin, http://www.planeArt.cn
 *
@@ -615,7 +615,6 @@ var artDialog = function (config, ok, cancel) {
             api.follow(elem)
         };
         api.zIndex().focus();
-        _activeElement = document.activeElement;
         return api;
     };
     
@@ -666,18 +665,16 @@ var artDialog = function (config, ok, cancel) {
     _count ++;
 
     return artDialog.list[config.id] = _singleton ?
-        _singleton.constructor(config) : new artDialog.fn.constructor(config);
+        _singleton._create(config) : new artDialog.fn._create(config);
 };
 
-artDialog.version = '5.0.3';
+artDialog.version = '5.0.4';
 
 artDialog.fn = artDialog.prototype = {
     
-    /** @inner */
-    constructor: function (config) {
-        var dom;
 
-        _activeElement = document.activeElement;
+    _create: function (config) {
+        var dom;
         
         this.closed = false;
         this.config = config;
@@ -1116,16 +1113,25 @@ artDialog.fn = artDialog.prototype = {
     /** @inner 设置焦点 */
     focus: function () {
 
-        if (this.config.focus) {
-            //setTimeout(function () {
+        var that = this,
+            isFocus = function () {
+                return that.dom.wrap[0].contains(document.activeElement);
+            };
+
+        if (!isFocus()) {
+            _activeElement = document.activeElement;
+        }
+
+        setTimeout(function () {
+            if (!isFocus()) {
                 try {
-                    var elem = this._focus && this._focus[0] || this.dom.close[0];
-                    elem && elem.focus();
+                    var elem = that._focus || that.dom.close || taht.dom.wrap;
+                    elem[0].focus();
                 // IE对不可见元素设置焦点会报错
                 } catch (e) {};
-            //}, 0);
-        };
-        
+            }
+        }, 16);
+
         return this;
     },
     
@@ -1317,10 +1323,11 @@ artDialog.fn = artDialog.prototype = {
     
 };
 
-artDialog.fn.constructor.prototype = artDialog.fn;
+artDialog.fn._create.prototype = artDialog.fn;
 
 
 
+// 快捷方式绑定触发元素
 $.fn.dialog = $.fn.artDialog = function () {
     var config = arguments;
     this[this.live ? 'live' : 'bind']('click', function () {
@@ -1360,7 +1367,7 @@ $(document).bind('keydown', function (event) {
         api = artDialog.focus,
         keyCode = event.keyCode;
 
-    if (!api || !api.config.esc || rinput.test(nodeName) && target.type !== 'button') {
+    if (!api || rinput.test(nodeName) && target.type !== 'button') {
         return;
     };
     
@@ -1495,15 +1502,9 @@ artDialog.defaults = {
     // 皮肤名(多皮肤共存预留接口)
     skin: null,
     
-    // 自动关闭时间
+    // 自动关闭时间(毫秒)
     time: null,
-    
-    // 是否支持Esc键关闭
-    esc: true,
-    
-    // 是否支持对话框按钮自动聚焦
-    focus: true,
-    
+        
     // 初始化后是否显示对话框
     visible: true,
     

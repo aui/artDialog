@@ -202,8 +202,6 @@ pre.sh_sourceCode .sh_predef_func { color: #099; font-weight: normal; font-style
               <li><a href="#options-beforeunload" class="change">beforeunload</a></li>
               <li><a href="#options-visible" class="change">visible</a></li>
               <li><a href="#options-time" class="change">time</a></li>
-              <li><a href="#options-esc">esc</a></li>
-              <li><a href="#options-focus" class="change">focus</a></li>
             </ul>
           </li>
         </ul>
@@ -240,7 +238,9 @@ pre.sh_sourceCode .sh_predef_func { color: #099; font-weight: normal; font-style
     <p>在页面 head 引入 artDialog 样式与脚本文件:</p>
     <pre class="sh_javascript">&lt;link href="./skins/default.css" rel="stylesheet" /&gt;
 &lt;script src="./artDialog.min.js"&gt;&lt;/script&gt;</pre>
+    <p>如果使用jquery，引用jquery.artDialog.min.js即可，调用时请把 'art' 前缀替换成 '$'。</p>
     <h3>调用方式</h3>
+    <p>artDialog 有两种调用方式，第一种是最简单的直接传入参数方式；第二种拥有更多的可选项，参见 <a href="#options">配置参数</a>。</p>
     <ol>
       <li>
         <p><strong>art.dialog</strong>(<em>content</em>, <em>[ok]</em>, <em>[cancel]</em>)</p>
@@ -264,8 +264,7 @@ pre.sh_sourceCode .sh_predef_func { color: #099; font-weight: normal; font-style
   </pre>
         <a class="runCode" href="#lead-demo-2">运行</a> </li>
     </ol>
-    <p>artDialog 有两种调用方式，第一种是最简单的直接传入参数方式；第二种拥有更多的可选项，参见 <a href="#options">配置参数</a>。</p>
-    <p><a href="javascript:;" style="cursor:help" title="引用 jquery.artDialog.min.js 即可，调用时把 'art' 前缀替换成 '$'。jQuery 版本支持 1.32 +">[使用jQuery?]</a></p>
+
     <h3>扩展接口</h3>
     <p>除了上述两种调用方式之外，artDialog 还提供一些接口方便异步操作，比如实现外部程序更新对话框内容、关闭窗口等。这是属于高级操作，详情参见 <a href="#api">接口</a>。</p>
     <p>若无特别说明，扩展方法均支持链式调用。</p>
@@ -676,38 +675,6 @@ confirm('显示对话框吗') ? dialog.visible() : dialog.hidden();</pre>
             <a class="runCode" href="#options-time-demo">运行</a></dd>
         </dl>
       </li>
-      <li>
-        <h3 id="options-esc">esc</h3>
-        <dl>
-          <dt>概述</dt>
-          <dd>(默认值: false) 是否允许用户按 Esc 键关闭对话框</dd>
-          <dt>类型</dt>
-          <dd>Boolean</dd>
-          <dt>示例</dt>
-          <dd>
-            <pre id="options-esc-demo" class="sh_javascript">art.dialog({
-    esc: false,
-    content: '按 Esc 不能关闭我'
-});</pre>
-            <a class="runCode" href="#options-esc-demo">运行</a></dd>
-        </dl>
-      </li>
-      <li>
-        <h3 id="options-focus"><span class="change">focus</span></h3>
-        <dl>
-          <dt>概述</dt>
-          <dd>(默认值: true) 是否支持对话框按钮自动聚焦</dd>
-          <dt>类型</dt>
-          <dd>Boolean</dd>
-          <dt>示例</dt>
-          <dd>
-            <pre id="options-focus-demo" class="sh_javascript">art.dialog({
-    focus: false,
-    ok: function () {}
-});</pre>
-            <a class="runCode" href="#options-focus-demo">运行</a></dd>
-        </dl>
-      </li>
     </ul>
   </div>
   <div id="api" class="card">
@@ -1048,8 +1015,11 @@ dialog.time(2000);</pre>
           <pre id="plugins-shake-demo" class="sh_javascript">art.dialog({
     id: 'shake-demo',
     title: '登录',
-    content: '帐号：&lt;input type="text" value="guest" /&gt;&lt;br /&gt;'
-        + '密码：&lt;input id="login-pw" type="text" value="****" /&gt;',
+    content: '帐号：&lt;input id="login-na" type="text" value="guest" /&gt;'
+        + '&lt;br /&gt;密码：&lt;input id="login-pw" type="text" value="****" /&gt;',
+    initialize: function () {
+        document.getElementById('login-na').focus();
+    },
     lock: true,
     fixed: true,
     ok: function () {
