@@ -1,6 +1,6 @@
 /*!
-* artDialog 5.0.3
-* Date: 2013-02-20
+* artDialog 5.0.4
+* Date: 2013-02-24
 * https://github.com/aui/artDialog
 * (c) 2009-2013 TangBin, http://www.planeArt.cn
 *
@@ -59,7 +59,6 @@ var artDialog = function (config, ok, cancel) {
             api.follow(elem)
         };
         api.zIndex().focus();
-        _activeElement = document.activeElement;
         return api;
     };
     
@@ -110,18 +109,16 @@ var artDialog = function (config, ok, cancel) {
     _count ++;
 
     return artDialog.list[config.id] = _singleton ?
-        _singleton.constructor(config) : new artDialog.fn.constructor(config);
+        _singleton._create(config) : new artDialog.fn._create(config);
 };
 
-artDialog.version = '5.0.3';
+artDialog.version = '5.0.4';
 
 artDialog.fn = artDialog.prototype = {
     
-    /** @inner */
-    constructor: function (config) {
-        var dom;
 
-        _activeElement = document.activeElement;
+    _create: function (config) {
+        var dom;
         
         this.closed = false;
         this.config = config;
@@ -158,7 +155,7 @@ artDialog.fn = artDialog.prototype = {
     
     /**
     * 设置内容
-    * @param    {String, HTMLElement, Object}   内容 (可选)
+    * @param    {String, HTMLElement, Object}	内容 (可选)
     */
     content: function (message) {
     
@@ -213,7 +210,7 @@ artDialog.fn = artDialog.prototype = {
     
     /**
     * 设置标题
-    * @param    {String, Boolean}   标题内容. 为 false 则隐藏标题栏
+    * @param	{String, Boolean}	标题内容. 为 false 则隐藏标题栏
     */
     title: function (content) {
     
@@ -265,9 +262,9 @@ artDialog.fn = artDialog.prototype = {
     
     
     /**
-    *   尺寸
-    *   @param  {Number, String}    宽度
-    *   @param  {Number, String}    高度
+    *	尺寸
+    *	@param	{Number, String}	宽度
+    *	@param	{Number, String}	高度
     */
     size: function (width, height) {
     
@@ -290,7 +287,7 @@ artDialog.fn = artDialog.prototype = {
     
     /**
     * 跟随元素
-    * @param    {HTMLElement}
+    * @param	{HTMLElement}
     */
     follow: function (elem) {
     
@@ -538,7 +535,7 @@ artDialog.fn = artDialog.prototype = {
     
     /**
     * 定时关闭
-    * @param    {Number}    单位毫秒, 无参数则停止计时器
+    * @param	{Number}	单位毫秒, 无参数则停止计时器
     */
     time: function (time) {
     
@@ -560,16 +557,25 @@ artDialog.fn = artDialog.prototype = {
     /** @inner 设置焦点 */
     focus: function () {
 
-        if (this.config.focus) {
-            //setTimeout(function () {
+        var that = this,
+            isFocus = function () {
+                return that.dom.wrap[0].contains(document.activeElement);
+            };
+
+        if (!isFocus()) {
+            _activeElement = document.activeElement;
+        }
+
+        setTimeout(function () {
+            if (!isFocus()) {
                 try {
-                    var elem = this._focus && this._focus[0] || this.dom.close[0];
-                    elem && elem.focus();
+                    var elem = that._focus || that.dom.close || taht.dom.wrap;
+                    elem[0].focus();
                 // IE对不可见元素设置焦点会报错
                 } catch (e) {};
-            //}, 0);
-        };
-        
+            }
+        }, 16);
+
         return this;
     },
     
@@ -761,10 +767,11 @@ artDialog.fn = artDialog.prototype = {
     
 };
 
-artDialog.fn.constructor.prototype = artDialog.fn;
+artDialog.fn._create.prototype = artDialog.fn;
 
 
 
+// 快捷方式绑定触发元素
 $.fn.dialog = $.fn.artDialog = function () {
     var config = arguments;
     this[this.live ? 'live' : 'bind']('click', function () {
@@ -783,8 +790,8 @@ artDialog.focus = null;
 
 /**
 * 根据 ID 获取某对话框 API
-* @param    {String}    对话框 ID
-* @return   {Object}    对话框 API (实例)
+* @param	{String}	对话框 ID
+* @return	{Object}	对话框 API (实例)
 */
 artDialog.get = function (id) {
     return id === undefined
@@ -804,7 +811,7 @@ $(document).bind('keydown', function (event) {
         api = artDialog.focus,
         keyCode = event.keyCode;
 
-    if (!api || !api.config.esc || rinput.test(nodeName) && target.type !== 'button') {
+    if (!api || rinput.test(nodeName) && target.type !== 'button') {
         return;
     };
     
@@ -818,15 +825,17 @@ function focusin (event) {
     var api = artDialog.focus;
     if (api && api._isLock && !api.dom.wrap[0].contains(event.target)) {
         event.stopPropagation();
-        api.focus();
+        api.dom.outer[0].focus();
     }
 }
 
 if ($.fn.live) {
     $('body').live('focus', focusin);
-}/* else if (document.addEventListener) {
+} else if (document.addEventListener) {
     document.addEventListener('focus', focusin, true);
-}*/
+} else {
+    $(document).bind('focusin', focusin);
+}
 
 
 
@@ -842,53 +851,53 @@ $(window).bind('resize', function () {
 
 // XHTML 模板
 // 使用 uglifyjs 压缩能够预先处理"+"号合并字符串
-// @see http://marijnhaverbeke.nl/uglifyjs
+// @see	http://marijnhaverbeke.nl/uglifyjs
 artDialog._templates = 
 '<div class="d-outer" role="dialog" tabindex="-1" aria-labelledby="d-title-{id}" aria-describedby="d-content-{id}">'
-+   '<table class="d-border">'
-+       '<tbody>'
-+           '<tr>'
-+               '<td class="d-nw"></td>'
-+               '<td class="d-n"></td>'
-+               '<td class="d-ne"></td>'
-+           '</tr>'
-+           '<tr>'
-+               '<td class="d-w"></td>'
-+               '<td class="d-c">'
-+                   '<div class="d-inner">'
-+                   '<table class="d-dialog">'
-+                       '<tbody>'
-+                           '<tr>'
-+                               '<td class="d-header">'
-+                                   '<div class="d-titleBar">'
-+                                       '<div id="d-title-{id}" class="d-title"></div>'
-+                                       '<a class="d-close" href="javascript:;">×</a>'
-+                                   '</div>'
-+                               '</td>'
-+                           '</tr>'
-+                           '<tr>'
-+                               '<td class="d-main">'
-+                                   '<div id="d-content-{id}" class="d-content"></div>'
-+                               '</td>'
-+                           '</tr>'
-+                           '<tr>'
-+                               '<td class="d-footer">'
-+                                   '<div class="d-buttons"></div>'
-+                               '</td>'
-+                           '</tr>'
-+                       '</tbody>'
-+                   '</table>'
-+                   '</div>'
-+               '</td>'
-+               '<td class="d-e"></td>'
-+           '</tr>'
-+           '<tr>'
-+               '<td class="d-sw"></td>'
-+               '<td class="d-s"></td>'
-+               '<td class="d-se"></td>'
-+           '</tr>'
-+       '</tbody>'
-+   '</table>'
++	'<table class="d-border">'
++		'<tbody>'
++			'<tr>'
++				'<td class="d-nw"></td>'
++				'<td class="d-n"></td>'
++				'<td class="d-ne"></td>'
++			'</tr>'
++			'<tr>'
++				'<td class="d-w"></td>'
++				'<td class="d-c">'
++					'<div class="d-inner">'
++					'<table class="d-dialog">'
++						'<tbody>'
++							'<tr>'
++								'<td class="d-header">'
++									'<div class="d-titleBar">'
++										'<div id="d-title-{id}" class="d-title"></div>'
++										'<a class="d-close" href="javascript:;">×</a>'
++									'</div>'
++								'</td>'
++							'</tr>'
++							'<tr>'
++								'<td class="d-main">'
++									'<div id="d-content-{id}" class="d-content"></div>'
++								'</td>'
++							'</tr>'
++							'<tr>'
++								'<td class="d-footer">'
++									'<div class="d-buttons"></div>'
++								'</td>'
++							'</tr>'
++						'</tbody>'
++					'</table>'
++					'</div>'
++				'</td>'
++				'<td class="d-e"></td>'
++			'</tr>'
++			'<tr>'
++				'<td class="d-sw"></td>'
++				'<td class="d-s"></td>'
++				'<td class="d-se"></td>'
++			'</tr>'
++		'</tbody>'
++	'</table>'
 +'</div>';
 
 
@@ -937,15 +946,9 @@ artDialog.defaults = {
     // 皮肤名(多皮肤共存预留接口)
     skin: null,
     
-    // 自动关闭时间
+    // 自动关闭时间(毫秒)
     time: null,
-    
-    // 是否支持Esc键关闭
-    esc: true,
-    
-    // 是否支持对话框按钮自动聚焦
-    focus: true,
-    
+        
     // 初始化后是否显示对话框
     visible: true,
     
