@@ -393,6 +393,8 @@ artDialog.fn = artDialog.prototype = {
             
             button.type = 'button';
             button.className = 'd-button';
+            // 有了这一句 id才起作用哦
+            button.id = id
                     
             if (!listeners[id]) {
                 listeners[id] = {};
