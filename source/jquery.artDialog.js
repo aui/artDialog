@@ -1,8 +1,8 @@
 /*!
-* artDialog 5.0.2
-* Date: 2012-11-11
+* artDialog 5.0.4
+* Date: 2013-07-31
 * https://github.com/aui/artDialog
-* (c) 2009-2012 TangBin, http://www.planeArt.cn
+* (c) 2009-2013 TangBin, http://www.planeArt.cn
 *
 * This is licensed under the GNU LGPL, version 2.1 or later.
 * For details, see: http://creativecommons.org/licenses/LGPL/2.1/
@@ -15,14 +15,24 @@ if (document.compatMode === 'BackCompat') {
     throw new Error('artDialog: Document types require more than xhtml1.0');
 };
 
+
+
 var _singleton,
     _count = 0,
     _root = $(document.getElementsByTagName('html')[0]),
-    _expando = 'artDialog' + + new Date,
+    _expando = 'artDialog' + (+ new Date),
     _isIE6 = window.VBArray && !window.XMLHttpRequest,
     _isMobile = 'createTouch' in document && !('onmousemove' in document)
         || /(iPhone|iPad|iPod)/i.test(navigator.userAgent),
-    _isFixed = !_isIE6 && !_isMobile;
+    _isFixed = !_isIE6 && !_isMobile,
+    _getActive = function () {
+        try {
+            // bug: ie8~9, iframe #26
+            return document.activeElement;
+        } catch (e) {
+        }
+    },
+    _activeElement = _getActive();
 
     
 var artDialog = function (config, ok, cancel) {
@@ -62,7 +72,7 @@ var artDialog = function (config, ok, cancel) {
     
     
     
-    // 目前主流移动设备对fixed支持不好
+    // 目前主流移动设备对fixed支持不好，禁用此特性
     if (!_isFixed) {
         config.fixed = false;
     };
@@ -107,20 +117,20 @@ var artDialog = function (config, ok, cancel) {
     _count ++;
 
     return artDialog.list[config.id] = _singleton ?
-        _singleton.constructor(config) : new artDialog.fn.constructor(config);
+        _singleton._create(config) : new artDialog.fn._create(config);
 };
 
-artDialog.version = '5.0.2';
+artDialog.version = '5.0.4';
 
 artDialog.fn = artDialog.prototype = {
     
-    /** @inner */
-    constructor: function (config) {
+
+    _create: function (config) {
         var dom;
         
         this.closed = false;
         this.config = config;
-        this.dom = dom = this.dom || this._getDom();
+        this.dom = dom = this.dom || this._innerHTML(config);
         
         config.skin && dom.wrap.addClass(config.skin);
         
@@ -520,6 +530,11 @@ artDialog.fn = artDialog.prototype = {
             this.hidden();
             
         };
+
+        // 恢复焦点，照顾键盘操作的用户
+        if (_activeElement) {
+            _activeElement.focus();
+        }
         
         this.closed = true;
         return this;
@@ -550,16 +565,26 @@ artDialog.fn = artDialog.prototype = {
     /** @inner 设置焦点 */
     focus: function () {
 
-        if (this.config.focus) {
-            //setTimeout(function () {
+        var that = this,
+            isFocus = function () {
+                var activeElement = _getActive();
+                return activeElement && that.dom.wrap[0].contains(activeElement);
+            };
+
+        if (!isFocus()) {
+            _activeElement = _getActive();
+        }
+
+        setTimeout(function () {
+            if (!isFocus()) {
                 try {
-                    var elem = this._focus && this._focus[0] || this.dom.close[0];
-                    elem && elem.focus();
+                    var elem = that._focus || that.dom.close || taht.dom.wrap;
+                    elem[0].focus();
                 // IE对不可见元素设置焦点会报错
                 } catch (e) {};
-            //}, 0);
-        };
-        
+            }
+        }, 16);
+
         return this;
     },
     
@@ -652,7 +677,7 @@ artDialog.fn = artDialog.prototype = {
     
     
     // 获取元素
-    _getDom: function () {
+    _innerHTML: function (data) {
     
         var body = document.body;
         
@@ -663,7 +688,13 @@ artDialog.fn = artDialog.prototype = {
         var wrap = document.createElement('div');
             
         wrap.style.cssText = 'position:absolute;left:0;top:0';
-        wrap.innerHTML = artDialog._templates;
+
+        wrap.innerHTML = artDialog._templates
+        .replace(/{([^}]+)}/g, function ($0, $1) {
+            var value = data[$1];
+            return typeof value === 'string' ? value : '';
+        });
+
         body.insertBefore(wrap, body.firstChild);
         
         var name,
@@ -745,10 +776,11 @@ artDialog.fn = artDialog.prototype = {
     
 };
 
-artDialog.fn.constructor.prototype = artDialog.fn;
+artDialog.fn._create.prototype = artDialog.fn;
 
 
 
+// 快捷方式绑定触发元素
 $.fn.dialog = $.fn.artDialog = function () {
     var config = arguments;
     this[this.live ? 'live' : 'bind']('click', function () {
@@ -788,13 +820,31 @@ $(document).bind('keydown', function (event) {
         api = artDialog.focus,
         keyCode = event.keyCode;
 
-    if (!api || !api.config.esc || rinput.test(nodeName) && target.type !== 'button') {
+    if (!api || rinput.test(nodeName) && target.type !== 'button') {
         return;
     };
     
     // ESC
     keyCode === 27 && api._click('cancel');
 });
+
+
+// 锁屏限制tab
+function focusin (event) {
+    var api = artDialog.focus;
+    if (api && api._isLock && !api.dom.wrap[0].contains(event.target)) {
+        event.stopPropagation();
+        api.dom.outer[0].focus();
+    }
+}
+
+if ($.fn.live) {
+    $('body').live('focus', focusin);
+} else if (document.addEventListener) {
+    document.addEventListener('focus', focusin, true);
+} else {
+    $(document).bind('focusin', focusin);
+}
 
 
 
@@ -812,7 +862,7 @@ $(window).bind('resize', function () {
 // 使用 uglifyjs 压缩能够预先处理"+"号合并字符串
 // @see http://marijnhaverbeke.nl/uglifyjs
 artDialog._templates = 
-'<div class="d-outer">'
+'<div class="d-outer" role="dialog" tabindex="-1" aria-labelledby="d-title-{id}" aria-describedby="d-content-{id}">'
 +   '<table class="d-border">'
 +       '<tbody>'
 +           '<tr>'
@@ -829,16 +879,14 @@ artDialog._templates =
 +                           '<tr>'
 +                               '<td class="d-header">'
 +                                   '<div class="d-titleBar">'
-+                                       '<div class="d-title"></div>'
-+                                       '<a class="d-close" href="javascript:/*artDialog*/;">'
-+                                           '\xd7'
-+                                       '</a>'
++                                       '<div id="d-title-{id}" class="d-title"></div>'
++                                       '<a class="d-close" href="javascript:;" title="{cancelValue}">×</a>'
 +                                   '</div>'
 +                               '</td>'
 +                           '</tr>'
 +                           '<tr>'
 +                               '<td class="d-main">'
-+                                   '<div class="d-content"></div>'
++                                   '<div id="d-content-{id}" class="d-content"></div>'
 +                               '</td>'
 +                           '</tr>'
 +                           '<tr>'
@@ -907,15 +955,9 @@ artDialog.defaults = {
     // 皮肤名(多皮肤共存预留接口)
     skin: null,
     
-    // 自动关闭时间
+    // 自动关闭时间(毫秒)
     time: null,
-    
-    // 是否支持Esc键关闭
-    esc: true,
-    
-    // 是否支持对话框按钮自动聚焦
-    focus: true,
-    
+        
     // 初始化后是否显示对话框
     visible: true,
     
@@ -936,44 +978,4 @@ artDialog.defaults = {
 this.artDialog = $.dialog = $.artDialog = artDialog;
 }(this.art || this.jQuery, this));
 
-
-
-
-/* 更新记录
-
-1.  follow 不再支持 String 类型
-2.  button 参数只支持 Array 类型
-3.  button name 成员改成 value
-4.  button 增加 id 成员
-5.  okVal 参数更名为 okValue, 默认值由 '确定' 改为 'ok'
-6.  cancelVal 参数更名为 cancelValue, 默认值由 '取消' 改为 'cancel'
-6.  close 参数更名为 beforeunload
-7.  init 参数更名为 initialize
-8.  title 参数默认值由 '消息' 改为 'message'
-9.  time 参数与方法参数单位由秒改为毫秒
-10. hide 参数方法更名为 hidden
-11. 内部为皮肤增加动态样式 d-state-visible 类
-12. 给遮罩增添样式 d-mask 类
-13. background 参数被取消, 由 CSS 文件定义
-14. opacity 参数被取消, 由 CSS 文件定义
-15. 取消拖动特性，改由插件支持
-16. 取消 left 与 top 参数
-17. 取消对 ie6 提供 fixed 支持，自动转换为 absolute
-18. 取消对 ie6 提供 alpha png 支持
-19. 取消对 ie6 提供 select 标签遮盖支持
-20. 增加 focus 参数
-21. 取消 position 方法
-22. 取消对 <script type="text/dialog"></script> 的支持
-23. 取消对 iframe 的支持
-24. title 方法不支持空参数
-25. content 方法不支持空参数
-26. button 方法的参数不支持数组类型
-27. 判断 DOCTYPE, 对 xhtml1.0 以下的页面报告错误
-28. 修复 IE8 动态等新内容时没有撑开对话框高度，特意为 ie8 取消 .d-content { display:inline-block }
-29. show 参数与方法更名为 visible
-30. 修正重复调用 close 方法出现的错误
-31. 修正设定了follow后再使用content()方法导致其居中的问题
-32. 修复居中可能导致左边框显示不出的问题
-
-*/
 
