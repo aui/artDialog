@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<style>
+		html, body {
+			height: 100%;
+		}
+		#fixed {
+			position: fixed;
+			bottom: 0;
+			left: 20%;
+		}
+	</style>
+</head>
+<body>
+<table style="width:100%; height:100%">
+	<tr>
+		<td style="text-align: left; vertical-align: top;"><button data-event="test">follow me</button></td>
+		<td style="text-align: center; vertical-align: top;"><button data-event="test">follow me</button></td>
+		<td style="text-align: right; vertical-align: top;"><button data-event="test">follow me</button></td>
+	</tr>
+	<tr>
+		<td style="text-align: left; vertical-align: middle;"><button data-event="test">follow me</button></td>
+		<td style="text-align: center; vertical-align: middle;"><button data-event="test">follow me</button></td>
+		<td style="text-align: right; vertical-align: middle;"><button data-event="test">follow me</button></td>
+	</tr>
+	<tr>
+		<td style="text-align: left; vertical-align: bottom;"><button data-event="test">follow me</button></td>
+		<td style="text-align: center; vertical-align: bottom;"><button data-event="test">follow me</button></td>
+		<td style="text-align: right; vertical-align: bottom;"><button data-event="test">follow me</button></td>
+	</tr>
+</table>
+<table style="width:100%; height:100%">
+	<tr>
+		<td style="text-align: left; vertical-align: top;"><button data-event="test">follow me</button></td>
+		<td style="text-align: center; vertical-align: top;"><button data-event="test">follow me</button></td>
+		<td style="text-align: right; vertical-align: top;"><button data-event="test">follow me</button></td>
+	</tr>
+	<tr>
+		<td style="text-align: left; vertical-align: middle;"><button data-event="test">follow me</button></td>
+		<td style="text-align: center; vertical-align: middle;"><button data-event="test">follow me</button></td>
+		<td style="text-align: right; vertical-align: middle;"><button data-event="test">follow</button></td>
+	</tr>
+	<tr>
+		<td style="text-align: left; vertical-align: bottom;"><button data-event="test">follow me</button></td>
+		<td style="text-align: center; vertical-align: bottom;"><button data-event="test">follow me</button></td>
+		<td style="text-align: right; vertical-align: bottom;"><button data-event="test">follow me</button></td>
+	</tr>
+</table>
+<button id="fixed" data-event="test">follow me</button>
+<script src="../lib/sea.js"></script>
+<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+
+<script>
+seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
+
+	if (top.dialog) {
+		// 仅用来测试跨窗口弹出
+		dialog = top.dialog;
+	}
+	
+	var d = dialog({
+		title: '定位到元素演示',
+		content: '风吹起的青色衣衫，夕阳里的温暖容颜，你比以前更加美丽，像盛开的花',
+		okValue: '确 定',
+		ok: function () {},
+		cancel: function () {
+			this.close();// 隐藏
+			return false;
+		}
+	});
+
+	$('button[data-event=test]').on('click', function () {
+		
+		d.show(this);
+	});
+
+	d.onshow = function () {
+		//console.log(this);
+	};
+});
+</script>
+</body>
+</html>
