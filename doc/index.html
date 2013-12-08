@@ -646,8 +646,9 @@ dialog.close().remove();
 
 <h4>示例</h4>
 
-<pre><code>var d = dialog();
-d.content('hello world');
+<pre><code>var d = dialog({
+    content: 'hello world'
+});
 d.show(document.getElementById('api-show'));
 </code></pre>
 
