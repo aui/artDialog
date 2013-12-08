@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<style>
+		html, body {
+			height: 100%;
+		}
+		label {
+			vertical-align: middle;
+		}
+		#header {
+			padding: 40px 0;
+		}
+		#start {
+			min-width: 120px;
+			text-decoration:none;
+			font-size: 12px;
+			font-weight: 700;
+			color: white;
+			text-shadow: 0 -1px 0 rgba(0, 0, 0, .5);
+			display: inline-block;
+			padding: 6px 16px 4px;
+			border: 1px solid #3A5615;
+			border-radius: 6px;
+			background: #5F9614;
+			background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #5F9513), color-stop(0.5, #73A91C), color-stop(0.5, #82B334), color-stop(1, #95C04B));
+			background-image: -moz-linear-gradient(center bottom, #5F9513 0%, #73A91C 50%, #82B334 50%, #95C04B 100%);
+			-webkit-background-clip: padding-box;
+			-moz-background-clip: padding-box;
+			background-clip: padding-box;
+			box-shadow: 0 2px 3px rgba(0, 0, 0, .2), inset 0 0 1px rgba(255, 255, 255, .4), inset 0 1px 0 rgba(255, 255, 255, .5);
+			cursor: pointer;
+			outline: 0 none;
+		}
+	</style>
+</head>
+<body>
+<pre>
+/**
+ * select 修饰器
+ * 用途：解决 select 无法自定义样式或者选项不支持图片的问题。
+ * 请注意：相对原生的 select，模拟的下拉菜单会降低可用性以及丧失大量可编程接口，并且带来的价值不高。
+ * 遇到需要自定义 select 的需求，请尽量搞定视觉设计师、拉拢交互设计师、并且与PM达成共识。
+ * 最后如果大家仍然坚持装饰 select，请相信这是你见过的世界上最没啥用、但最有追求的控件，没有之一。作者并不希望你
+ * 将精力耗费在无意义的劳动上面，你可以随时用它制作自定义 select；亦可随时取消它而不用改变业务逻辑。
+ * select 的逻辑。
+ * 已经模拟的部分：
+ * 		用户操作产生的数据可同步到原生 select 控件，不会破坏表单特性
+ *		操作可触发原生 select 的 onchange 事件
+ *		iPhone 、iPad 点击能显示滚轮
+ *		盲人的读屏器操作支持
+ *		快捷键支持
+ *		自适应位置
+ *		label 标签 for 行为支持
+ *		自动 zIndex 值
+ *		disabled 属性
+ *		optgroup 选项分组
+ *		点击页面任意空白区域自动关闭（包括 iframe）
+
+ * 不支持的部分：
+ *		原生 select 控件的 DOM 操作无法同步到模拟控件
+ *		multiple 属性
+ *		其他未列举的特性…
+ * 支持自定义样式与结构：<select id="test-setting" style="width: 4.5em" onchange="document.getElementById('test-setting-value').innerHTML=this.value">
+			<optgroup label="常用">
+				<option value="e100" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e100.gif">微笑</option>
+				<option value="e101" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e101.gif">瘪嘴</option>
+				<option value="e102" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e102.gif">发情</option>
+				<option value="e103" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e103.gif">惊讶</option>
+				<option value="e104" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e104.gif">得意</option>
+				<option value="e105" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e105.gif">哭泣</option>
+			</optgroup>
+			<optgroup label="爱情">
+				<option value="e163" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e163.gif">玫瑰</option>
+				<option value="e164" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e164.gif">凋谢</option>
+				<option disabled value="e165" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e165.gif">亲吻(黄钻用户专享)</option>
+			</optgroup>
+		</select> <label for="test-setting"><button id="start-setting">转换为包含图片的下拉框</button></label> <span id="test-setting-value"></span>
+ */
+</pre>
+<div id="header">
+	<button id="start">开始</button>
+</div>
+
+<table id="test" style="width:100%; height:100%">
+	<tr>
+		<td style="text-align: left; vertical-align: top;">
+			<label for="test-select">支持label标签：</label>
+			<select id="test-select">
+				<option value="0">---请选择---</option>
+				<option value="1">选项二</option>
+				<option selected value="2">选项二</option>
+				<option value="3">&#60;s&#62;选项三&#60;/s&#62;</option>
+				<option value="4"><s>选项四</s></option>
+				<option value="5">选项五</option>
+			</select>
+		</td>
+		<td style="text-align: center; vertical-align: top;">
+			<label>label2
+				<select>
+					<option value="0">---请选择---</option>
+					<option value="1">选项二</option>
+					<option selected value="2">选项二</option>
+					<option value="3">选项三</option>
+					<option value="4">选项四</option>
+					<option value="5">选项五</option>
+				</select>
+			</label>
+		</td>
+		<td style="text-align: right; vertical-align: top;">
+			<label for="test-select-disabled">不可用下拉：</label>
+			<select disabled id="test-select-disabled">
+				<option selected value="0">disabled</option>
+				<option value="1">选项二</option>
+				<option value="2">选项二</option>
+				<option value="3">选项三</option>
+				<option value="4">选项四</option>
+				<option value="5">选项五</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td style="text-align: left; vertical-align: middle;">
+			<label for="test-option-disabled">不可用选项：</label>
+			<select id="test-option-disabled">
+				<option value="0">---请选择---</option>
+				<option value="1">选项二</option>
+				<option selected value="2">selected</option>
+				<option value="3">选项三</option>
+				<option disabled value="4">disabled</option>
+				<option value="5">选项五</option>
+			</select>
+		</td>
+		<td style="text-align: center; vertical-align: middle;">
+			<label for="test-optgroup">选项分组：</label>
+			<select id="test-optgroup">
+				<optgroup label="我是A组">
+					<option value="0">选项零</option>
+					<option value="1">选项二</option>
+					<option value="2">选项二</option>
+					<option value="3">选项三</option>
+					<option value="4">选项四</option>
+					<option value="5">选项五</option>
+				</optgroup>
+				<optgroup label="我是B组">
+					<option value ="mercedes">Mercedes</option>
+					<option value ="audi">Audi</option>
+				</optgroup>
+			</select>
+		</td>
+		<td style="text-align: right; vertical-align: middle;">
+			<label for="test-onchange">onchange 事件支持：</label>
+			<select id="test-onchange" onchange="location.href=this.value">
+				<option value="javascript:;">友情链接</option>
+				<option value="https://github.com">Github</option>
+				<option value="http://google.com">Google</option>
+				<option value="http://qq.com">腾讯</option>
+				<option value="http://baidu.com">百度</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td style="text-align: left; vertical-align: bottom;">
+			<select>
+				<option value="0">---请选择---</option>
+				<option value="1">选项二</option>
+				<option selected value="2">选项二</option>
+				<option value="3">选项三</option>
+				<option value="4">选项四</option>
+				<option value="5">选项五</option>
+			</select>
+		</td>
+		<td style="text-align: center; vertical-align: bottom;">
+			<select>
+				<option value="0">---请选择---</option>
+				<option value="1">选项二</option>
+				<option selected value="2">选项二</option>
+				<option value="3">选项三</option>
+				<option value="4">选项四</option>
+				<option value="5">选项五</option>
+			</select>
+		</td>
+		<td style="text-align: right; vertical-align: bottom;">
+			<select>
+				<option value="0">---请选择---</option>
+				<option value="1">选项二</option>
+				<option selected value="2">选项二</option>
+				<option value="3">选项三</option>
+				<option value="4">选项四</option>
+				<option value="5">选项五</option>
+			</select>
+		</td>
+	</tr>
+</table>
+
+
+
+<script src="../lib/sea.js"></script>
+<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+
+<script>
+seajs.use(['jquery', '../src/selectbox'], function ($, select) {
+	$('#start').one('click', function () {
+		$('#test select').each(function () {
+			select(this);
+		});
+
+		$(this).css('opacity', .5);
+		this.disabled = true;
+	});
+
+	$('#start-setting').one('click', function () {
+		select($('#test-setting'), {
+			selectboxHtml:
+			  '<div class="ui-selectbox" hidefocus="true" tabindex="-1" aria-hidden>'
+			+     '<div class="ui-selectbox-inner" data-value="">{{textContent}}</div>'
+			+     '<i class="ui-selectbox-icon"></i>'
+			+ '</div>',
+			dropdownHtml:  '<dl class="ui-selectbox-dropdown" role="menu">{{options}}</dl>',
+			optgroupHtml:  '<dt class="ui-selectbox-optgroup">{{label}}</dt>',
+			optionHtml:    '<dd class="ui-selectbox-option {{className}}" data-option="{{index}}" tabindex="-1"><img src="{{icon}}" alt="icon" style="width:16px;height:16px;vertical-align:middle" /> {{textContent}}</dd>',
+			selectedClass: 'ui-selectbox-selected',
+			disabledClass: 'ui-selectbox-disabled',
+			focusClass:    'ui-selectbox-focus',
+			openClass:     'ui-selectbox-open'
+		});
+		this.disabled = true;
+	});
+});
+</script>
+</body>
+</html>
