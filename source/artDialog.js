@@ -10,6 +10,7 @@
 
 ;(function (window, undefined) {
 
+
 var $ = window.art = function (selector, context) {
         return new $.fn.constructor(selector, context);
     },
