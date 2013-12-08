@@ -108,7 +108,7 @@ $(function () {
 	// 加载拖拽插件
 	$('h1 code').one('click', function () {
 		if (require.async) {
-			require.async('../../dialog-drag');
+			require.async('../../src/dialog-drag');
 		}
 	});
 });
