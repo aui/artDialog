@@ -114,7 +114,7 @@ $.extend(Popup.prototype, {
     /** 是否自动聚焦 */
     autofocus: true,
 
-    align: 'nw',
+    align: 'sw',
 
     /** 设置遮罩背景颜色 */
     backdropBackground: '#000',
@@ -478,22 +478,19 @@ $.extend(Popup.prototype, {
         var className = 'ui-popup-';
         var reverse = {n: 's', s: 'n', w: 'e', e: 'w'};
         var name = {n: 'top', s: 'top', w: 'left', e: 'left'};
-
-        var pos = {
-            n: top + height,
-            s: top - popupHeight,
-            w: left + width,
-            e: left - popupWidth
-        };
-
-        var offset = {
+        var temp = [{
+            n: top - popupHeight,
+            s: top + height,
+            w: left - popupWidth,
+            e: left + width
+        }, {
             n: top,
             s: top - popupHeight + height,
             w: left,
             e: left - popupWidth + width,
             left: left + width / 2 - popupWidth / 2,
             top: top + height / 2 - popupHeight / 2
-        };
+        }];
 
         var range = {
             left: [minLeft, maxLeft],
@@ -503,24 +500,25 @@ $.extend(Popup.prototype, {
 
         // 超出可视区域重新适应位置
         $.each(align, function (i, val) {
-            if (pos[val] > range[name[val]][1]) {
+            if (temp[i][val] > range[name[val]][1]) {
                 align[i] = reverse[val];
             }
 
-            if (pos[val] < range[name[val]][0]) {
+            if (temp[i][val] < range[name[val]][0]) {
                 align[i] = reverse[val];
-            }   
+            }
         });
 
 
         // 一个参数的情况
         if (!align[1]) {
             name[align[1]] = name[align[0]] === 'left' ? 'top' : 'left';
-            offset[align[1]] = offset[name[align[1]]];
+            temp[1][align[1]] = temp[1][name[align[1]]];
         }
 
 
-        className += align.join('');
+        align = align.join('');
+        className += align;
 
         that.__clearFollow();
         that.__followSkin = className;
@@ -531,8 +529,8 @@ $.extend(Popup.prototype, {
         }
 
         
-        css[name[align[0]]] = pos[align[0]];
-        css[name[align[1]]] = offset[align[1]];
+        css[name[align[0]]] = temp[0][align[0]];
+        css[name[align[1]]] = temp[1][align[1]];
         popup.css(css);
 
         this.follow = anchor;
