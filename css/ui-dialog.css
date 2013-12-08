@@ -1,7 +1,7 @@
 /*!
 * artDialog v6.0.0
 * Date: 2013-12-06
-* https://github.com/aui/artDialog6
+* https://github.com/aui/artDialog
 * (c) 2009-2013 TangBin, http://www.planeArt.cn
 *
 * This is licensed under the GNU LGPL, version 2.1 or later.
@@ -227,22 +227,22 @@
 .ui-popup-nw .ui-dialog,
 .ui-popup-n .ui-dialog,
 .ui-popup-ne .ui-dialog {
-	top: 8px;
+	top: -8px;
 }
 .ui-popup-sw .ui-dialog,
 .ui-popup-s .ui-dialog,
 .ui-popup-se .ui-dialog {
-	top: -8px;
+	top: 8px;
 }
 .ui-popup-wn .ui-dialog,
 .ui-popup-w .ui-dialog,
 .ui-popup-ws .ui-dialog {
-	left: 8px;
+	left: -8px;
 }
 .ui-popup-en .ui-dialog,
 .ui-popup-e .ui-dialog,
 .ui-popup-es .ui-dialog {
-	left: -8px;
+	left: 8px;
 }
 .ui-dialog-arrow-a,
 .ui-dialog-arrow-b {
@@ -259,18 +259,18 @@
 .ui-popup-nw .ui-dialog-arrow-a,
 .ui-popup-n .ui-dialog-arrow-a,
 .ui-popup-ne .ui-dialog-arrow-a {
-	top: -8px;
-	border-bottom:8px solid #999;
-	border-top:0 none;
+	bottom: -8px;
+	border-top:8px solid #999;
+	border-bottom:0 none;
 	border-left:8px solid transparent;
 	border-right:8px solid transparent;
 }
 .ui-popup-nw .ui-dialog-arrow-b,
 .ui-popup-n .ui-dialog-arrow-b,
 .ui-popup-ne .ui-dialog-arrow-b {
-	top: -7px;
-	border-bottom:8px solid #fff;
-	border-top:0 none;
+	bottom: -7px;
+	border-top:8px solid #fff;
+	border-bottom:0 none;
 	border-left:8px solid transparent;
 	border-right:8px solid transparent;
 }
@@ -287,22 +287,21 @@
 .ui-popup-ne .ui-dialog-arrow-b {
 	right: 15px;
 }
-
 .ui-popup-sw .ui-dialog-arrow-a,
 .ui-popup-s .ui-dialog-arrow-a,
 .ui-popup-se .ui-dialog-arrow-a {
-	bottom: -8px;
-	border-top:8px solid #999;
-	border-bottom:0 none;
+	top: -8px;
+	border-bottom:8px solid #999;
+	border-top:0 none;
 	border-left:8px solid transparent;
 	border-right:8px solid transparent;
 }
 .ui-popup-sw .ui-dialog-arrow-b,
 .ui-popup-s .ui-dialog-arrow-b,
 .ui-popup-se .ui-dialog-arrow-b {
-	bottom: -7px;
-	border-top:8px solid #fff;
-	border-bottom:0 none;
+	top: -7px;
+	border-bottom:8px solid #fff;
+	border-top:0 none;
 	border-left:8px solid transparent;
 	border-right:8px solid transparent;
 }
@@ -322,18 +321,18 @@
 .ui-popup-wn .ui-dialog-arrow-a,
 .ui-popup-w .ui-dialog-arrow-a,
 .ui-popup-ws .ui-dialog-arrow-a {
-	left: -8px;
-	border-right:8px solid #999;
-	border-left:0 none;
+	right: -8px;
+	border-left:8px solid #999;
+	border-right:0 none;
 	border-top:8px solid transparent;
 	border-bottom:8px solid transparent;
 }
 .ui-popup-wn .ui-dialog-arrow-b,
 .ui-popup-w .ui-dialog-arrow-b,
 .ui-popup-ws .ui-dialog-arrow-b {
-	left: -7px;
-	border-right:8px solid #fff;
-	border-left:0 none;
+	right: -7px;
+	border-left:8px solid #fff;
+	border-right:0 none;
 	border-top:8px solid transparent;
 	border-bottom:8px solid transparent;
 }
@@ -353,18 +352,18 @@
 .ui-popup-en .ui-dialog-arrow-a,
 .ui-popup-e .ui-dialog-arrow-a,
 .ui-popup-es .ui-dialog-arrow-a {
-	right: -8px;
-	border-left:8px solid #999;
-	border-right:0 none;
+	left: -8px;
+	border-right:8px solid #999;
+	border-left:0 none;
 	border-top:8px solid transparent;
 	border-bottom:8px solid transparent;
 }
 .ui-popup-en .ui-dialog-arrow-b,
 .ui-popup-e .ui-dialog-arrow-b,
 .ui-popup-es .ui-dialog-arrow-b {
-	right: -7px;
-	border-left:8px solid #fff;
-	border-right:0 none;
+	left: -7px;
+	border-right:8px solid #fff;
+	border-left:0 none;
 	border-top:8px solid transparent;
 	border-bottom:8px solid transparent;
 }

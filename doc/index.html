@@ -424,13 +424,13 @@ pre {
 
 <h2><span id="module">引入 artDialog</span></h2>
 
-<p>在模块中引入 artDialog（支持 RequireJS 与 SeaJS）：</p>
+<p>在模块中引入 artDialog（支持 RequireJS 与 SeaJS 加载）：</p>
 
 <pre><code>var dialog = require('./artDialog/src/dialog');
 //..
 </code></pre>
 
-<p><a href="../test/show.html">seajs加载示例</a></p>
+<p><a href="../test/show.html">seajs加载示例</a>（如果需要支持拖拽，请引用 <em>dialog-drag.js</em>）</p>
 
 <h3>全局依赖模块</h3>
 
@@ -1102,7 +1102,7 @@ dialog({
 
 <h3><span id="option-align">align</span></h3>
 
-<p>(默认值: "nw") 设置对话框与其他元素的对齐方式。</p>
+<p>(默认值: "sw") 设置对话框与其他元素的对齐方式。</p>
 
 <p>只针对<code>show(elem)</code>与<code>showModal(elem)</code>有效。可选的值：<code>n nw ne s sw se w wn ws e en es</code>。</p>
 

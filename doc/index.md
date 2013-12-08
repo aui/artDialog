@@ -78,13 +78,14 @@ artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
 	
 ##	[引入 artDialog](id:module)
 
-在模块中引入 artDialog（支持 RequireJS 与 SeaJS）：
+在模块中引入 artDialog（支持 RequireJS 与 SeaJS 加载）：
 
 ```
 var dialog = require('./artDialog/src/dialog');
 //..
 ```
-[seajs加载示例](../test/show.html)
+
+[seajs加载示例](../test/show.html)（如果需要支持拖拽，请引用 *dialog-drag.js*）
 
 ###	全局依赖模块
 
@@ -755,7 +756,7 @@ dialog({
 
 ###	[align](id:option-align)
 
-(默认值: "nw") 设置对话框与其他元素的对齐方式。
+(默认值: "sw") 设置对话框与其他元素的对齐方式。
 
 只针对``show(elem)``与``showModal(elem)``有效。可选的值：``n nw ne s sw se w wn ws e en es``。
 
