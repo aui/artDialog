@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<style>
+		html, body {
+			height: 100%;
+		}
+		#fixed {
+			position: fixed;
+			bottom: 0;
+			left: 20%;
+		}
+	</style>
+</head>
+<body>
+<button id="test">title('hello world')</button>
+<div id="hidden-content" style="color:red;display:none">我是DOM节点</div>
+<script src="../lib/sea.js"></script>
+<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+
+<script>
+seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
+	
+	var d = dialog({
+		title: '消息',
+		content: '风吹起的青色衣衫，夕阳里的温暖容颜，你比以前更加美丽，像盛开的花',
+		okValue: '确 定',
+		ok: function () {},
+		cancel: function () {
+			this.title('不许取消');
+			return false;
+		}
+	});
+
+	d.show();
+
+	$('#test').on('click', function () {
+		d.title('hello world');
+	});
+
+});
+</script>
+</body>
+</html>
