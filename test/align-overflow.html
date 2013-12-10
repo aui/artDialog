@@ -5,7 +5,8 @@
 	<title>test</title>
 </head>
 <body>
-<button data-event="test">open dialog</button>
+<button data-event="test" data-align="ne">open dialog</button>
+<button data-event="test" data-align="ne" style="position:absolute;right:0;top:0">open dialog</button>
 <script src="../lib/sea.js"></script>
 <script>
 seajs.config({
@@ -25,7 +26,8 @@ seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
 			title: '消息',
 			content: '风吹起的青色衣衫，夕阳里的温暖容颜，你比以前更加美丽，像盛开的花',
 			okValue: '确 定',
-			align: 'se',
+			align: $(this).data('align'),
+			height: 1024,
 			ok: function () {
 				var that = this;
 				setTimeout(function () {
