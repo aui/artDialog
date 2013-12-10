@@ -438,7 +438,7 @@ $.extend(Popup.prototype, {
         // 隐藏元素不可用
         if ($elem) {
             var o = $elem.offset();
-            if (o.left * o.top <= 0) {
+            if (o.left * o.top < 0) {
                 return this.__center();
             }
         }
