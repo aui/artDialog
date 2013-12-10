@@ -311,9 +311,8 @@ dialog.close().remove();
 ####	示例
 
 ```
-var d = dialog({
-	content: 'hello world'
-});
+var d = dialog();
+d.content('hello world');
 d.show(document.getElementById('api-show'));
 ```
 

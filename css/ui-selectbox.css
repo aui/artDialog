@@ -86,6 +86,7 @@ select[disabled] + .ui-selectbox {
 	overflow-y: auto;
 	overflow-x: hidden;
 	border: 1px solid #ccc;
+	font-family: Helvetica, arial, sans-serif;
 	background: #FFF;
 	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 	border: solid 1px #DCDCDC;

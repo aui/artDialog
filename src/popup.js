@@ -141,6 +141,7 @@ $.extend(Popup.prototype, {
         this.__activeElement = this.__getActive();
 
         this.open = true;
+        this.follow = anchor;
 
         popup
         .addClass('ui-popup-show')
@@ -177,7 +178,7 @@ $.extend(Popup.prototype, {
             this.__ready = true;
         }
 
-        this.reset(anchor).focus();
+        this.reset().focus();
         this.__dispatchEvent('show');
 
         return this;
@@ -248,9 +249,9 @@ $.extend(Popup.prototype, {
 
 
     /** 手动刷新位置 */
-    reset: function (anchor) {
+    reset: function () {
 
-        var elem = anchor || this.follow;
+        var elem = this.follow;
 
         if (elem) {
             this.__follow(elem);
@@ -500,13 +501,17 @@ $.extend(Popup.prototype, {
 
         // 超出可视区域重新适应位置
         $.each(align, function (i, val) {
+
+            // 超出右或下边界：使用左或者上边对齐
             if (temp[i][val] > range[name[val]][1]) {
-                align[i] = reverse[val];
+                val = align[i] = reverse[val];
             }
 
+            // 超出左或右边界：使用右或者下边对齐
             if (temp[i][val] < range[name[val]][0]) {
                 align[i] = reverse[val];
             }
+
         });
 
 
@@ -516,9 +521,7 @@ $.extend(Popup.prototype, {
             temp[1][align[1]] = temp[1][name[align[1]]];
         }
 
-
-        align = align.join('');
-        className += align;
+        className += align.join('');
 
         that.__clearFollow();
         that.__followSkin = className;
@@ -532,8 +535,6 @@ $.extend(Popup.prototype, {
         css[name[align[0]]] = temp[0][align[0]];
         css[name[align[1]]] = temp[1][align[1]];
         popup.css(css);
-
-        this.follow = anchor;
 
     },
 

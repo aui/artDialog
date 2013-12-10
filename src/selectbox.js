@@ -163,7 +163,7 @@ $.extend(Select.prototype, {
 			that.close();
 		});
 
-		popup.showModal(this._selectbox[0]);
+		
 
 		var isIE6 = !('minWidth' in $('html')[0].style);
 		var children = this._dropdown.children();
@@ -181,6 +181,8 @@ $.extend(Select.prototype, {
 			overflowX: 'hidden',
 			maxHeight: $(window).height() - select.outerHeight()
 		});
+
+		popup.showModal(this._selectbox[0]);
 	},
 
 
