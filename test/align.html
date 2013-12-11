@@ -86,24 +86,24 @@
 <body>
 <pre><code>var follow = document.getElementById('follow-elem');
 var d = dialog({
-	align: '<strong id="test-align-value">sw</strong>',
+	align: '<strong id="test-align-value">bottom left</strong>',
 	content: 'hello world'
 });
 d.show(follow);</code></pre>
 
 <div id="follow-elem">
-	<input type="radio" name="align" value="nw" class="nw" title="nw">
-	<input type="radio" name="align" value="n" class="n" title="n">
-	<input type="radio" name="align" value="ne" class="ne" title="ne">
-	<input type="radio" name="align" value="en" class="en" title="en">
-	<input type="radio" name="align" value="e" class="e" title="e">
-	<input type="radio" name="align" value="es" class="es" title="es">
-	<input type="radio" name="align" value="se" class="se" title="se">
-	<input type="radio" name="align" value="s" class="s" title="s">
-	<input type="radio" name="align" value="sw" class="sw" title="sw" checked>
-	<input type="radio" name="align" value="ws" class="ws" title="ws">
-	<input type="radio" name="align" value="w" class="w" title="w">
-	<input type="radio" name="align" value="wn" class="wn" title="wn">
+	<input type="radio" name="align" value="top left" class="nw" title="top left">
+	<input type="radio" name="align" value="top" class="n" title="top">
+	<input type="radio" name="align" value="top right" class="ne" title="top right">
+	<input type="radio" name="align" value="right top" class="en" title="right top">
+	<input type="radio" name="align" value="right" class="e" title="right">
+	<input type="radio" name="align" value="right bottom" class="es" title="right bottom">
+	<input type="radio" name="align" value="bottom right" class="se" title="bottom right">
+	<input type="radio" name="align" value="bottom" class="s" title="bottom">
+	<input type="radio" name="align" value="bottom left" class="sw" title="bottom left" checked>
+	<input type="radio" name="align" value="left bottom" class="ws" title="left bottom">
+	<input type="radio" name="align" value="left" class="w" title="left">
+	<input type="radio" name="align" value="left top" class="wn" title="left top">
 </div>
 
 
@@ -120,7 +120,7 @@ seajs.config({
 seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
 	var follow = $('#follow-elem')[0];
 	var d = dialog({
-		align: 'sw',
+		align: 'bottom left',
 		content: 'hello world'
 	});
 	d.show(follow);

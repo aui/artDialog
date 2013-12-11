@@ -646,9 +646,8 @@ dialog.close().remove();
 
 <h4>示例</h4>
 
-<pre><code>var d = dialog({
-    content: 'hello world'
-});
+<pre><code>var d = dialog();
+d.content('hello world');
 d.show(document.getElementById('api-show'));
 </code></pre>
 
@@ -879,7 +878,7 @@ d.show();
 
 <h3><span id="option-okValue">okValue</span></h3>
 
-<p>(默认值: "ok")  确定按钮文本。</p>
+<p>(默认值: <code>"ok"</code>)  确定按钮文本。</p>
 
 <h4>类型</h4>
 
@@ -927,7 +926,7 @@ d.show();
 
 <h3><span id="option-cancelValue">cancelValue</span></h3>
 
-<p>(默认值: cancel) 取消按钮文本。</p>
+<p>(默认值: <code>"cancel"</code>) 取消按钮文本。</p>
 
 <h4>类型</h4>
 
@@ -1049,7 +1048,7 @@ d.show();
 
 <h3><span id="option-height">height</span></h3>
 
-<p>(默认值: "auto") 设置对话框 <strong>内容</strong> 高度。</p>
+<p>设置对话框 <strong>内容</strong> 高度。</p>
 
 <h4>类型</h4>
 
@@ -1103,9 +1102,25 @@ dialog({
 
 <h3><span id="option-align">align</span></h3>
 
-<p>(默认值: "sw") 设置对话框与其他元素的对齐方式。</p>
+<p>(默认值: "bottom left") 设置对话框与其他元素的对齐方式。</p>
 
-<p>只针对<code>show(elem)</code>与<code>showModal(elem)</code>有效。可选的值：<code>n nw ne s sw se w wn ws e en es</code>。</p>
+<p>如果<code>show(elem)</code>与<code>showModal(elem)`传入元素，</code>align``参数方可生效，支持如下对齐方式：</p>
+
+<ul>
+<li><code>"top left"</code></li>
+<li><code>"top"</code></li>
+<li><code>"top right"</code></li>
+<li><code>"right top"</code></li>
+<li><code>"right"</code></li>
+<li><code>"right bottom"</code></li>
+<li><code>"bottom right"</code></li>
+<li><code>"bottom"</code></li>
+<li><code>"bottom left"</code></li>
+<li><code>"left bottom"</code></li>
+<li><code>"left"</code></li>
+<li><code>"left top"</code></li>
+</ul>
+
 
 <h3>类型</h3>
 
@@ -1114,18 +1129,18 @@ dialog({
 <h3>示例</h3>
 
 <pre><code>var d = dialog({
-    align: 'w',
+    align: 'left',
     content: 'Hello World!',
     quickClose: true
 });
 d.show(document.getElementById('option-align'));
 </code></pre>
 
-<p><a href="../test/align.html">在线示例</a></p>
+<p><a href="../test/align.html">各个参数演示</a></p>
 
 <h3><span id="option-fixed">fixed</span></h3>
 
-<p>(默认值: false) 开启固定定位。</p>
+<p>(默认值: <code>false</code>) 开启固定定位。</p>
 
 <p>固定定位是 css2.1 <code>position</code>的一个属性，它能固定在浏览器某个地方，也不受滚动条拖动影响。IE6 与部分移动浏览器对其支持不好，内部会转成绝对定位。</p>
 
@@ -1143,7 +1158,7 @@ d.show(document.getElementById('option-align'));
 
 <h3><span id="option-autofocus">autofocus</span></h3>
 
-<p>(默认值: true) 是否支持自动聚焦。</p>
+<p>(默认值: <code>true</code>) 是否支持自动聚焦。</p>
 
 <h4>类型</h4>
 
@@ -1168,7 +1183,7 @@ d.show(document.getElementById('option-quickClose'));
 
 <h3><span id="option-zIndex">zIndex</span></h3>
 
-<p>(默认值: 1024) 重置全局<code>zIndex</code>初始值，用来改变对话框叠加高度。</p>
+<p>(默认值: <code>1024</code>) 重置全局<code>zIndex</code>初始值，用来改变对话框叠加高度。</p>
 
 <p>比如有时候配合外部浮动层 UI 组件，但是它们可能默认<code>zIndex</code>没有对话框高，导致无法浮动到对话框之上，这个时候你就可以给对话框指定一个较小的<code>zIndex</code>值。</p>
 

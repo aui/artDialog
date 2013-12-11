@@ -15,9 +15,11 @@ var css = '../css/ui-dialog.css';
 
 
 // css loader: RequireJS & SeaJS
-css = require[require.toUrl ? 'toUrl' : 'resolve'](css);
-css = '<link rel="stylesheet" href="' + css + '" />';
-$('base')[0] ? $('base').before(css) : $('head').append(css);
+if (!$('ui-dialog-style')[0]) {
+    css = require[require.toUrl ? 'toUrl' : 'resolve'](css);
+    css = '<link id="ui-dialog-style" rel="stylesheet" href="' + css + '" />';
+    $('base')[0] ? $('base').before(css) : $('head').append(css);
+}
 
 
 var _version = '6.0.0';

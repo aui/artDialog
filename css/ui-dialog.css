@@ -55,6 +55,7 @@
 }
 .ui-dialog-close {
 	position: relative;
+	_position: absolute;
 	float: right;
 	top: 13px;
 	right: 13px;
@@ -69,6 +70,7 @@
 	filter: alpha(opacity=20);
 	cursor: pointer;
 	background: transparent;
+	_background: #FFF;
 	border: 0;
 	-webkit-appearance: none;
 }
@@ -224,24 +226,24 @@
 .ui-dialog-footer button.ui-dialog-autofocus:active {
   background-image: none;
 }
-.ui-popup-nw .ui-dialog,
-.ui-popup-n .ui-dialog,
-.ui-popup-ne .ui-dialog {
+.ui-popup-top-left .ui-dialog,
+.ui-popup-top .ui-dialog,
+.ui-popup-top-right .ui-dialog {
 	top: -8px;
 }
-.ui-popup-sw .ui-dialog,
-.ui-popup-s .ui-dialog,
-.ui-popup-se .ui-dialog {
+.ui-popup-bottom-left .ui-dialog,
+.ui-popup-bottom .ui-dialog,
+.ui-popup-bottom-right .ui-dialog {
 	top: 8px;
 }
-.ui-popup-wn .ui-dialog,
-.ui-popup-w .ui-dialog,
-.ui-popup-ws .ui-dialog {
+.ui-popup-left-top .ui-dialog,
+.ui-popup-left .ui-dialog,
+.ui-popup-left-bottom .ui-dialog {
 	left: -8px;
 }
-.ui-popup-en .ui-dialog,
-.ui-popup-e .ui-dialog,
-.ui-popup-es .ui-dialog {
+.ui-popup-right-top .ui-dialog,
+.ui-popup-right .ui-dialog,
+.ui-popup-right-bottom .ui-dialog {
 	left: 8px;
 }
 .ui-dialog-arrow-a,
@@ -256,128 +258,128 @@
 	_color:#FF3FFF;
 	_filter:chroma(color=#FF3FFF);
 }
-.ui-popup-nw .ui-dialog-arrow-a,
-.ui-popup-n .ui-dialog-arrow-a,
-.ui-popup-ne .ui-dialog-arrow-a {
+.ui-popup-top-left .ui-dialog-arrow-a,
+.ui-popup-top .ui-dialog-arrow-a,
+.ui-popup-top-right .ui-dialog-arrow-a {
 	bottom: -8px;
 	border-top:8px solid #999;
 	border-bottom:0 none;
 	border-left:8px solid transparent;
 	border-right:8px solid transparent;
 }
-.ui-popup-nw .ui-dialog-arrow-b,
-.ui-popup-n .ui-dialog-arrow-b,
-.ui-popup-ne .ui-dialog-arrow-b {
+.ui-popup-top-left .ui-dialog-arrow-b,
+.ui-popup-top .ui-dialog-arrow-b,
+.ui-popup-top-right .ui-dialog-arrow-b {
 	bottom: -7px;
 	border-top:8px solid #fff;
 	border-bottom:0 none;
 	border-left:8px solid transparent;
 	border-right:8px solid transparent;
 }
-.ui-popup-nw .ui-dialog-arrow-a,
-.ui-popup-nw .ui-dialog-arrow-b  {
+.ui-popup-top-left .ui-dialog-arrow-a,
+.ui-popup-top-left .ui-dialog-arrow-b  {
 	left: 15px;
 }
-.ui-popup-n .ui-dialog-arrow-a,
-.ui-popup-n .ui-dialog-arrow-b  {
+.ui-popup-top .ui-dialog-arrow-a,
+.ui-popup-top .ui-dialog-arrow-b  {
 	left: 50%;
 	margin-left: -8px;
 }
-.ui-popup-ne .ui-dialog-arrow-a,
-.ui-popup-ne .ui-dialog-arrow-b {
+.ui-popup-top-right .ui-dialog-arrow-a,
+.ui-popup-top-right .ui-dialog-arrow-b {
 	right: 15px;
 }
-.ui-popup-sw .ui-dialog-arrow-a,
-.ui-popup-s .ui-dialog-arrow-a,
-.ui-popup-se .ui-dialog-arrow-a {
+.ui-popup-bottom-left .ui-dialog-arrow-a,
+.ui-popup-bottom .ui-dialog-arrow-a,
+.ui-popup-bottom-right .ui-dialog-arrow-a {
 	top: -8px;
 	border-bottom:8px solid #999;
 	border-top:0 none;
 	border-left:8px solid transparent;
 	border-right:8px solid transparent;
 }
-.ui-popup-sw .ui-dialog-arrow-b,
-.ui-popup-s .ui-dialog-arrow-b,
-.ui-popup-se .ui-dialog-arrow-b {
+.ui-popup-bottom-left .ui-dialog-arrow-b,
+.ui-popup-bottom .ui-dialog-arrow-b,
+.ui-popup-bottom-right .ui-dialog-arrow-b {
 	top: -7px;
 	border-bottom:8px solid #fff;
 	border-top:0 none;
 	border-left:8px solid transparent;
 	border-right:8px solid transparent;
 }
-.ui-popup-sw .ui-dialog-arrow-a,
-.ui-popup-sw .ui-dialog-arrow-b {
+.ui-popup-bottom-left .ui-dialog-arrow-a,
+.ui-popup-bottom-left .ui-dialog-arrow-b {
 	left: 15px;
 }
-.ui-popup-s .ui-dialog-arrow-a,
-.ui-popup-s .ui-dialog-arrow-b {
+.ui-popup-bottom .ui-dialog-arrow-a,
+.ui-popup-bottom .ui-dialog-arrow-b {
 	margin-left: -8px;
 	left: 50%;
 }
-.ui-popup-se .ui-dialog-arrow-a,
-.ui-popup-se .ui-dialog-arrow-b {
+.ui-popup-bottom-right .ui-dialog-arrow-a,
+.ui-popup-bottom-right .ui-dialog-arrow-b {
 	right: 15px;
 }
-.ui-popup-wn .ui-dialog-arrow-a,
-.ui-popup-w .ui-dialog-arrow-a,
-.ui-popup-ws .ui-dialog-arrow-a {
+.ui-popup-left-top .ui-dialog-arrow-a,
+.ui-popup-left .ui-dialog-arrow-a,
+.ui-popup-left-bottom .ui-dialog-arrow-a {
 	right: -8px;
 	border-left:8px solid #999;
 	border-right:0 none;
 	border-top:8px solid transparent;
 	border-bottom:8px solid transparent;
 }
-.ui-popup-wn .ui-dialog-arrow-b,
-.ui-popup-w .ui-dialog-arrow-b,
-.ui-popup-ws .ui-dialog-arrow-b {
+.ui-popup-left-top .ui-dialog-arrow-b,
+.ui-popup-left .ui-dialog-arrow-b,
+.ui-popup-left-bottom .ui-dialog-arrow-b {
 	right: -7px;
 	border-left:8px solid #fff;
 	border-right:0 none;
 	border-top:8px solid transparent;
 	border-bottom:8px solid transparent;
 }
-.ui-popup-wn .ui-dialog-arrow-a,
-.ui-popup-wn .ui-dialog-arrow-b {
+.ui-popup-left-top .ui-dialog-arrow-a,
+.ui-popup-left-top .ui-dialog-arrow-b {
 	top: 15px;
 }
-.ui-popup-w .ui-dialog-arrow-a,
-.ui-popup-w .ui-dialog-arrow-b {
+.ui-popup-left .ui-dialog-arrow-a,
+.ui-popup-left .ui-dialog-arrow-b {
 	margin-top: -8px;
 	top: 50%;
 }
-.ui-popup-ws .ui-dialog-arrow-a,
-.ui-popup-ws .ui-dialog-arrow-b {
+.ui-popup-left-bottom .ui-dialog-arrow-a,
+.ui-popup-left-bottom .ui-dialog-arrow-b {
 	bottom: 15px;
 }
-.ui-popup-en .ui-dialog-arrow-a,
-.ui-popup-e .ui-dialog-arrow-a,
-.ui-popup-es .ui-dialog-arrow-a {
+.ui-popup-right-top .ui-dialog-arrow-a,
+.ui-popup-right .ui-dialog-arrow-a,
+.ui-popup-right-bottom .ui-dialog-arrow-a {
 	left: -8px;
 	border-right:8px solid #999;
 	border-left:0 none;
 	border-top:8px solid transparent;
 	border-bottom:8px solid transparent;
 }
-.ui-popup-en .ui-dialog-arrow-b,
-.ui-popup-e .ui-dialog-arrow-b,
-.ui-popup-es .ui-dialog-arrow-b {
+.ui-popup-right-top .ui-dialog-arrow-b,
+.ui-popup-right .ui-dialog-arrow-b,
+.ui-popup-right-bottom .ui-dialog-arrow-b {
 	left: -7px;
 	border-right:8px solid #fff;
 	border-left:0 none;
 	border-top:8px solid transparent;
 	border-bottom:8px solid transparent;
 }
-.ui-popup-en .ui-dialog-arrow-a,
-.ui-popup-en .ui-dialog-arrow-b {
+.ui-popup-right-top .ui-dialog-arrow-a,
+.ui-popup-right-top .ui-dialog-arrow-b {
 	top: 15px;
 }
-.ui-popup-e .ui-dialog-arrow-a,
-.ui-popup-e .ui-dialog-arrow-b {
+.ui-popup-right .ui-dialog-arrow-a,
+.ui-popup-right .ui-dialog-arrow-b {
 	margin-top: -8px;
 	top: 50%;
 }
-.ui-popup-es .ui-dialog-arrow-a,
-.ui-popup-es .ui-dialog-arrow-b {
+.ui-popup-right-bottom .ui-dialog-arrow-a,
+.ui-popup-right-bottom .ui-dialog-arrow-b {
 	bottom: 15px;
 }
 

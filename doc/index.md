@@ -555,7 +555,7 @@ dialog({
 
 ###	[okValue](id:option-okValue)
 
-(默认值: "ok")  确定按钮文本。
+(默认值: ``"ok"``)  确定按钮文本。
 
 ####	类型
 
@@ -606,7 +606,7 @@ dialog({
 
 ###	[cancelValue](id:option-cancelValue)
 
-(默认值: cancel) 取消按钮文本。
+(默认值: ``"cancel"``) 取消按钮文本。
 
 ####	类型
 
@@ -698,7 +698,7 @@ dialog({
 
 ###	[height](id:option-height)
 
-(默认值: "auto") 设置对话框 **内容** 高度。
+设置对话框 **内容** 高度。
 
 ####	类型
 
@@ -756,9 +756,22 @@ dialog({
 
 ###	[align](id:option-align)
 
-(默认值: "sw") 设置对话框与其他元素的对齐方式。
+(默认值: "bottom left") 设置对话框与其他元素的对齐方式。
 
-只针对``show(elem)``与``showModal(elem)``有效。可选的值：``n nw ne s sw se w wn ws e en es``。
+如果``show(elem)``与``showModal(elem)`传入元素，``align``参数方可生效，支持如下对齐方式：
+
+* ``"top left"``
+* ``"top"``
+* ``"top right"``
+* ``"right top"``
+* ``"right"``
+* ``"right bottom"``
+* ``"bottom right"``
+* ``"bottom"``
+* ``"bottom left"``
+* ``"left bottom"``
+* ``"left"``
+* ``"left top"``
 
 ###	类型
 
@@ -768,18 +781,18 @@ String
 
 ```
 var d = dialog({
-	align: 'w',
+	align: 'left',
 	content: 'Hello World!',
 	quickClose: true
 });
 d.show(document.getElementById('option-align'));
 ```
 
-[在线示例](../test/align.html)
+[各个参数演示](../test/align.html)
 
 ###	[fixed](id:option-fixed)
 
-(默认值: false) 开启固定定位。
+(默认值: ``false``) 开启固定定位。
 
 固定定位是 css2.1 ``position``的一个属性，它能固定在浏览器某个地方，也不受滚动条拖动影响。IE6 与部分移动浏览器对其支持不好，内部会转成绝对定位。
 
@@ -798,7 +811,7 @@ dialog({
 
 ###	[autofocus](id:option-autofocus)
 
-(默认值: true) 是否支持自动聚焦。
+(默认值: ``true``) 是否支持自动聚焦。
 
 ####	类型
 
@@ -824,7 +837,7 @@ d.show(document.getElementById('option-quickClose'));
 
 ###	[zIndex](id:option-zIndex)
 
-(默认值: 1024) 重置全局``zIndex``初始值，用来改变对话框叠加高度。
+(默认值: ``1024``) 重置全局``zIndex``初始值，用来改变对话框叠加高度。
 
 比如有时候配合外部浮动层 UI 组件，但是它们可能默认``zIndex``没有对话框高，导致无法浮动到对话框之上，这个时候你就可以给对话框指定一个较小的``zIndex``值。
 
