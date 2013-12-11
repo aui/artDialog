@@ -1029,7 +1029,7 @@ d.show();
 ```
 
 =======================
-2013-12-07 | 文档使用 [Mou](http://mouapp.com) 生成
+[artDialog v5 升级 v6 参考](https://github.com/aui/artDialog/wiki/artDialog-v5升级v6参考)
 
 <!--[SeaJS code]-->
 <script src="../lib/sea.js"></script>
