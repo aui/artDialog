@@ -54,11 +54,10 @@ seajs.use(['jquery'], function ($) {
 				//height: 120,
 				data: $('#input').val(),// iframe可获取到这个数据
 				onclose: function () {
-					$('#input').val(this.returnValue);
+					this.returnValue && $('#input').val(this.returnValue);
 					dialog.focus();
 				},
 				oniframeload: function () {
-					console.log(this)
 					//console.log('iframe ready')
 				}
 			});

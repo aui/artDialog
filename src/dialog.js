@@ -165,10 +165,10 @@ artDialog.create = function (options) {
 
 
     // 按钮组点击
-    $popup.on('click', '[data-trigger]', function (event) {
+    $popup.on('click', '[data-id]', function (event) {
         var $this = $(this);
         if (!$this.attr('disabled')) {// IE BUG
-            that._trigger($this.data('trigger'));
+            that._trigger($this.data('id'));
         }
     
         event.preventDefault();
@@ -194,7 +194,7 @@ artDialog.create = function (options) {
         // 避免输入状态中 ESC 误操作关闭
         if (!isTop || rinput.test(nodeName) && target.type !== 'button') {
             return;
-        };
+        }
         
         if (keyCode === 27) {
             that._trigger('cancel');
@@ -315,7 +315,7 @@ $.extend(prototype, {
      */
     content: function (html) {
     
-        this._$('content').html('')
+        this._$('content').empty('')
         [typeof html === 'object' ? 'append' : 'html'](html);
                 
         return this.reset();
@@ -370,8 +370,7 @@ $.extend(prototype, {
                 html +=
                   '<button'
                 + ' type="button"'
-                + ' style="width:' + val.width + '"'
-                + ' data-trigger="' + val.id + '"'
+                + ' data-id="' + val.id + '"'
                 + (val.disabled ? ' disabled' : '')
                 + (val.autofocus ? ' autofocus class="ui-dialog-autofocus"' : '')
                 + '>'
@@ -388,9 +387,8 @@ $.extend(prototype, {
 
 
     statusbar: function (html) {
-        this._$('statusbar').html('')
-        [typeof html === 'object' ? 'append' : 'html'](html)
-        [html ? 'show' : 'hide']();
+        this._$('statusbar')
+        .html(html)[html ? 'show' : 'hide']();
 
         return this;
     },

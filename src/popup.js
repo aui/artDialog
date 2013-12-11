@@ -1,6 +1,6 @@
 /*!
 * popup.js
-* Date: 2013-12-06
+* Date: 2013-12-11
 * (c) 2009-2013 TangBin, http://www.planeArt.cn
 *
 * This is licensed under the GNU LGPL, version 2.1 or later.
@@ -130,7 +130,7 @@ $.extend(Popup.prototype, {
 
     /**
      * 显示浮层
-     * @param   {HTMLElement Object, Event Object}  指定位置（可选）
+     * @param   {HTMLElement, Event}  指定位置（可选）
      */
     show: function (anchor) {
 

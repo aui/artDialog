@@ -374,11 +374,24 @@ d.close().remove();
 
 ####	示例
 
+传入字符串：
+
 ```
 var d = dialog();
 d.content('hello world');
 d.show();
-``` 
+```
+
+传入元素节点：
+
+```
+//..
+var elem = document.getElementById('test');
+dialog({
+	content: elem,
+	id: 'EF893L'
+}).show();
+```
 
 ###	[title(text)](id:api-title)
 
@@ -485,8 +498,9 @@ dialog({
 
 ```
 //..
+var elem = document.getElementById('test');
 dialog({
-	content: document.getElementById('test'),
+	content: elem,
 	id: 'EF893L'
 }).show();
 ```
@@ -638,7 +652,6 @@ Array
 value | String | 按钮显示文本
 callback | Function | (可选) 回调函数``this``指向``dialog``对象，执行完毕默认关闭与销毁对话框（依次执行``close()``与``remove()``），若返回``false``则阻止关闭与销毁
 autofocus | Boolean | (默认值:``false``) 是否自动聚焦
-width | String | (可选) 设置按钮 CSS width 值
 disabled | Boolean | (默认值: ``false``) 是否禁用
 id | String, Number | (可选) 按钮唯一标识
 

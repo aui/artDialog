@@ -15,8 +15,7 @@
 	</style>
 </head>
 <body>
-<button id="test">title('hello world')</button>
-<div id="hidden-content" style="color:red;display:none">我是DOM节点</div>
+<button id="test">content('hello world')</button>
 <script src="../lib/sea.js"></script>
 <script>
 seajs.config({
@@ -30,13 +29,16 @@ seajs.config({
 seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
 	
 	var d = dialog({
-		title: 'loading..'
+		width: 60,
+		height: 60
 	});
 
 	d.show();
 
 	$('#test').on('click', function () {
-		d.title('hello world');
+		d.width('auto');
+		d.height('auto');
+		d.content('hello world');
 	});
 
 });

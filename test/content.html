@@ -5,8 +5,8 @@
 	<title>test</title>
 </head>
 <body>
-<button id="test">content('hello world')</button> <button id="test2">content(document.getElementById('hidden-content'))</button>
-<div id="hidden-content" style="color:red;">我是DOM节点</div>
+<button id="test">content('hello world')</button> <button id="test2">content(elem)</button>
+<div id="test-content" style="color:red;"><p>我是DOM节点</p></div>
 <script src="../lib/sea.js"></script>
 <script>
 seajs.config({
@@ -39,8 +39,9 @@ seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
 		d.content('hello world');
 	});
 
+	var elem = document.getElementById('test-content');
 	$('#test2').on('click', function () {
-		d.content(document.getElementById('hidden-content'));
+		d.content(elem);
 	});
 
 });

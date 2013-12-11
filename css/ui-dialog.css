@@ -31,6 +31,12 @@
 	-webkit-transform: scale(1);
 	transform: scale(1);
 }
+.ui-popup-focus .ui-dialog {
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+.ui-popup-modal .ui-dialog {
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1), 0 0 256px rgba(255, 255, 255, .3);
+}
 .ui-dialog-grid {
 	width: auto;
 	margin: 0;
@@ -38,9 +44,6 @@
 	border-collapse:collapse;
 	border-spacing: 0;
 	background: transparent;
-}
-.ui-popup-focus .ui-dialog {
-	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
 .ui-dialog-header,
 .ui-dialog-body,
@@ -51,6 +54,7 @@
 	background: transparent;
 }
 .ui-dialog-header {
+	white-space: nowrap;
 	border-bottom: 1px solid #E5E5E5;
 }
 .ui-dialog-close {
@@ -101,6 +105,7 @@
 .ui-dialog-content {
 	display: inline-block;
 	position: relative;
+	vertical-align: middle;
 	*zoom: 1;
 	*display: inline;
 	text-align: left;
@@ -402,39 +407,39 @@
 }
 
 .ui-dialog-loading {
+	vertical-align: middle;
 	position: relative;
-	display: inline-block;
+	display: block;
 	*zoom: 1;
 	*display: inline;
 	overflow: hidden;
     width: 32px;
     height: 32px;
-    left: 50%;
     top: 50%;
-    margin-left: -16px;
-    margin-top: -16px;
+    margin: -16px auto 0 auto;
     font-size: 0;
-    text-align: left;;
     text-indent: -999em;
     color: #666;
-   	position: inherit\9;
-   	margin: auto\9;
-    width: auto\9;
-    height: auto\9;
+}
+.ui-dialog-loading {
+    width: 100%\9;
     text-indent: 0\9;
+    line-height: 32px\9;
+    text-align: center\9;
     font-size: 12px\9;
 }
 
 .ui-dialog-loading::after {
+	position: absolute;
 	content: '';
     width: 3px;
     height: 3px;
 	margin: 14.5px 0 0 14.5px;
     border-radius: 100%;
     box-shadow: 0 -10px 0 1px #ccc, 10px 0px #ccc, 0 10px #ccc, -10px 0 #ccc, -7px -7px 0 0.5px #ccc, 7px -7px 0 1.5px #ccc, 7px 7px #ccc, -7px 7px #ccc;
-	position: absolute;
     -webkit-transform: rotate(360deg);
-    -webkit-animation: ui-dialog-loading 1s infinite linear;
+    -webkit-animation: ui-dialog-loading 1.5s infinite linear;
     transform: rotate(360deg);
-    animation: ui-dialog-loading 1s infinite linear;
+    animation: ui-dialog-loading 1.5s infinite linear;
+    display: none\9;
 }

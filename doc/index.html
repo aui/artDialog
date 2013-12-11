@@ -705,9 +705,21 @@ d.close().remove();
 
 <h4>示例</h4>
 
+<p>传入字符串：</p>
+
 <pre><code>var d = dialog();
 d.content('hello world');
 d.show();
+</code></pre>
+
+<p>传入元素节点：</p>
+
+<pre><code>//..
+var elem = document.getElementById('test');
+dialog({
+    content: elem,
+    id: 'EF893L'
+}).show();
 </code></pre>
 
 <h3><span id="api-title">title(text)</span></h3>
@@ -811,8 +823,9 @@ d.show();
 <p>传入元素节点：</p>
 
 <pre><code>//..
+var elem = document.getElementById('test');
 dialog({
-    content: document.getElementById('test'),
+    content: elem,
     id: 'EF893L'
 }).show();
 </code></pre>
@@ -975,11 +988,6 @@ d.show();
 <td>autofocus </td>
 <td> Boolean </td>
 <td> (默认值:<code>false</code>) 是否自动聚焦</td>
-</tr>
-<tr>
-<td>width </td>
-<td> String </td>
-<td> (可选) 设置按钮 CSS width 值</td>
 </tr>
 <tr>
 <td>disabled </td>
