@@ -428,7 +428,7 @@ $.extend(Popup.prototype, {
         style.left = Math.max(parseInt(left), dl) + 'px';
         style.top = Math.max(parseInt(top), dt) + 'px';
 
-        this.__clearFollow();
+        popup.removeClass(this.__followSkin);
     },
     
     
@@ -526,7 +526,8 @@ $.extend(Popup.prototype, {
 
         className += align.join('-');
 
-        that.__clearFollow();
+
+        popup.removeClass(this.__followSkin);
         that.__followSkin = className;
 
 
@@ -535,20 +536,10 @@ $.extend(Popup.prototype, {
         }
 
         
-        css[name[align[0]]] = temp[0][align[0]];
-        css[name[align[1]]] = temp[1][align[1]];
+        css[name[align[0]]] = parseInt(temp[0][align[0]]);
+        css[name[align[1]]] = parseInt(temp[1][align[1]]);
         popup.css(css);
 
-    },
-
-
-    // 清理定位缓存信息
-    __clearFollow: function () {
-        if (!this.follow) {
-            return;
-        }
-        this.__popup.removeClass(this.__followSkin);
-        delete this.follow;
     },
 
 
