@@ -559,6 +559,7 @@ window.openDialog = function (options) {
     var follow = options.follow;
     // 页面加载完毕的事件
     var oniframeload = options.oniframeload;
+    // 使用 RequireJS 或 SeaJS 异步加载对话框模块
     (window.require ? require : seajs.use)([
         '../dialog',
         '../dialog-iframe'
@@ -1112,7 +1113,7 @@ dialog({
 
 <p>(默认值: "bottom left") 设置对话框与其他元素的对齐方式。</p>
 
-<p>如果<code>show(elem)</code>与<code>showModal(elem)`传入元素，</code>align``参数方可生效，支持如下对齐方式：</p>
+<p>如果<code>show(elem)</code>与<code>showModal(elem)</code>传入元素，<code>align</code>参数方可生效，支持如下对齐方式：</p>
 
 <ul>
 <li><code>"top left"</code></li>
