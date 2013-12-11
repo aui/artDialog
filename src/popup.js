@@ -1,6 +1,6 @@
 /*!
 * popup.js
-* Date: 2013-12-06
+* Date: 2013-12-11
 * (c) 2009-2013 TangBin, http://www.planeArt.cn
 *
 * This is licensed under the GNU LGPL, version 2.1 or later.
@@ -114,7 +114,7 @@ $.extend(Popup.prototype, {
     /** 是否自动聚焦 */
     autofocus: true,
 
-    align: 'sw',
+    align: 'bottom left',
 
     /** 设置遮罩背景颜色 */
     backdropBackground: '#000',
@@ -125,9 +125,12 @@ $.extend(Popup.prototype, {
     /** 内部的 HTML 字符串 */
     innerHTML: '',
 
+    /** 类名 */
+    className: 'ui-popup',
+
     /**
      * 显示浮层
-     * @param   {HTMLElement Object, Event Object}  指定位置（可选）
+     * @param   {HTMLElement, Event}  指定位置（可选）
      */
     show: function (anchor) {
 
@@ -144,7 +147,7 @@ $.extend(Popup.prototype, {
         this.follow = anchor;
 
         popup
-        .addClass('ui-popup-show')
+        .addClass(this.className + '-show')
         .attr('role', this.modal ? 'alertdialog' : 'dialog')
         .css('position', this.fixed ? 'fixed' : 'absolute')
         .show();
@@ -201,7 +204,7 @@ $.extend(Popup.prototype, {
                 this.returnValue = result;
             }
             
-            this.__popup.hide().removeClass('ui-popup-show');
+            this.__popup.hide().removeClass(this.className + '-show');
             this.__backdrop.hide();
             this.open = false;
             this.blur();
@@ -289,7 +292,7 @@ $.extend(Popup.prototype, {
         }
 
         Popup.current = this;
-        this.__popup.addClass('ui-popup-focus');
+        this.__popup.addClass(this.className + '-focus');
         this.__zIndex();
         this.__dispatchEvent('focus');
 
@@ -308,7 +311,7 @@ $.extend(Popup.prototype, {
             this.__focus(activeElement);
         }
 
-        this.__popup.removeClass('ui-popup-focus');
+        this.__popup.removeClass(this.className + '-focus');
         this.__dispatchEvent('blur');
 
         return this;
@@ -438,7 +441,7 @@ $.extend(Popup.prototype, {
         // 隐藏元素不可用
         if ($elem) {
             var o = $elem.offset();
-            if (o.left * o.top <= 0) {
+            if (o.left * o.top < 0) {
                 return this.__center();
             }
         }
@@ -473,26 +476,26 @@ $.extend(Popup.prototype, {
         var maxTop = minTop + winHeight - popupHeight;
 
 
-        // n nw ne s sw se w wn ws e en es
         var css = {};
-        var align = this.align.split('');
-        var className = 'ui-popup-';
-        var reverse = {n: 's', s: 'n', w: 'e', e: 'w'};
-        var name = {n: 'top', s: 'top', w: 'left', e: 'left'};
+        var align = this.align.split(' ');
+        var className = this.className + '-';
+        var reverse = {top: 'bottom', bottom: 'top', left: 'right', right: 'left'};
+        var name = {top: 'top', bottom: 'top', left: 'left', right: 'left'};
         var temp = [{
-            n: top - popupHeight,
-            s: top + height,
-            w: left - popupWidth,
-            e: left + width
+            top: top - popupHeight,
+            bottom: top + height,
+            left: left - popupWidth,
+            right: left + width
         }, {
-            n: top,
-            s: top - popupHeight + height,
-            w: left,
-            e: left - popupWidth + width,
+            top: top,
+            bottom: top - popupHeight + height,
+            left: left,
+            right: left - popupWidth + width
+        }];
+        var center = {
             left: left + width / 2 - popupWidth / 2,
             top: top + height / 2 - popupHeight / 2
-        }];
-
+        };
         var range = {
             left: [minLeft, maxLeft],
             top: [minTop, maxTop]
@@ -518,10 +521,10 @@ $.extend(Popup.prototype, {
         // 一个参数的情况
         if (!align[1]) {
             name[align[1]] = name[align[0]] === 'left' ? 'top' : 'left';
-            temp[1][align[1]] = temp[1][name[align[1]]];
+            temp[1][align[1]] = center[name[align[1]]];
         }
 
-        className += align.join('');
+        className += align.join('-');
 
         that.__clearFollow();
         that.__followSkin = className;
@@ -603,7 +606,7 @@ $.extend(Popup.prototype, {
         };
 
 
-        popup.addClass('ui-popup-modal');
+        popup.addClass(this.className + '-modal');
         
 
         // 避免遮罩不能盖住上一次的对话框
@@ -639,7 +642,7 @@ $.extend(Popup.prototype, {
     __unlock: function () {
 
         if (this.modal) {
-            this.__popup.addClass('ui-popup-modal');
+            this.__popup.removeClass(this.className + '-modal');
             this.__backdrop.remove();
             delete this.modal;
         }

@@ -128,7 +128,7 @@ $.extend(Select.prototype, {
 
 		if (select[0].disabled) {
 			return false;
-		};
+		}
 
 
 		var popup = this._popup = new Popup;
@@ -235,14 +235,14 @@ $.extend(Select.prototype, {
 	focus: function () {
 		if (!this.select[0].disabled) {
 			this._selectbox.addClass(this.focusClass);
-		};
+		}
 	},
 
 
 	blur: function () {
 		if (!this.select[0].disabled) {
 			this._selectbox.removeClass(this.focusClass);
-		};
+		}
 	},
 
 

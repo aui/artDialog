@@ -95,7 +95,7 @@ $(function () {
 	});
 
 	// 代码高亮
-	setTimeout(sh_languages, 150);
+	setTimeout(sh_languages, 500);
 
 	// 回到顶部
 	var $top = $('<a class="doc-gotop" href="javascript:;">TOP</a>')

@@ -115,7 +115,7 @@ DragEvent.prototype = {
             this.target.off('losecapture', this.end);
         } else {
             $window.off('blur', this.end);
-        };
+        }
 
         isSetCapture && this.target[0].releaseCapture();
 

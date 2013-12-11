@@ -37,7 +37,7 @@
 	</style>
 </head>
 <body>
-<pre style="display:none">
+<pre>
 /**
  * select 修饰器
  * 用途：解决 select 无法自定义样式或者选项不支持图片的问题。
@@ -63,9 +63,7 @@
  *		原生 select 控件的 DOM 操作无法同步到模拟控件
  *		multiple 属性
  *		其他未列举的特性…
- */
-</pre>
-<select id="test-setting" style="width: 4.5em" onchange="document.getElementById('test-setting-value').innerHTML=this.value">
+ * 支持自定义样式与结构：<select id="test-setting" style="width: 4.5em" onchange="document.getElementById('test-setting-value').innerHTML=this.value">
 			<optgroup label="常用">
 				<option value="e100" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e100.gif">微笑</option>
 				<option value="e101" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e101.gif">瘪嘴</option>
@@ -80,13 +78,11 @@
 				<option disabled value="e165" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e165.gif">亲吻(黄钻用户专享)</option>
 			</optgroup>
 		</select> <label for="test-setting"><button id="start-setting">转换为包含图片的下拉框</button></label> <span id="test-setting-value"></span>
-
+ */
+</pre>
 <div id="header">
-	<hr>
-	<button id="start">转换下面所有普通下拉框</button>
-
+	<button id="start">开始</button>
 </div>
-
 
 <table id="test" style="width:100%; height:100%">
 	<tr>
@@ -175,7 +171,6 @@
 				<option value="4">选项四</option>
 				<option value="5">选项五</option>
 			</select>
-
 		</td>
 		<td style="text-align: center; vertical-align: bottom;">
 			<select>

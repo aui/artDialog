@@ -15,6 +15,7 @@ seajs.config({
 });
 </script>
 <script>
+window.console = window.console || {log:function () {}}
 window.openDialog = function (options) {
 	// 页面地址
 	var url = options.url;
