@@ -37,49 +37,7 @@
 	</style>
 </head>
 <body>
-<pre>
-/**
- * select 修饰器
- * 用途：解决 select 无法自定义样式或者选项不支持图片的问题。
- * 请注意：相对原生的 select，模拟的下拉菜单会降低可用性以及丧失大量可编程接口，并且带来的价值不高。
- * 遇到需要自定义 select 的需求，请尽量搞定视觉设计师、拉拢交互设计师、并且与PM达成共识。
- * 最后如果大家仍然坚持装饰 select，请相信这是你见过的世界上最没啥用、但最有追求的控件，没有之一。作者并不希望你
- * 将精力耗费在无意义的劳动上面，你可以随时用它制作自定义 select；亦可随时取消它而不用改变业务逻辑。
- * select 的逻辑。
- * 已经模拟的部分：
- * 		用户操作产生的数据可同步到原生 select 控件，不会破坏表单特性
- *		操作可触发原生 select 的 onchange 事件
- *		iPhone 、iPad 点击能显示滚轮
- *		盲人的读屏器操作支持
- *		快捷键支持
- *		自适应位置
- *		label 标签 for 行为支持
- *		自动 zIndex 值
- *		disabled 属性
- *		optgroup 选项分组
- *		点击页面任意空白区域自动关闭（包括 iframe）
 
- * 不支持的部分：
- *		原生 select 控件的 DOM 操作无法同步到模拟控件
- *		multiple 属性
- *		其他未列举的特性…
- * 支持自定义样式与结构：<select id="test-setting" style="width: 4.5em" onchange="document.getElementById('test-setting-value').innerHTML=this.value">
-			<optgroup label="常用">
-				<option value="e100" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e100.gif">微笑</option>
-				<option value="e101" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e101.gif">瘪嘴</option>
-				<option value="e102" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e102.gif">发情</option>
-				<option value="e103" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e103.gif">惊讶</option>
-				<option value="e104" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e104.gif">得意</option>
-				<option value="e105" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e105.gif">哭泣</option>
-			</optgroup>
-			<optgroup label="爱情">
-				<option value="e163" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e163.gif">玫瑰</option>
-				<option value="e164" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e164.gif">凋谢</option>
-				<option disabled value="e165" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e165.gif">亲吻(黄钻用户专享)</option>
-			</optgroup>
-		</select> <label for="test-setting"><button id="start-setting">转换为包含图片的下拉框</button></label> <span id="test-setting-value"></span>
- */
-</pre>
 <div id="header">
 	<button id="start">开始</button>
 </div>
@@ -98,16 +56,15 @@
 			</select>
 		</td>
 		<td style="text-align: center; vertical-align: top;">
-			<label>label2
-				<select>
-					<option value="0">---请选择---</option>
-					<option value="1">选项二</option>
-					<option selected value="2">选项二</option>
-					<option value="3">选项三</option>
-					<option value="4">选项四</option>
-					<option value="5">选项五</option>
-				</select>
-			</label>
+			<label for="test-select-selected">不设置 selected 属性</label>
+			<select id="test-select-selected">
+				<option value="0">---请选择---</option>
+				<option value="1">选项二</option>
+				<option value="2">选项二</option>
+				<option value="3">选项三</option>
+				<option value="4">选项四</option>
+				<option value="5">选项五</option>
+			</select>
 		</td>
 		<td style="text-align: right; vertical-align: top;">
 			<label for="test-select-disabled">不可用下拉：</label>
@@ -163,33 +120,85 @@
 	</tr>
 	<tr>
 		<td style="text-align: left; vertical-align: bottom;">
-			<select>
+			<label for="test-cut">超长选项截断</label>
+			<select id="test-cut" style="width:4em">
 				<option value="0">---请选择---</option>
 				<option value="1">选项二</option>
-				<option selected value="2">选项二</option>
+				<option selected value="2">我是一个超长的选项</option>
 				<option value="3">选项三</option>
 				<option value="4">选项四</option>
 				<option value="5">选项五</option>
 			</select>
 		</td>
 		<td style="text-align: center; vertical-align: bottom;">
-			<select>
+			<label for="test-numerous">自动滚动条</label>
+			<select id="test-numerous">
 				<option value="0">---请选择---</option>
-				<option value="1">选项二</option>
-				<option selected value="2">选项二</option>
-				<option value="3">选项三</option>
-				<option value="4">选项四</option>
-				<option value="5">选项五</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+				<option value="13">13</option>
+				<option value="14">14</option>
+				<option value="15">15</option>
+				<option value="16">16</option>
+				<option value="17">17</option>
+				<option value="18">18</option>
+				<option value="19">19</option>
+				<option value="20">20</option>
+				<option value="21">21</option>
+				<option value="22">22</option>
+				<option value="23">23</option>
+				<option value="24">24</option>
+				<option value="25">25</option>
+				<option value="26">26</option>
+				<option value="27">27</option>
+				<option value="28">28</option>
+				<option value="29">29</option>
+				<option selected value="30">30</option>
+				<option value="31">31</option>
+				<option value="32">32</option>
+				<option value="33">33</option>
+				<option value="34">34</option>
+				<option value="35">35</option>
+				<option value="36">36</option>
+				<option value="37">37</option>
+				<option value="38">38</option>
+				<option value="39">39</option>
+				<option value="40">40</option>
+				<option value="41">41</option>
+				<option value="42">42</option>
+				<option value="43">43</option>
+				<option value="44">44</option>
+				<option value="45">45</option>
+				<option value="46">46</option>
+				<option value="47">47</option>
+				<option value="48">48</option>
+				<option value="49">49</option>
+				<option value="50">50</option>
+				<option value="51">51</option>
+				<option value="52">52</option>
+				<option value="53">53</option>
+				<option value="54">54</option>
+				<option value="55">55</option>
+				<option value="56">56</option>
+				<option value="57">57</option>
+				<option value="58">58</option>
+				<option value="59">59</option>
+				<option value="60">60</option>
 			</select>
 		</td>
 		<td style="text-align: right; vertical-align: bottom;">
-			<select>
-				<option value="0">---请选择---</option>
-				<option value="1">选项二</option>
-				<option selected value="2">选项二</option>
-				<option value="3">选项三</option>
-				<option value="4">选项四</option>
-				<option value="5">选项五</option>
+			<label for="test-none">无选项</label>
+			<select id="test-none">
 			</select>
 		</td>
 	</tr>

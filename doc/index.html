@@ -516,8 +516,6 @@ d.show();
 <pre><code>var d = dialog({
     title: '欢迎',
     content: '欢迎使用 artDialog 对话框组件！',
-    skin: 'ui-dialog-s',
-    padding: '25px 15px',
     ok: function () {
         var that = this;
         this.title('正在提交..');
@@ -995,11 +993,6 @@ d.show();
 <td> Boolean </td>
 <td> (默认值: <code>false</code>) 是否禁用</td>
 </tr>
-<tr>
-<td>id </td>
-<td> String, Number </td>
-<td> (可选) 按钮唯一标识</td>
-</tr>
 </tbody>
 </table>
 
@@ -1095,7 +1088,7 @@ dialog({
 
 <h3><span id="option-padding">padding</span></h3>
 
-<p>(默认值: <strong>继承 css 文件设置</strong>) 设置消息内容与消息容器的填充边距，即 style <code>padding</code>属性</p>
+<p>(默认值: <em>继承 css 文件设置</em>) 设置消息内容与消息容器的填充边距，即 style <code>padding</code>属性</p>
 
 <h4>类型</h4>
 
@@ -1111,7 +1104,7 @@ dialog({
 
 <h3><span id="option-align">align</span></h3>
 
-<p>(默认值: "bottom left") 设置对话框与其他元素的对齐方式。</p>
+<p>(默认值: <code>"bottom left"</code>) 设置对话框与其他元素的对齐方式。</p>
 
 <p>如果<code>show(elem)</code>与<code>showModal(elem)</code>传入元素，<code>align</code>参数方可生效，支持如下对齐方式：</p>
 

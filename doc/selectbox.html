@@ -1,0 +1,711 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<style>
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px;
+}
+body > *:first-child {
+  margin-top: 0 !important;
+}
+body > *:last-child {
+  margin-bottom: 0 !important;
+}
+a {
+  color: #4183C4;
+}
+a.absent {
+  color: #cc0000;
+}
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative;
+}
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none;
+}
+h1 tt, h1 code {
+  font-size: inherit;
+}
+h2 tt, h2 code {
+  font-size: inherit;
+}
+h3 tt, h3 code {
+  font-size: inherit;
+}
+h4 tt, h4 code {
+  font-size: inherit;
+}
+h5 tt, h5 code {
+  font-size: inherit;
+}
+h6 tt, h6 code {
+  font-size: inherit;
+}
+h1 {
+  font-size: 28px;
+  color: black;
+}
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black;
+}
+h3 {
+  font-size: 18px;
+}
+h4 {
+  font-size: 16px;
+}
+h5 {
+  font-size: 14px;
+}
+h6 {
+  color: #777777;
+  font-size: 14px;
+}
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0;
+}
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+body > h1:first-child + h2 {
+  margin-top: 0;
+  padding-top: 0;
+}
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0;
+}
+li p.first {
+  display: inline-block;
+}
+li {
+  margin: 0;
+}
+ul, ol {
+  padding-left: 30px;
+}
+ul :first-child, ol :first-child {
+  margin-top: 0;
+}
+dl {
+  padding: 0;
+}
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777;
+}
+blockquote > :first-child {
+  margin-top: 0;
+}
+blockquote > :last-child {
+  margin-bottom: 0;
+}
+table {
+  padding: 0;
+  border-collapse: collapse;
+}
+tr {
+  border-top: 1px solid #cccccc;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+th {
+  font-weight: bold;
+  border: 1px solid #cccccc;
+  text-align: left;
+  margin: 0;
+  padding: 6px 13px;
+}
+td {
+  border: 1px solid #cccccc;
+  text-align: left;
+  margin: 0;
+  padding: 6px 13px;
+}
+th :first-child, td :first-child {
+  margin-top: 0;
+}
+th :last-child, td :last-child {
+  margin-bottom: 0;
+}
+img {
+  max-width: 100%;
+}
+span.frame {
+  display: block;
+  overflow: hidden;
+}
+span.frame > span {
+  border: 1px solid #dddddd;
+  display: block;
+  float: left;
+  overflow: hidden;
+  margin: 13px 0 0;
+  padding: 7px;
+  width: auto;
+}
+span.frame span img {
+  display: block;
+  float: left;
+}
+span.frame span span {
+  clear: both;
+  color: #333333;
+  display: block;
+  padding: 5px 0 0;
+}
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+span.align-center > span {
+  display: block;
+  overflow: hidden;
+  margin: 13px auto 0;
+  text-align: center;
+}
+span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+span.align-right > span {
+  display: block;
+  overflow: hidden;
+  margin: 13px 0 0;
+  text-align: right;
+}
+span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left;
+}
+span.float-left span {
+  margin: 13px 0 0;
+}
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right;
+}
+span.float-right > span {
+  display: block;
+  overflow: hidden;
+  margin: 13px auto 0;
+  text-align: right;
+}
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+@media screen and (min-width: 914px) {
+  body {
+    width: 760px;
+    margin: 0 auto;
+  }
+}
+@media print {
+  table, pre {
+    page-break-inside: avoid;
+  }
+}
+
+</style>
+<title>selectbox</title>
+
+</head>
+<body>
+<h1>selectbox</h1>
+
+<h6>select 修饰器 - 让 select 原生控件可自定义样式与结构</h6>
+
+<hr />
+
+<p><strong>请注意</strong>：原生 select 是一个很基础的 UI 控件，包含大量的交互逻辑。如果想要“美化”它必须重新使用 HTML 与 CSS 实现一套，复杂度极高，作为前端工程师的我们应该了解其利弊，尽可能的对项目进行审视，是否为了一点视觉细节而加剧项目复杂度？如果你认为值得尝试，请相信这是你见过的世界上最负责的模拟下拉控件，没有之一。</p>
+
+<h2>特性</h2>
+
+<h3>已经模拟的特性</h3>
+
+<ul>
+<li>用户操作产生的数据可同步到原生 select 控件，不会破坏表单特性</li>
+<li>操作可触发原生 select 的 onchange 事件</li>
+<li>iPhone 、iPad 点击能显示滚轮</li>
+<li>盲人的读屏器操作支持</li>
+<li>基本快捷键支持</li>
+<li>自适应位置</li>
+<li>label 标签 for 行为支持</li>
+<li>自动 zIndex 值</li>
+<li>disabled 属性</li>
+<li>optgroup 选项分组</li>
+<li>点击页面任意空白区域自动关闭（包括 iframe）</li>
+<li>超多选项自动使用滚动条并自动滚动到选中项</li>
+</ul>
+
+
+<h3>不支持的特性</h3>
+
+<ul>
+<li>原生 select 控件的 DOM 操作无法自动同步到模拟控件</li>
+<li>multiple 属性</li>
+<li>其他未列举的特性…</li>
+</ul>
+
+
+<h3>兼容性</h3>
+
+<ul>
+<li>IE6~IE11</li>
+<li>Chrome</li>
+<li>Firefox</li>
+<li>Safari</li>
+<li>Opera</li>
+</ul>
+
+
+<h2>调用</h2>
+
+<p>在模块中引入 selectbox（使用 RequireJS 或 SeaJS 加载）：</p>
+
+<pre><code>var selectbox = require('./popup/src/selectbox');
+</code></pre>
+
+<h3>接口</h3>
+
+<pre><code>selectbox(HTMLElement, Options)
+</code></pre>
+
+<p>其中 HTMLElement 是要修饰的原生 select 节点，Options 是可选项，用来进行自定义模板结构。</p>
+
+<p>若原生的 select 控件被更新，重新执行 selectbox 即可保持同步。</p>
+
+<h3>修饰原生下拉控件</h3>
+
+<pre><code>&lt;select id="demo-basic"&gt;
+    &lt;option selected value="0"&gt;---请选择---&lt;/option&gt;
+    &lt;option value="1"&gt;选项二&lt;/option&gt;
+    &lt;option value="2"&gt;选项二&lt;/option&gt;
+    &lt;option value="3"&gt;选项三&lt;/option&gt;
+    &lt;option value="4"&gt;选项四&lt;/option&gt;
+    &lt;option value="5"&gt;选项五&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+
+<pre><code>selectbox(document.getElementById('demo-basic'));
+</code></pre>
+
+<p><select id="demo-basic">
+    <option selected value="0">---请选择---</option>
+    <option value="1">选项二</option>
+    <option value="2">选项二</option>
+    <option value="3">选项三</option>
+    <option value="4">选项四</option>
+    <option value="5">选项五</option>
+</select> <button id="start-demo-basic">执行</button></p>
+
+<h3>高级：自定义模板</h3>
+
+<p>例如我们生成一个包含图片的下拉列表：</p>
+
+<pre><code>&lt;select id="demo-select-img"&gt;
+    &lt;optgroup label="常用"&gt;
+        &lt;option value="e100" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e100.gif"&gt;微笑&lt;/option&gt;
+        &lt;option value="e101" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e101.gif"&gt;瘪嘴&lt;/option&gt;
+        &lt;option value="e102" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e102.gif"&gt;发情&lt;/option&gt;
+        &lt;option value="e103" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e103.gif"&gt;惊讶&lt;/option&gt;
+        &lt;option value="e104" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e104.gif"&gt;得意&lt;/option&gt;
+        &lt;option value="e105" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e105.gif"&gt;哭泣&lt;/option&gt;
+    &lt;/optgroup&gt;
+    &lt;optgroup label="爱情"&gt;
+        &lt;option value="e163" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e163.gif"&gt;玫瑰&lt;/option&gt;
+        &lt;option value="e164" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e164.gif"&gt;凋谢&lt;/option&gt;
+        &lt;option disabled value="e165" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e165.gif"&gt;亲吻(黄钻用户专享)&lt;/option&gt;
+    &lt;/optgroup&gt;
+&lt;/select&gt;
+</code></pre>
+
+<p>上面是原生 select 控件的 HTML 代码，注意到我们将图片属性写在了<code>&lt;option&gt;</code>标签的自定义属性<code>data-icon</code>上，接下来我们根据它转换带图的下拉选项：</p>
+
+<pre><code>selectbox(document.getElementById('demo-select-img'), {
+    optionHtml: '&lt;dd class="ui-selectbox-option {{className}}" data-option="{{index}}" tabindex="-1"&gt;&lt;img src="{{icon}}" alt="icon" style="width:16px;height:16px;vertical-align:middle" /&gt; {{textContent}}&lt;/dd&gt;'
+});
+</code></pre>
+
+<p><select id="demo-diy">
+    <optgroup label="常用">
+        <option value="e100" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e100.gif">微笑</option>
+        <option value="e101" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e101.gif">瘪嘴</option>
+        <option value="e102" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e102.gif">发情</option>
+        <option value="e103" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e103.gif">惊讶</option>
+        <option value="e104" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e104.gif">得意</option>
+        <option value="e105" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e105.gif">哭泣</option>
+    </optgroup>
+    <optgroup label="爱情">
+        <option value="e163" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e163.gif">玫瑰</option>
+        <option value="e164" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e164.gif">凋谢</option>
+        <option disabled value="e165" data-icon="http://ctc.qzonestyle.gtimg.cn/qzone/em/e165.gif">亲吻(黄钻用户专享)</option>
+    </optgroup>
+</select> <button id="start-demo-diy">执行</button></p>
+
+<p>默认的模板结构：</p>
+
+<pre><code>{
+    selectboxHtml:
+      '&lt;div class="ui-selectbox" hidefocus="true" style="user-select:none" onselectstart="return false" tabindex="-1" aria-hidden&gt;'
+    +     '&lt;div class="ui-selectbox-inner" data-value=""&gt;{{textContent}}&lt;/div&gt;'
+    +     '&lt;i class="ui-selectbox-icon"&gt;&lt;/i&gt;'
+    + '&lt;/div&gt;',
+    dropdownHtml:  '&lt;dl class="ui-selectbox-dropdown" role="menu"&gt;{{options}}&lt;/dl&gt;',
+    optgroupHtml:  '&lt;dt class="ui-selectbox-optgroup"&gt;{{label}}&lt;/dt&gt;',
+    optionHtml:    '&lt;dd class="ui-selectbox-option {{className}}" data-option="{{index}}" tabindex="-1"&gt;{{textContent}}&lt;/dd&gt;',
+    selectedClass: 'ui-selectbox-selected',
+    disabledClass: 'ui-selectbox-disabled',
+    focusClass:    'ui-selectbox-focus',
+    openClass:     'ui-selectbox-open'
+}
+</code></pre>
+
+<p>你可能注意到模板结构中有<code>{{</code>与<code>}}</code>包裹起来的模板变量，这些是可以通过<code>&lt;select&gt;</code>、<code>&lt;option&gt;</code>标签的<code>data-*="*"</code>属性传过来的。</p>
+
+<h2>所有特性演示</h2>
+
+<table id="test" style="width:100%; height:100%">
+    <tr>
+        <td style="text-align: left; vertical-align: top;">
+            <label for="test-select">支持label标签：</label>
+            <select id="test-select">
+                <option value="0">---请选择---</option>
+                <option value="1">选项二</option>
+                <option selected value="2">选项二</option>
+                <option value="3">&#60;s&#62;选项三&#60;/s&#62;</option>
+                <option value="4"><s>选项四</s></option>
+                <option value="5">选项五</option>
+            </select>
+        </td>
+        <td style="text-align: center; vertical-align: top;">
+            <label for="test-select-selected">不设置 selected 属性</label>
+            <select id="test-select-selected">
+                <option value="0">---请选择---</option>
+                <option value="1">选项二</option>
+                <option value="2">选项二</option>
+                <option value="3">选项三</option>
+                <option value="4">选项四</option>
+                <option value="5">选项五</option>
+            </select>
+        </td>
+        <td style="text-align: right; vertical-align: top;">
+            <label for="test-select-disabled">不可用下拉：</label>
+            <select disabled id="test-select-disabled">
+                <option selected value="0">disabled</option>
+                <option value="1">选项二</option>
+                <option value="2">选项二</option>
+                <option value="3">选项三</option>
+                <option value="4">选项四</option>
+                <option value="5">选项五</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: left; vertical-align: middle;">
+            <label for="test-option-disabled">不可用选项：</label>
+            <select id="test-option-disabled">
+                <option value="0">---请选择---</option>
+                <option value="1">选项二</option>
+                <option selected value="2">selected</option>
+                <option value="3">选项三</option>
+                <option disabled value="4">disabled</option>
+                <option value="5">选项五</option>
+            </select>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            <label for="test-optgroup">选项分组：</label>
+            <select id="test-optgroup">
+                <optgroup label="我是A组">
+                    <option value="0">选项零</option>
+                    <option value="1">选项二</option>
+                    <option value="2">选项二</option>
+                    <option value="3">选项三</option>
+                    <option value="4">选项四</option>
+                    <option value="5">选项五</option>
+                </optgroup>
+                <optgroup label="我是B组">
+                    <option value ="mercedes">Mercedes</option>
+                    <option value ="audi">Audi</option>
+                </optgroup>
+            </select>
+        </td>
+        <td style="text-align: right; vertical-align: middle;">
+            <label for="test-onchange">onchange 事件支持：</label>
+            <select id="test-onchange" onchange="location.href=this.value">
+                <option value="javascript:;">友情链接</option>
+                <option value="https://github.com">Github</option>
+                <option value="http://google.com">Google</option>
+                <option value="http://qq.com">腾讯</option>
+                <option value="http://baidu.com">百度</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: left; vertical-align: bottom;">
+            <label for="test-cut">超长选项截断</label>
+            <select id="test-cut" style="width:4em">
+                <option value="0">---请选择---</option>
+                <option value="1">选项二</option>
+                <option selected value="2">我是一个超长的选项</option>
+                <option value="3">选项三</option>
+                <option value="4">选项四</option>
+                <option value="5">选项五</option>
+            </select>
+        </td>
+        <td style="text-align: center; vertical-align: bottom;">
+            <label for="test-numerous">自动滚动条</label>
+            <select id="test-numerous">
+                <option value="0">---请选择---</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option selected value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+                <option value="36">36</option>
+                <option value="37">37</option>
+                <option value="38">38</option>
+                <option value="39">39</option>
+                <option value="40">40</option>
+                <option value="41">41</option>
+                <option value="42">42</option>
+                <option value="43">43</option>
+                <option value="44">44</option>
+                <option value="45">45</option>
+                <option value="46">46</option>
+                <option value="47">47</option>
+                <option value="48">48</option>
+                <option value="49">49</option>
+                <option value="50">50</option>
+                <option value="51">51</option>
+                <option value="52">52</option>
+                <option value="53">53</option>
+                <option value="54">54</option>
+                <option value="55">55</option>
+                <option value="56">56</option>
+                <option value="57">57</option>
+                <option value="58">58</option>
+                <option value="59">59</option>
+                <option value="60">60</option>
+            </select>
+        </td>
+        <td style="text-align: right; vertical-align: bottom;">
+            <label for="test-none">无选项</label>
+            <select id="test-none">
+            </select>
+        </td>
+    </tr>
+</table>
+
+
+<p><a href="../test/selectbox.html">新页面打开</a></p>
+
+<!--[SeaJS code]-->
+
+
+<script src="../lib/sea.js"></script>
+
+
+<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+seajs.use(['jquery', '../src/selectbox'], function ($, selectbox) {
+    $('#start-demo-basic').one('click', function () {
+        selectbox(document.getElementById('demo-basic'));
+        this.disabled = true;
+    });
+    $('#start-demo-diy').one('click', function () {
+        selectbox(document.getElementById('demo-diy'), {
+            optionHtml: '<dd class="ui-selectbox-option {{className}}" data-option="{{index}}" tabindex="-1"><img src="{{icon}}" alt="icon" style="width:16px;height:16px;vertical-align:middle" /> {{textContent}}</dd>'
+        });
+        this.disabled = true;
+    });
+    
+    $('html, body').css('height', '100%');
+    
+    $('#test select').each(function () {
+        selectbox(this);
+    });
+});
+</script>
+
+
+<!--[/SeaJS code]-->
+
+
+
+
+<!--[RequireJS code]
+<script src="../lib/require.js"></script>
+<script>
+require.config({
+    paths: {
+        jquery: '../lib/jquery-1.10.2'
+    }
+});
+require(['jquery', '../src/selectbox'], function ($, selectbox) {
+    
+    $('#start-demo-basic').one('click', function () {
+        selectbox(document.getElementById('demo-basic'));
+        this.disabled = true;
+    });
+    $('#start-demo-diy').one('click', function () {
+        selectbox(document.getElementById('demo-diy'), {
+            optionHtml: '<dd class="ui-selectbox-option {{className}}" data-option="{{index}}" tabindex="-1"><img src="{{icon}}" alt="icon" style="width:16px;height:16px;vertical-align:middle" /> {{textContent}}</dd>'
+        });
+        this.disabled = true;
+    });
+    
+    $('html, body').css('height', '100%');
+    
+    $('#test select').each(function () {
+        selectbox(this);
+    });
+});
+</script>
+[/RequireJS code]-->
+
+</body>
+</html>
