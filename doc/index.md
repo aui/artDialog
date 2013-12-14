@@ -78,7 +78,7 @@ artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
 	
 ##	[引入 artDialog](id:module)
 
-在模块中引入 artDialog（支持 RequireJS 与 SeaJS 加载）：
+在模块中引入 artDialog（使用 RequireJS 或 SeaJS 加载）：
 
 ```
 var dialog = require('./artDialog/src/dialog');
@@ -178,8 +178,6 @@ d.show();
 var d = dialog({
 	title: '欢迎',
 	content: '欢迎使用 artDialog 对话框组件！',
-	skin: 'ui-dialog-s',
-	padding: '25px 15px',
 	ok: function () {
 		var that = this;
 		this.title('正在提交..');
@@ -654,7 +652,6 @@ value | String | 按钮显示文本
 callback | Function | (可选) 回调函数``this``指向``dialog``对象，执行完毕默认关闭与销毁对话框（依次执行``close()``与``remove()``），若返回``false``则阻止关闭与销毁
 autofocus | Boolean | (默认值:``false``) 是否自动聚焦
 disabled | Boolean | (默认值: ``false``) 是否禁用
-id | String, Number | (可选) 按钮唯一标识
 
 ####	示例
 
@@ -753,7 +750,7 @@ dialog({
 
 ###	[padding](id:option-padding)
 
-(默认值: **继承 css 文件设置**) 设置消息内容与消息容器的填充边距，即 style ``padding``属性
+(默认值: *继承 css 文件设置*) 设置消息内容与消息容器的填充边距，即 style ``padding``属性
 
 ####	类型
 
@@ -770,7 +767,7 @@ dialog({
 
 ###	[align](id:option-align)
 
-(默认值: "bottom left") 设置对话框与其他元素的对齐方式。
+(默认值: ``"bottom left"``) 设置对话框与其他元素的对齐方式。
 
 如果``show(elem)``与``showModal(elem)``传入元素，``align``参数方可生效，支持如下对齐方式：
 

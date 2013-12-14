@@ -20,6 +20,14 @@
 	border-bottom: 1px solid #E5E5E5;
 }
 
+
+.d-outer table,
+.d-outer table tr,
+.d-outer tr td,
+.d-outer tr:nth-child(2n) {
+	border: 0 none;
+}
+
 code.sh_sourceCode { color: #000000; font-weight: normal; font-style: normal; }
 code.sh_sourceCode .sh_keyword { color: #009; font-weight: bold; font-style: normal; }
 code.sh_sourceCode .sh_type { color: #0000ff; font-weight: normal; font-style: normal; }

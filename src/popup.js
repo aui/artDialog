@@ -1,11 +1,11 @@
 /*!
-* popup.js
-* Date: 2013-12-11
-* (c) 2009-2013 TangBin, http://www.planeArt.cn
-*
-* This is licensed under the GNU LGPL, version 2.1 or later.
-* For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
-*/
+ * popup.js
+ * Date: 2013-12-13
+ * (c) 2009-2013 TangBin, http://www.planeArt.cn
+ *
+ * This is licensed under the GNU LGPL, version 2.1 or later.
+ * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
+ */
 define(function (require) {
 
 var $ = require('jquery');
@@ -114,6 +114,7 @@ $.extend(Popup.prototype, {
     /** 是否自动聚焦 */
     autofocus: true,
 
+    /** 对齐方式 */
     align: 'bottom left',
 
     /** 设置遮罩背景颜色 */
@@ -160,10 +161,6 @@ $.extend(Popup.prototype, {
             if (this.modal) {
                 this.__lock();
             }
-            
-            popup.on('mousedown touchstart', function () {
-                that.focus();
-            });
 
 
             if (!popup.html()) {
@@ -208,7 +205,6 @@ $.extend(Popup.prototype, {
             this.__backdrop.hide();
             this.open = false;
             this.blur();
-
             this.__dispatchEvent('close');
         }
     
@@ -311,6 +307,7 @@ $.extend(Popup.prototype, {
             this.__focus(activeElement);
         }
 
+        this._autofocus = false;
         this.__popup.removeClass(this.className + '-focus');
         this.__dispatchEvent('blur');
 
@@ -481,6 +478,8 @@ $.extend(Popup.prototype, {
         var className = this.className + '-';
         var reverse = {top: 'bottom', bottom: 'top', left: 'right', right: 'left'};
         var name = {top: 'top', bottom: 'top', left: 'left', right: 'left'};
+
+
         var temp = [{
             top: top - popupHeight,
             bottom: top + height,
@@ -492,10 +491,14 @@ $.extend(Popup.prototype, {
             left: left,
             right: left - popupWidth + width
         }];
+
+
         var center = {
             left: left + width / 2 - popupWidth / 2,
             top: top + height / 2 - popupHeight / 2
         };
+
+        
         var range = {
             left: [minLeft, maxLeft],
             top: [minTop, maxTop]
