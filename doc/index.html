@@ -322,7 +322,7 @@ pre code, pre tt {
 <body>
 <h1>artDialog<code>v6</code></h1>
 
-<p><a href="http://aui.github.io/artDialog/">首页</a> &gt; <a href="http://aui.github.io/artDialog/">文档与示例</a></p>
+<p><a href="http://aui.github.io/artDialog/">首页</a> &gt; <a href="http://aui.github.io/artDialog/doc/index.html">文档与示例</a></p>
 
 <hr />
 
@@ -659,7 +659,7 @@ dialog.height(400);
 dialog.close().remove();
 </code></pre>
 
-<h2>方法</h2>
+<h2><span id="api">方法</span></h2>
 
 <p>若无特别说明，方法均支持链式调用。</p>
 
@@ -684,6 +684,7 @@ d.show(document.getElementById('api-show'));
 
 <pre><code>var d = dialog({
     id: 'api-show-dialog',
+    quickClose: true,
     content: '右键菜单'
 });
 $(document).on('contextmenu', function (event) {
@@ -832,7 +833,7 @@ d.show();
 
 <p><strong>注意</strong>：这是一个静态方法。</p>
 
-<h2>配置参数</h2>
+<h2><span id="option">配置参数</span></h2>
 
 <h3><span id="option-content">content</span></h3>
 

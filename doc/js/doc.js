@@ -128,7 +128,9 @@ $(document).on('click', 'button[data-code]', function () {
 	var id = $(this).data('code');
 	runCode(id);
 	return false;
+}).on('click', 'h1 [id], h2 [id], h3 [id], h4 [id], h5 [id], h6 [id]', function () {
+	var id = this.id;
+	location.hash = id;
 });
-
 
 });
