@@ -1,4 +1,7 @@
 #	artDialog``v6``
+
+[首页](http://aui.github.io/artDialog/) &gt; [文档与示例](http://aui.github.io/artDialog/)
+
 ============================
 
 artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
@@ -75,6 +78,9 @@ artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
 *	[属性](#property)
 	*	[open](#property-open)
 	*	[returnValue](#property-returnValue)
+*	[其他](#other)
+	*	[自定义皮肤](#other-css)
+	*	[artDialog v5 升级 v6 参考](#other-upgrade)
 	
 ##	[引入 artDialog](id:module)
 
@@ -1025,9 +1031,21 @@ d.addEventListener('close', function () {
 });
 d.show();
 ```
+##	[其他](id:other)
+
+###	[自定义皮肤](id:other-css)
+
+打开配置文件： src/dialog-config.js，其中``cssUir``字段是 css 文件的路径，``innerHTML``字段则是 artDialog 的模板。修改这两个字段即可很方便的设计属于自己的皮肤。
+
+一套皮肤可以添加不同的``className``实现多种状态，可参考 [skin](#option-skin) 选项。
+
+###	[artDialog v5 升级 v6 参考](id:other-upgrade)
+
+<https://github.com/aui/artDialog/wiki/artDialog-v5升级v6参考>
 
 =======================
-[artDialog v5 升级 v6 参考](https://github.com/aui/artDialog/wiki/artDialog-v5升级v6参考)
+
+文档更新时间：2013-12-15
 
 <!--[SeaJS code]-->
 <script src="../lib/sea.js"></script>

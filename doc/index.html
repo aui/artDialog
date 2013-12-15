@@ -322,6 +322,8 @@ pre code, pre tt {
 <body>
 <h1>artDialog<code>v6</code></h1>
 
+<p><a href="http://aui.github.io/artDialog/">首页</a> &gt; <a href="http://aui.github.io/artDialog/">文档与示例</a></p>
+
 <hr />
 
 <p>artDialog —— 经典的网页对话框组件，内外皆用心雕琢。</p>
@@ -440,6 +442,13 @@ pre code, pre tt {
 <ul>
 <li><a href="#property-open">open</a></li>
 <li><a href="#property-returnValue">returnValue</a></li>
+</ul>
+</li>
+<li><a href="#other">其他</a>
+
+<ul>
+<li><a href="#other-css">自定义皮肤</a></li>
+<li><a href="#other-upgrade">artDialog v5 升级 v6 参考</a></li>
 </ul>
 </li>
 </ul>
@@ -1383,9 +1392,21 @@ d.addEventListener('close', function () {
 d.show();
 </code></pre>
 
+<h2><span id="other">其他</span></h2>
+
+<h3><span id="other-css">自定义皮肤</span></h3>
+
+<p>打开配置文件： src/dialog-config.js，其中<code>cssUir</code>字段是 css 文件的路径，<code>innerHTML</code>字段则是 artDialog 的模板。修改这两个字段即可很方便的设计属于自己的皮肤。</p>
+
+<p>一套皮肤可以添加不同的<code>className</code>实现多种状态，可参考 <a href="#option-skin">skin</a> 选项。</p>
+
+<h3><span id="other-upgrade">artDialog v5 升级 v6 参考</span></h3>
+
+<p><a href="https://github.com/aui/artDialog/wiki/artDialog-v5%E5%8D%87%E7%BA%A7v6%E5%8F%82%E8%80%83">https://github.com/aui/artDialog/wiki/artDialog-v5%E5%8D%87%E7%BA%A7v6%E5%8F%82%E8%80%83</a></p>
+
 <hr />
 
-<p><a href="https://github.com/aui/artDialog/wiki/artDialog-v5%E5%8D%87%E7%BA%A7v6%E5%8F%82%E8%80%83">artDialog v5 升级 v6 参考</a></p>
+<p>文档更新时间：2013-12-15</p>
 
 <!--[SeaJS code]-->
 
