@@ -15,7 +15,7 @@ var drag = require('./drag');
 var dialog = require('./dialog');
 
 Popup.oncreate = function (api) {
-    $(api.node).on(drag.types.start, '[i=header]', function (event) {
+    $(api.node).on(drag.types.start, '[i=title]', function (event) {
         if (!api.follow) {
             api.focus();
             drag.create(api.node, event);
