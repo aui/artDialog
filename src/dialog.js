@@ -1,6 +1,7 @@
 /*!
  * artDialog v6.0.0 
  * Date: 2013-12-13
+ * https://github.com/aui/artDialog
  * (c) 2009-2013 TangBin, http://www.planeArt.cn
  *
  * This is licensed under the GNU LGPL, version 2.1 or later.
@@ -288,13 +289,19 @@ $.extend(prototype, {
      */
 
     /**
-     * 关闭事件，在 remove() 执行
+     * 销毁前事件，在 remove() 前执行
+     * @name artDialog.prototype.onbeforeremove
+     * @event
+     */
+
+    /**
+     * 销毁事件，在 remove() 执行
      * @name artDialog.prototype.onremove
      * @event
      */
 
     /**
-     * 关闭事件，在 reset() 执行
+     * 重置事件，在 reset() 执行
      * @name artDialog.prototype.onreset
      * @event
      */
