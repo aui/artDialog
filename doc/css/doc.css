@@ -7,6 +7,14 @@
 	right: 5px;
 	z-index: 9;
 }
+h1 span[id],
+h2 span[id],
+h3 span[id],
+h4 span[id],
+h5 span[id],
+h6 span[id] {
+	cursor: pointer;
+}
 
 /*避免对话框样式被工具生成的全局样式污染*/
 .ui-dialog table,
@@ -20,13 +28,6 @@
 	border-bottom: 1px solid #E5E5E5;
 }
 
-
-.d-outer table,
-.d-outer table tr,
-.d-outer tr td,
-.d-outer tr:nth-child(2n) {
-	border: 0 none;
-}
 
 code.sh_sourceCode { color: #000000; font-weight: normal; font-style: normal; }
 code.sh_sourceCode .sh_keyword { color: #009; font-weight: bold; font-style: normal; }

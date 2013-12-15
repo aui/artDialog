@@ -1,6 +1,6 @@
 #	artDialog``v6``
 
-[首页](http://aui.github.io/artDialog/) &gt; [文档与示例](http://aui.github.io/artDialog/)
+[首页](http://aui.github.io/artDialog/) &gt; [文档与示例](http://aui.github.io/artDialog/doc/index.html)
 
 ============================
 
@@ -300,7 +300,7 @@ dialog.height(400);
 dialog.close().remove();
 ```
 
-## 方法
+## [方法](id:api)
 
 若无特别说明，方法均支持链式调用。
 
@@ -324,6 +324,7 @@ d.show(document.getElementById('api-show'));
 ```
 var d = dialog({
 	id: 'api-show-dialog',
+	quickClose: true,
 	content: '右键菜单'
 });
 $(document).on('contextmenu', function (event) {
@@ -480,7 +481,7 @@ dialog({
 
 **注意**：这是一个静态方法。
 
-## 配置参数
+## [配置参数](id:option)
 
 ###	[content](id:option-content)
 
