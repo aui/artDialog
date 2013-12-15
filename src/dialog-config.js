@@ -1,12 +1,30 @@
 /*!
  * artDialog v6.0.0 - 默认配置
  * Date: 2013-12-13
+ * https://github.com/aui/artDialog
  * (c) 2009-2013 TangBin, http://www.planeArt.cn
  *
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
  */
 define({
+
+    /* -----注释的配置继承自 popup.js，可以再这里重新定义它----- */
+
+    // 对齐方式
+    //align: 'bottom left',
+    
+    // 是否固定定位
+    //fixed: false,
+    
+    // 对话框叠加高度值(重要：此值不能超过浏览器最大限制)
+    //zIndex: 1024,
+
+    // 设置遮罩背景颜色
+    //backdropBackground: '#000',
+
+    // 设置遮罩透明度
+    //backdropOpacity: 0.7,
 
     // 消息内容
     content: '<span class="ui-dialog-loading">Loading..</span>',
@@ -47,25 +65,11 @@ define({
     // 是否支持快捷关闭（点击遮罩层自动关闭）
     quickClose: false,
 
-    // 对齐方式
-    //align: 'bottom left',
-    
-    // 是否固定定位
-    //fixed: false,
-    
-    // 对话框叠加高度值(重要：此值不能超过浏览器最大限制)
-    //zIndex: 1024,
-
-    // 设置遮罩背景颜色
-    //backdropBackground: '#000',
-
-    // 设置遮罩透明度
-    //backdropOpacity: 0.7,
-
-    // css 文件路径
+    // css 文件路径，留空则不会使用 js 自动加载样式
     cssUri: '../css/ui-dialog.css',
 
     // 模板（使用 table 解决 IE7 宽度自适应的 BUG）
+    // js 使用 i="***" 属性识别结构，其余的均可自定义
     innerHTML:
         '<div i="dialog" class="ui-dialog">'
         +       '<div class="ui-dialog-arrow-a"></div>'
