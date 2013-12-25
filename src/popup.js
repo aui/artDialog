@@ -430,7 +430,9 @@ $.extend(Popup.prototype, {
         style.left = Math.max(parseInt(left), dl) + 'px';
         style.top = Math.max(parseInt(top), dt) + 'px';
 
-        popup.removeClass(this.__followSkin);
+        if (this.__followSkin !== undefined) {
+            popup.removeClass(this.__followSkin);
+        }
     },
     
     
@@ -535,7 +537,9 @@ $.extend(Popup.prototype, {
         className += align.join('-');
 
 
-        popup.removeClass(this.__followSkin);
+        if (this.__followSkin !== undefined) {
+            popup.removeClass(this.__followSkin);
+        }
         that.__followSkin = className;
 
 
