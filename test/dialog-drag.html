@@ -3,6 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>test</title>
+	<style>
+	body {
+		*margin: 0;
+		*padding: 0;
+	}
+	</style>
 </head>
 <body>
 <button data-event="test">open dialog</button>
@@ -16,7 +22,7 @@ seajs.config({
 </script>
 
 <script>
-seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
+seajs.use(['jquery', '../src/dialog-plus'], function ($, dialog) {
 
 
 	$('button[data-event=test]').on('click', function () {

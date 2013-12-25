@@ -6,8 +6,8 @@
 </head>
 <body>
 <div><label><input autofocus id="input" type="text" value="hello world" style="padding: 5px;font-size:18px" /></label></div>
-<button id="height">设置高度</button> <button id="open">弹新对话框</button>  <button id="remove">传值并关闭对话框</button>
-<script src="../lib/sea.js"></script>
+<button id="height">设置高度</button> <button id="open">传值到新的对话框</button>  <button id="remove">返回值并关闭当前对话框</button>
+<script src="../../lib/sea.js"></script>
 <script>
 seajs.config({
   alias: {
@@ -16,11 +16,12 @@ seajs.config({
 });
 </script>
 <script>
+window.console = window.console || {log:function () {}}
 seajs.use(['jquery'], function ($) {
 
 	$(function () {
 		try {
-			var dialog = top.getDialog(window);
+			var dialog = top.dialog.get(window);
 		} catch (e) {
 			$('body').append(
 				'<p><strong>Error:</strong> 跨域无法无法操作 iframe 对象</p>'
@@ -42,17 +43,17 @@ seajs.use(['jquery'], function ($) {
 		});
 
 		$('#height').on('click', function () {
-			dialog.height(600).reset();
+			dialog.height(400).reset();
 			return false;
 		});
 
 		$('#open').on('click', function () {
-			top.openDialog({
-				url: '../test/iframe-input.html',
+			top.dialog({
+				url: './dialog-input.html',
 				title: 'loading..',
 				width: 400,
 				//height: 120,
-				data: $('#input').val(),// iframe可获取到这个数据
+				data: $('#input').val(), // 给 iframe 的数据
 				onclose: function () {
 					this.returnValue && $('#input').val(this.returnValue);
 					dialog.focus();
@@ -60,7 +61,8 @@ seajs.use(['jquery'], function ($) {
 				oniframeload: function () {
 					//console.log('iframe ready')
 				}
-			});
+			})
+			.showModal();
 			return false;
 		});
 

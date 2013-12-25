@@ -69,7 +69,7 @@ seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
 	
 	var d = dialog({
 		title: '定位到元素演示',
-		content: '风吹起的青色衣衫，夕阳里的温暖容颜，你比以前更加美丽，像盛开的花',
+		content: '风吹起的青色衣衫，夕阳里的温暖容颜，你比以前更加美丽，像盛开的花<br>——许巍《难忘的一天》',
 		okValue: '确 定',
 		ok: function () {},
 		cancel: function () {
@@ -82,6 +82,10 @@ seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
 		
 		d.show(this);
 	});
+
+	d.onremove = function () {
+		//alert('remove')
+	};
 
 	d.onshow = function () {
 		//console.log(this);
