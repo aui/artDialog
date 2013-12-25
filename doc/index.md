@@ -92,11 +92,9 @@ var dialog = require('./artDialog/src/dialog');
 //..
 ```
 
-如果需要支持 [iframe](#quickref-iframe) 内容与拖拽，请引用加强版 dialog-plus。
+如果需要支持 [iframe](#quickref-iframe) 内容与拖拽，请引用加强版 dialog-plus。**全局依赖模块**：jquery
 
 [seajs加载示例](../test/show.html)
-
-**全局依赖模块**：jquery
 
 ##	[快速参考](id:quickref)
 

@@ -429,8 +429,6 @@ $.extend(Popup.prototype, {
         
         style.left = Math.max(parseInt(left), dl) + 'px';
         style.top = Math.max(parseInt(top), dt) + 'px';
-
-        popup.removeClass(this.__followSkin);
     },
     
     
@@ -438,7 +436,13 @@ $.extend(Popup.prototype, {
     __follow: function (anchor) {
         
         var $elem = anchor.parentNode && $(anchor);
+        var popup = this.__popup;
         
+
+        if (this.__followSkin) {
+            popup.removeClass(this.__followSkin);
+        }
+
 
         // 隐藏元素不可用
         if ($elem) {
@@ -450,8 +454,6 @@ $.extend(Popup.prototype, {
         
         var that = this;
         var fixed = this.fixed;
-        var popup = this.__popup;
-
 
         var $window = $(window);
         var $document = $(document);
@@ -533,9 +535,7 @@ $.extend(Popup.prototype, {
         }
 
         className += align.join('-');
-
-
-        popup.removeClass(this.__followSkin);
+        
         that.__followSkin = className;
 
 
