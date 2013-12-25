@@ -449,6 +449,7 @@ pre code, pre tt {
 <ul>
 <li><a href="#other-css">自定义皮肤</a></li>
 <li><a href="#other-upgrade">artDialog v5 升级 v6 参考</a></li>
+<li><a href="#other-support">支持</a></li>
 </ul>
 </li>
 </ul>
@@ -462,11 +463,9 @@ pre code, pre tt {
 //..
 </code></pre>
 
-<p><a href="../test/show.html">seajs加载示例</a>（如果需要支持拖拽，请引用 <em>dialog-drag.js</em>）</p>
+<p>如果需要支持 <a href="#quickref-iframe">iframe</a> 内容与拖拽，请引用加强版 dialog-plus。<strong>全局依赖模块</strong>：jquery</p>
 
-<h3>全局依赖模块</h3>
-
-<p>jquery</p>
+<p><a href="../test/show.html">seajs加载示例</a></p>
 
 <h2><span id="quickref">快速参考</span></h2>
 
@@ -577,87 +576,19 @@ d.show();
 
 <h3><span id="quickref-iframe">创建 iframe 内容</span></h3>
 
-<p>为了便于 iframe 内容能够控制对话框，建议在顶层页面创建一个可供 iframe 访问的对话框创建方法，例如：</p>
+<p>artDialog 提供了一个增强版用来支持复杂的 iframe 套嵌的页面，可以在顶层页面创建一个可供 iframe 访问的对话框创建方法，例如：</p>
 
-<pre><code>//..
-window.openDialog = function (options) {
-    // 页面地址
-    var url = options.url;
-    // 是否为模态，默认 true
-    var modal = options.modal;
-    // 是否使用气泡样式跟随到元素
-    var follow = options.follow;
-    // 页面加载完毕的事件
-    var oniframeload = options.oniframeload;
-    // 使用 RequireJS 或 SeaJS 异步加载对话框模块
-    (window.require ? require : seajs.use)([
-        '../dialog',
-        '../dialog-iframe'
-    ], function (dialog, openIframe) {
-        var api = url ? openIframe(options) : dialog(options);
-        api[modal === false ? 'show' : 'showModal'](follow);
-        window.__dialog__ = dialog;
-    });
-};
-</code></pre>
-
-<blockquote><p>  小提示：比普通对话框的<a href="#option">选项</a>多了<code>url</code>、<code>modal</code>、<code>follow</code>、<code>oniframeload</code>这几个字段。</p></blockquote>
-
-<p>然后在顶层页面创建一个获取对话框 api 的方法，例如：</p>
-
-<pre><code>//..
-window.getDialog = function (win) {
-    var dialog = window.__dialog__;
-    if (!dialog) {
-        return;
-    }
-    // 从 iframe 传入 window 对象
-    if (win &amp;&amp; win.frameElement) {
-        var iframe = win.frameElement;
-        var list = dialog.get();
-        var api;
-        for (var i in list) {
-            api = list[i];
-            if (api.node.getElementsByTagName('iframe')[0] === iframe) {
-                return api;
-            }
-        }
-    // 直接传入 id 的情况
-    } else if (win) {
-        return dialog.get(win);
-    }
-};
-</code></pre>
-
-<p>创建 iframe 对话框方式：</p>
-
-<pre><code>top.openDialog({
-    title: 'loading..',
-    url: '../test/iframe-content.html',
-    onshow: function () {
-        console.log('onshow');
-    },
-    oniframeload: function () {
-        console.log('oniframeload');
-    },
-    onclose: function () {
-        console.log('onclose');
-    },
-    onremove: function () {
-        console.log('onremove');
-    }
+<pre><code>seajs.use(['dialog/src/dialog-plus'], function (dialog) {
+    window.dialog = dialog;
 });
+//..
 </code></pre>
 
-<p>对话框 iframe 内可以如下获取当前对话框接口：</p>
+<p>然后子页面就可以通过<code>top.dialog</code>控制对话框了。</p>
 
-<pre><code>//..
-var dialog = top.getDialog(window);
-// 设置高度
-dialog.height(400);
-// 关闭对话框
-dialog.close().remove();
-</code></pre>
+<p><a href="../test/iframe/index.html">打开示例页面</a></p>
+
+<blockquote><p>  小提示：增强版的<a href="#option">选项</a>比标准版多了<code>url</code>、<code>oniframeload</code>这几个字段。</p></blockquote>
 
 <h2><span id="api">方法</span></h2>
 
@@ -1405,9 +1336,13 @@ d.show();
 
 <p><a href="https://github.com/aui/artDialog/wiki/artDialog-v5%E5%8D%87%E7%BA%A7v6%E5%8F%82%E8%80%83">https://github.com/aui/artDialog/wiki/artDialog-v5%E5%8D%87%E7%BA%A7v6%E5%8F%82%E8%80%83</a></p>
 
+<h3><span id="other-support">支持</span></h3>
+
+<p>artDialog 是基于 <a href="https://github.com/aui/artDialog/blob/master/LICENSE.md">LGPL</a> 协议免费开源的程序，问题反馈可在 <a href="https://github.com/aui/artDialog/issues?state=open">Github issues</a> 上进行（为了保证效率，请务必描述清楚你的问题，例如包含 artDialog 版本号、浏览器版本等必要信息，不合格问题将可能会被清理）。</p>
+
 <hr />
 
-<p>文档更新时间：2013-12-15</p>
+<p>4 年来，artDialog 发布了 30 多个版本不断优化，请为我<a href="https://me.alipay.com/planeart">捐赠</a>一杯咖啡以支持开源，或者为您所在的公司申请一份<a href="https://github.com/aui/artDialog/blob/master/LICENSE.md">商业授权</a>。</p>
 
 <!--[SeaJS code]-->
 

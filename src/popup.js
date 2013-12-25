@@ -51,8 +51,6 @@ function Popup () {
     this.backdrop = this.__backdrop[0];
 
     _count ++;
-
-    Popup.oncreate(this);
 }
 
 
@@ -658,9 +656,6 @@ Popup.zIndex = 1024;
 
 /** 顶层浮层的实例 */
 Popup.current = null;
-
-
-Popup.oncreate = $.noop;
 
 
 return Popup;

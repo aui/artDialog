@@ -16,7 +16,7 @@ artDialog v6 —— 经典的网页对话框组件，内外皆用心雕琢。
 
 ##	兼容性
 
-测试通过：IE6~IE11、Chrome、Firefox、Safari、Opera
+测试通过：IE6-IE11、Chrome、Firefox、Safari、Opera
 
 ##	授权协议
 
