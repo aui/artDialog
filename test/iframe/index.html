@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+	<style>
+		body {
+			
+			margin: 0;
+		}
+		#doc {
+			height: 560px;
+		}
+		#doc iframe {
+			display: block;
+			width: 350px;
+			border: 1px solid #CCC;
+			height: 350px;
+			margin: 100px auto 0 auto;
+		}
+	</style>
+</head>
+<body>
+<script>
+!/http/.test(location.protocol) && document.write('<h1>请在服务端预览（部分浏览器本地 iframe 会跨域无权限）</h1>');
+</script>
+<div id="doc">
+	<iframe id="test-iframe" src="main.html"></iframe>
+</div>
+<script src="../../lib/sea.js"></script>
+<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+<script>
+seajs.use(['../../src/dialog-plus'], function (dialog) {
+	window.dialog = dialog;
+});
+</script>
+</body>
+</html>

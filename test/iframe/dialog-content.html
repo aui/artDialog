@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+</head>
+<body>
+<div><label><input autofocus id="input" type="text" value="hello world" style="padding: 5px;font-size:18px" /></label></div>
+<button id="height">设置高度</button> <button id="open">传值到新的对话框</button>  <button id="remove">返回值并关闭当前对话框</button>
+<script src="../../lib/sea.js"></script>
+<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+<script>
+window.console = window.console || {log:function () {}}
+seajs.use(['jquery'], function ($) {
+
+	$(function () {
+		try {
+			var dialog = top.dialog.get(window);
+		} catch (e) {
+			$('body').append(
+				'<p><strong>Error:</strong> 跨域无法无法操作 iframe 对象</p>'
+				+'<p>chrome 浏览器本地会认为跨域，请使用 http 方式访问当前页面</p>'
+			);
+			return;
+		}
+		
+		dialog.title('测试例子');
+		dialog.width(550);
+		dialog.height($(document).height());
+		dialog.reset();     // 重置对话框位置
+
+
+		$('#remove').on('click', function () {
+			dialog.close($('#input').val()); // 关闭（隐藏）对话框
+			dialog.remove();				 // 主动销毁对话框
+			return false;
+		});
+
+		$('#height').on('click', function () {
+			dialog.height(400).reset();
+			return false;
+		});
+
+		$('#open').on('click', function () {
+			top.dialog({
+				url: './dialog-input.html',
+				title: 'loading..',
+				width: 400,
+				//height: 120,
+				data: $('#input').val(), // 给 iframe 的数据
+				onclose: function () {
+					this.returnValue && $('#input').val(this.returnValue);
+					dialog.focus();
+				},
+				oniframeload: function () {
+					//console.log('iframe ready')
+				}
+			})
+			.showModal();
+			return false;
+		});
+
+	});
+
+});
+</script>
+</body>
+</html>

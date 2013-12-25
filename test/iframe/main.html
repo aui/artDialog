@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+</head>
+<body>
+<button data-event="test">在顶层页打开对话框</button> <button data-event="reload">刷新本框架页</button>
+<div id="value"></div>
+<script src="../../lib/sea.js"></script>
+<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+<script>
+
+// demo
+window.console = window.console || {log:function () {}}
+seajs.use(['jquery'], function ($) {
+
+	$('button[data-event=test]').on('click', function () {
+		top.dialog({
+			id: 'test-dialog',
+			title: 'loading..',
+			url: './dialog-content.html',
+			//quickClose: true,
+			onshow: function () {
+				console.log('onshow');
+			},
+			oniframeload: function () {
+				console.log('oniframeload');
+			},
+			onclose: function () {
+				if (this.returnValue) {
+					$('#value').html(this.returnValue);
+				}
+				console.log('onclose');
+			},
+			onremove: function () {
+				console.log('onremove');
+			}
+		})
+		.show(this);
+		return false;
+	});
+
+	$('button[data-event=reload]').on('click', function () {
+		location.reload();
+		return false;
+	});
+
+});
+</script>
+</body>
+</html>

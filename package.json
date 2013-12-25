@@ -1,0 +1,22 @@
+{
+    "name": "artDialog",
+    "version": "6.0.0-rc1",
+    "readmeFilename": "README.md",
+    "description": "经典的网页对话框组件，内外皆用心雕琢",
+    "homepage": "https://github.com/aui/artDialog",
+    "keywords": [
+        "dialog"
+    ],
+    "author": "aui",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/aui/artDialog.git"
+    },
+    "main": "./src/dialog.js",
+    "dependencies": {
+        "jquery": "~1.9.0"
+    },
+    "license": "LGPL"
+}
+        
+        

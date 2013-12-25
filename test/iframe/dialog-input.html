@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+</head>
+<body>
+<div><label><input id="input" type="text" value="hello world" style="padding: 5px;font-size:18px" /></label></div>
+<button id="ok">返回值并关闭当前对话框</button>
+<script src="../../lib/sea.js"></script>
+<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+<script>
+window.console = window.console || {log:function () {}}
+seajs.use(['jquery'], function ($) {
+	$(function () {
+		var dialog = top.dialog.get(window);
+		var data = dialog.data; // 获取对话框传递过来的数据
+		$('#input').val(data).focus();
+
+		dialog.title('请输入');
+		$('#ok').on('click', function () {
+			var val = $('#input').val();
+			dialog.close(val);
+			dialog.remove();
+		});
+	});
+});
+</script>
+</body>
+</html>
