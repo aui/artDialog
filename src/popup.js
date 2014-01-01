@@ -307,8 +307,8 @@ $.extend(Popup.prototype, {
         var activeElement = this.__activeElement;
         var isBlur = arguments[0];
 
-        // ie11 bug: iframe 页面点击会跳到顶部
-        if (isBlur !== false && activeElement && !/^iframe$/i.test(activeElement.nodeName)) {
+
+        if (isBlur !== false) {
             this.__focus(activeElement);
         }
 
@@ -379,7 +379,8 @@ $.extend(Popup.prototype, {
         // 防止 iframe 跨域无权限报错
         // 防止 IE 不可见元素报错
         try {
-            if (this.autofocus) {
+            // ie11 bug: iframe 页面点击会跳到顶部
+            if (this.autofocus && !/^iframe$/i.test(elem.nodeName)) {
                 elem.focus();
             }
         } catch (e) {}
