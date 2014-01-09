@@ -2,7 +2,7 @@ define(function (require) {
 	
 var $ = require('jquery');
 var dialog = require('../../src/dialog-plus');
-var sh_languages = require('./sh_languages');
+//var sh_languages = require('./sh_languages');
 var css = '../css/doc.css';
 
 
@@ -31,7 +31,7 @@ $(function () {
 		var code = $this.text();
 
 
-		$this.addClass('sh_javascript')
+		//$this.addClass('sh_javascript')
 
 		// 忽略不完整的代码片段
 		// 开头使用"//.."表示
@@ -53,7 +53,7 @@ $(function () {
 	});
 
 	// 代码高亮
-	setTimeout(sh_languages, 500);
+	//setTimeout(sh_languages, 500);
 
 	// 回到顶部
 	var $top = $('<a class="doc-gotop" href="javascript:;">TOP</a>')

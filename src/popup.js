@@ -152,16 +152,10 @@ $.extend(Popup.prototype, {
         this.open = true;
         this.follow = anchor;
 
-        popup
-        .addClass(this.className + '-show')
-        .attr('role', this.modal ? 'alertdialog' : 'dialog')
-        .css('position', this.fixed ? 'fixed' : 'absolute')
-        .show();
-
-        this.__backdrop.show();
-
 
         if (!this.__ready) {
+
+            popup.addClass(this.className);
 
             if (this.modal) {
                 this.__lock();
@@ -182,6 +176,18 @@ $.extend(Popup.prototype, {
 
             this.__ready = true;
         }
+
+
+        popup
+        .addClass(this.className + '-show')
+        .attr('role', this.modal ? 'alertdialog' : 'dialog')
+        .css('position', this.fixed ? 'fixed' : 'absolute')
+        .show();
+
+        this.__backdrop.show();
+
+
+
 
         this.reset().focus();
         this.__dispatchEvent('show');
@@ -307,8 +313,8 @@ $.extend(Popup.prototype, {
         var activeElement = this.__activeElement;
         var isBlur = arguments[0];
 
-        // ie11 bug: iframe 页面点击会跳到顶部
-        if (isBlur !== false && activeElement && !/^iframe$/i.test(activeElement.nodeName)) {
+
+        if (isBlur !== false) {
             this.__focus(activeElement);
         }
 
@@ -379,7 +385,8 @@ $.extend(Popup.prototype, {
         // 防止 iframe 跨域无权限报错
         // 防止 IE 不可见元素报错
         try {
-            if (this.autofocus) {
+            // ie11 bug: iframe 页面点击会跳到顶部
+            if (this.autofocus && !/^iframe$/i.test(elem.nodeName)) {
                 elem.focus();
             }
         } catch (e) {}
@@ -429,8 +436,6 @@ $.extend(Popup.prototype, {
         
         style.left = Math.max(parseInt(left), dl) + 'px';
         style.top = Math.max(parseInt(top), dt) + 'px';
-
-        popup.removeClass(this.__followSkin);
     },
     
     
@@ -438,7 +443,13 @@ $.extend(Popup.prototype, {
     __follow: function (anchor) {
         
         var $elem = anchor.parentNode && $(anchor);
+        var popup = this.__popup;
         
+
+        if (this.__followSkin) {
+            popup.removeClass(this.__followSkin);
+        }
+
 
         // 隐藏元素不可用
         if ($elem) {
@@ -450,8 +461,6 @@ $.extend(Popup.prototype, {
         
         var that = this;
         var fixed = this.fixed;
-        var popup = this.__popup;
-
 
         var $window = $(window);
         var $document = $(document);
@@ -533,9 +542,7 @@ $.extend(Popup.prototype, {
         }
 
         className += align.join('-');
-
-
-        popup.removeClass(this.__followSkin);
+        
         that.__followSkin = className;
 
 

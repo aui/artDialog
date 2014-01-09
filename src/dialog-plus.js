@@ -48,8 +48,14 @@ dialog.oncreate = function (api) {
             } catch (e) {}
 
             if (test) {
-                !options.width && api.width($iframe.contents().width());
-                !options.height && api.height($iframe.contents().height());
+
+                if (!options.width) {
+                    api.width($iframe.contents().width());
+                }
+                
+                if (!options.height) {
+                    api.height($iframe.contents().height());
+                }
             }
 
             if (oniframeload) {
@@ -78,15 +84,17 @@ dialog.oncreate = function (api) {
     // 如果对话框配置来自 iframe
     if (!(originalOptions instanceof Object)) {
 
+        var un = function () {
+            api.close().remove();
+        };
+
         // 找到那个 iframe
         for (var i = 0; i < frames.length; i ++) {
             try {
                 if (originalOptions instanceof frames[i].Object) {
                     // 让 iframe 刷新前时候也关闭对话框，
                     // 防止要执行的对象被强制收回导致 IE 报错：“不能执行已释放 Script 的代码”
-                    $(frames[i]).one('unload', function () {
-                        api.close().remove();
-                    });
+                    $(frames[i]).one('unload', un);
                     break;
                 }
             } catch (e) {} 

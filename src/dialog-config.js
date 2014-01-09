@@ -78,7 +78,7 @@ define({
         +       '<table class="ui-dialog-grid">'
         +           '<tr>'
         +               '<td i="header" class="ui-dialog-header">'
-        +                   '<button i="close" class="ui-dialog-close">&times;</button>'
+        +                   '<button i="close" class="ui-dialog-close">&#215;</button>'
         +                   '<div i="title" class="ui-dialog-title"></div>'
         +               '</td>'
         +           '</tr>'

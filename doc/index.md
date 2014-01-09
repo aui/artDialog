@@ -92,7 +92,7 @@ var dialog = require('./artDialog/src/dialog');
 //..
 ```
 
-如果需要支持 [iframe](#quickref-iframe) 内容与拖拽，请引用加强版 dialog-plus。**全局依赖模块**：jquery
+**全局依赖模块**：jquery。如果需要支持 [iframe](#quickref-iframe) 内容与拖拽，请引用加强版 dialog-plus。
 
 [seajs加载示例](../test/show.html)
 
@@ -751,6 +751,7 @@ Boolean
 ```
 dialog({
 	fixed: true,
+	title: '消息',
 	content: '请拖动滚动条查看'
 }).show();
 ```
@@ -978,7 +979,7 @@ artDialog 是基于 [LGPL](https://github.com/aui/artDialog/blob/master/LICENSE.
 
 =======================
 
-4 年来，artDialog 发布了 30 多个版本不断优化，请为我[捐赠](https://me.alipay.com/planeart)一杯咖啡以支持开源，或者为您所在的公司申请一份[商业授权](https://github.com/aui/artDialog/blob/master/LICENSE.md)。
+如果你喜欢 artDialog，请为我[捐赠](https://me.alipay.com/planeart)一杯咖啡以支持开源。如果您认为基于 artDialog 进行二次开发可以节省公司人力成本，亦可购买[商业授权](https://github.com/aui/artDialog/blob/master/LICENSE.md)。
 
 <!--[SeaJS code]-->
 <script src="../lib/sea.js"></script>

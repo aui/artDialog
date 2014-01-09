@@ -19,13 +19,17 @@ var css = defaults.cssUri;
 if (css) {
     css = require[require.toUrl ? 'toUrl' : 'resolve'](css);
     css = '<link rel="stylesheet" href="' + css + '" />';
-    $('base')[0] ? $('base').before(css) : $('head').append(css);
+    if ($('base')[0]) {
+        $('base').before(css);
+    } else {
+        $('head').append(css);
+    }
 }
 
 
 var _version = '6.0.0';
 var _count = 0;
-var _expando = + new Date + '';
+var _expando = new Date() - 0;
 var _isIE6 = !('minWidth' in $('html')[0].style);
 var _isMobile = 'createTouch' in document && !('onmousemove' in document)
     || /(iPhone|iPad|iPod)/i.test(navigator.userAgent);
@@ -111,14 +115,14 @@ var artDialog = function (options, ok, cancel) {
 
 var popup = function () {};
 popup.prototype = Popup.prototype;
-var prototype = artDialog.prototype = new popup;
+var prototype = artDialog.prototype = new popup();
 
 artDialog.version = _version;
 
 artDialog.create = function (options) {
     var that = this;
 
-    $.extend(this, new Popup);
+    $.extend(this, new Popup());
 
     var $popup = $(this.node).html(options.innerHTML);
 
