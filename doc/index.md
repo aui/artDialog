@@ -92,7 +92,7 @@ var dialog = require('./artDialog/src/dialog');
 //..
 ```
 
-如果需要支持 [iframe](#quickref-iframe) 内容与拖拽，请引用加强版 dialog-plus。**全局依赖模块**：jquery
+**全局依赖模块**：jquery。如果需要支持 [iframe](#quickref-iframe) 内容与拖拽，请引用加强版 dialog-plus。
 
 [seajs加载示例](../test/show.html)
 
@@ -751,6 +751,7 @@ Boolean
 ```
 dialog({
 	fixed: true,
+	title: '消息',
 	content: '请拖动滚动条查看'
 }).show();
 ```

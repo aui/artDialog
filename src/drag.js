@@ -30,7 +30,7 @@ var types = {
 var getEvent = isTouch ? function (event) {
     if (!event.touches) {
         event = event.originalEvent.touches.item(0);
-    };
+    }
     return event;
 } : function (event) {
     return event;
@@ -92,9 +92,11 @@ DragEvent.prototype = {
             this.target.on('losecapture', this.end);
         } else {
             $window.on('blur', this.end);
-        };
+        }
 
-        isSetCapture && this.target[0].setCapture();
+        if (isSetCapture) {
+            this.target[0].setCapture();
+        }
 
         return event;
     },
@@ -117,7 +119,9 @@ DragEvent.prototype = {
             $window.off('blur', this.end);
         }
 
-        isSetCapture && this.target[0].releaseCapture();
+        if (isSetCapture) {
+            this.target[0].releaseCapture();
+        }
 
         return event;
     }
@@ -132,9 +136,11 @@ DragEvent.prototype = {
  */
 DragEvent.create = function (elem, event) {
     var $elem = $(elem);
-    var dragEvent = new DragEvent;
+    var dragEvent = new DragEvent();
     var startType = DragEvent.types.start;
     var noop = function () {};
+    var className = elem.className
+        .replace(/^\s|\s.*/g, '') + '-drag-start';
 
     var minX;
     var minY;
@@ -155,11 +161,13 @@ DragEvent.create = function (elem, event) {
         var isFixed = $elem.css('position') === 'fixed';
         var dl = $document.scrollLeft();
         var dt = $document.scrollTop();
+        var w = $elem.width();
+        var h = $elem.height();
 
-        minX = isFixed ? 0 : dl;
-        minY = isFixed ? 0 : dt;
-        maxX = $window.width() - $elem.width() + minX;
-        maxY = $window.height() - $elem.height() + minY;
+        minX = 0;
+        minY = 0;
+        maxX = isFixed ? $window.width() - w + minX : $document.width() - w;
+        maxY = isFixed ? $window.height() - h + minY : $document.height() - h;
 
         var offset = $elem.offset();
         var left = this.startLeft = isFixed ? offset.left - dl : offset.left;
@@ -168,7 +176,7 @@ DragEvent.create = function (elem, event) {
         this.clientX = event.clientX;
         this.clientY = event.clientY;
 
-        $elem.addClass('drag-start');
+        $elem.addClass(className);
         api.onstart.call(elem, event, left, top);
     };
     
@@ -192,7 +200,7 @@ DragEvent.create = function (elem, event) {
         var position = $elem.position();
         var left = position.left;
         var top = position.top;
-        $elem.removeClass('drag-start');
+        $elem.removeClass(className);
         api.onend.call(elem, event, left, top);
     };
 

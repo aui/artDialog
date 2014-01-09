@@ -152,16 +152,10 @@ $.extend(Popup.prototype, {
         this.open = true;
         this.follow = anchor;
 
-        popup
-        .addClass(this.className + '-show')
-        .attr('role', this.modal ? 'alertdialog' : 'dialog')
-        .css('position', this.fixed ? 'fixed' : 'absolute')
-        .show();
-
-        this.__backdrop.show();
-
 
         if (!this.__ready) {
+
+            popup.addClass(this.className);
 
             if (this.modal) {
                 this.__lock();
@@ -182,6 +176,18 @@ $.extend(Popup.prototype, {
 
             this.__ready = true;
         }
+
+
+        popup
+        .addClass(this.className + '-show')
+        .attr('role', this.modal ? 'alertdialog' : 'dialog')
+        .css('position', this.fixed ? 'fixed' : 'absolute')
+        .show();
+
+        this.__backdrop.show();
+
+
+
 
         this.reset().focus();
         this.__dispatchEvent('show');

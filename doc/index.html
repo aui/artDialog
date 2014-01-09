@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <style>
 body {
+  max-width: 620px;
+  margin: auto;
   font-family: Helvetica, arial, sans-serif;
   font-size: 14px;
   line-height: 1.6;
@@ -21,19 +23,6 @@ body > *:last-child {
 }
 a {
   color: #4183C4;
-}
-a.absent {
-  color: #cc0000;
-}
-a.anchor {
-  display: block;
-  padding-left: 30px;
-  margin-left: -30px;
-  cursor: pointer;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
 }
 h1, h2, h3, h4, h5, h6 {
   margin: 20px 0 10px;
@@ -68,6 +57,10 @@ h6 tt, h6 code {
 h1 {
   font-size: 28px;
   color: black;
+  text-align: center;
+}
+h6 {
+  text-align: center;
 }
 h2 {
   font-size: 24px;
@@ -147,7 +140,7 @@ dl dd {
   padding: 0 15px;
 }
 blockquote {
-  border-left: 4px solid #dddddd;
+  border-left: 2px solid #dddddd;
   padding: 0 15px;
   color: #777777;
 }
@@ -192,80 +185,6 @@ th :last-child, td :last-child {
 img {
   max-width: 100%;
 }
-span.frame {
-  display: block;
-  overflow: hidden;
-}
-span.frame > span {
-  border: 1px solid #dddddd;
-  display: block;
-  float: left;
-  overflow: hidden;
-  margin: 13px 0 0;
-  padding: 7px;
-  width: auto;
-}
-span.frame span img {
-  display: block;
-  float: left;
-}
-span.frame span span {
-  clear: both;
-  color: #333333;
-  display: block;
-  padding: 5px 0 0;
-}
-span.align-center {
-  display: block;
-  overflow: hidden;
-  clear: both;
-}
-span.align-center > span {
-  display: block;
-  overflow: hidden;
-  margin: 13px auto 0;
-  text-align: center;
-}
-span.align-center span img {
-  margin: 0 auto;
-  text-align: center;
-}
-span.align-right {
-  display: block;
-  overflow: hidden;
-  clear: both;
-}
-span.align-right > span {
-  display: block;
-  overflow: hidden;
-  margin: 13px 0 0;
-  text-align: right;
-}
-span.align-right span img {
-  margin: 0;
-  text-align: right;
-}
-span.float-left {
-  display: block;
-  margin-right: 13px;
-  overflow: hidden;
-  float: left;
-}
-span.float-left span {
-  margin: 13px 0 0;
-}
-span.float-right {
-  display: block;
-  margin-left: 13px;
-  overflow: hidden;
-  float: right;
-}
-span.float-right > span {
-  display: block;
-  overflow: hidden;
-  margin: 13px auto 0;
-  text-align: right;
-}
 code, tt {
   margin: 0 2px;
   padding: 0 5px;
@@ -281,33 +200,24 @@ pre code {
   border: none;
   background: transparent;
 }
-.highlight pre {
-  background-color: #f8f8f8;
-  border: 1px solid #cccccc;
-  font-size: 13px;
-  line-height: 19px;
-  overflow: auto;
-  padding: 6px 10px;
-  border-radius: 3px;
-}
 pre {
-  background-color: #f8f8f8;
-  border: 1px solid #cccccc;
+  background-color: #303030;
   font-size: 13px;
   line-height: 19px;
   overflow: auto;
   padding: 6px 10px;
-  border-radius: 3px;
 }
-pre code, pre tt {
+pre code {
+  color: #f2f2f2;
+  border: none;
+  padding: 0;
+  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+pre tt {
   background-color: transparent;
   border: none;
-}
-@media screen and (min-width: 914px) {
-  body {
-    width: 760px;
-    margin: 0 auto;
-  }
 }
 @media print {
   table, pre {
@@ -463,7 +373,7 @@ pre code, pre tt {
 //..
 </code></pre>
 
-<p>如果需要支持 <a href="#quickref-iframe">iframe</a> 内容与拖拽，请引用加强版 dialog-plus。<strong>全局依赖模块</strong>：jquery</p>
+<p><strong>全局依赖模块</strong>：jquery。如果需要支持 <a href="#quickref-iframe">iframe</a> 内容与拖拽，请引用加强版 dialog-plus。</p>
 
 <p><a href="../test/show.html">seajs加载示例</a></p>
 
@@ -1118,6 +1028,7 @@ d.show(document.getElementById('option-align'));
 
 <pre><code>dialog({
     fixed: true,
+    title: '消息',
     content: '请拖动滚动条查看'
 }).show();
 </code></pre>
