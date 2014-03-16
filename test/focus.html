@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+</head>
+<body>
+<button data-event="test">open dialog</button> <input id="input" />
+<script src="../lib/sea.js"></script>
+<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+
+<script>
+seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
+	
+	$('button[data-event=test]').on('click', function () {
+		$('#input').focus();
+		var d = dialog({
+			quickClose: true,
+			autofocus: false,
+			content: '输入错误，请重新输入',
+			okValue: '确 定',
+			onclose: function () {
+				$('#input').focus();
+			},
+			follow: $('#input')[0]
+		});
+
+		d.show();
+	});
+
+});
+</script>
+</body>
+</html>
