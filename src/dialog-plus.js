@@ -38,7 +38,7 @@ dialog.oncreate = function (api) {
             height: '100%',
             allowtransparency: 'yes',
             frameborder: 'no',
-            scrolling: 'no'
+            scrolling: 'yes'
         })
         .on('load', function () {
             var test;
