@@ -7,6 +7,7 @@ module.exports = function (grunt) {
         },
         combo: {
             options: {
+                base: './src',
                 name: 'dialog',
                 namespace: 'window',
             },

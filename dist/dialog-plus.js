@@ -43,7 +43,7 @@ define('jquery', function () {
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
  */
-define("src/popup", function (require) {
+define("popup", function (require) {
 
 var $ = require("jquery");
 
@@ -716,7 +716,7 @@ return Popup;
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
  */
-define("src/dialog-config", {
+define("dialog-config", {
 
     /* -----已注释的配置继承自 popup.js，仍可以再这里重新定义它----- */
 
@@ -818,11 +818,11 @@ define("src/dialog-config", {
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
  */
-define("src/dialog", function (require) {
+define("dialog", function (require) {
 
 var $ = require("jquery");
-var Popup = require("src/popup");
-var defaults = require("src/dialog-config");
+var Popup = require("popup");
+var defaults = require("dialog-config");
 var css = defaults.cssUri;
 
 
@@ -1303,7 +1303,7 @@ return artDialog;
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
  */
-define("src/drag", function (require) {
+define("drag", function (require) {
 
 var $ = require("jquery");
 
@@ -1529,11 +1529,11 @@ return DragEvent;
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
  */
-define("src/dialog-plus", function (require) {
+define("dialog-plus", function (require) {
 
 var $ = require("jquery");
-var dialog = require("src/dialog");
-var drag = require("src/drag");
+var dialog = require("dialog");
+var drag = require("drag");
 
 dialog.oncreate = function (api) {
 
@@ -1665,6 +1665,6 @@ return dialog;
 });
 
 
-window.dialog = require("src/dialog-plus");
+window.dialog = require("dialog-plus");
 
 })();
