@@ -24,11 +24,11 @@ module.exports = function (grunt) {
                 banner: '<%= meta.banner %>'
             },
             'dialog.js': {
-                src: './src/dialog.js',
+                src: './dist/dialog.js',
                 dest: './dist/dialog-min.js'
             },
             'dialog-plus.js': {
-                src: './src/dialog-plus.js',
+                src: './dist/dialog-plus.js',
                 dest: './dist/dialog-plus-min.js'
             }
         }
