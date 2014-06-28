@@ -316,13 +316,13 @@ pre tt {
 <li><a href="#option-height">height</a></li>
 <li><a href="#option-skin">skin</a></li>
 <li><a href="#option-padding">padding</a></li>
-<li><a href="#option-align">align</a></li>
 </ul>
 </li>
 <li>交互
 
 <ul>
 <li><a href="#option-fixed">fixed</a></li>
+<li><a href="#option-align">align</a></li>
 <li><a href="#option-quickClose">quickClose</a></li>
 <li><a href="#option-autofocus">autofocus</a></li>
 <li><a href="#option-zIndex">zIndex</a></li>
@@ -416,6 +416,8 @@ d.showModal();
 });
 d.show(document.getElementById('quickref-bubble'));
 </code></pre>
+
+<p><a href="../test/align.html">12个角度的气泡演示</a></p>
 
 <h3><span id="quickref-button">添加按钮</span></h3>
 
@@ -1008,6 +1010,25 @@ dialog({
 }).show();
 </code></pre>
 
+<h3><span id="option-fixed">fixed</span></h3>
+
+<p>(默认值: <code>false</code>) 开启固定定位。</p>
+
+<p>固定定位是 css2.1 <code>position</code>的一个属性，它能固定在浏览器某个地方，也不受滚动条拖动影响。IE6 与部分移动浏览器对其支持不好，内部会转成绝对定位。</p>
+
+<h4>类型</h4>
+
+<p>Boolean</p>
+
+<h4>示例</h4>
+
+<pre><code>dialog({
+    fixed: true,
+    title: '消息',
+    content: '请拖动滚动条查看'
+}).show();
+</code></pre>
+
 <h3><span id="option-align">align</span></h3>
 
 <p>(默认值: <code>"bottom left"</code>) 设置对话框与其他元素的对齐方式。</p>
@@ -1045,25 +1066,6 @@ d.show(document.getElementById('option-align'));
 </code></pre>
 
 <p><a href="../test/align.html">各个参数演示</a></p>
-
-<h3><span id="option-fixed">fixed</span></h3>
-
-<p>(默认值: <code>false</code>) 开启固定定位。</p>
-
-<p>固定定位是 css2.1 <code>position</code>的一个属性，它能固定在浏览器某个地方，也不受滚动条拖动影响。IE6 与部分移动浏览器对其支持不好，内部会转成绝对定位。</p>
-
-<h4>类型</h4>
-
-<p>Boolean</p>
-
-<h4>示例</h4>
-
-<pre><code>dialog({
-    fixed: true,
-    title: '消息',
-    content: '请拖动滚动条查看'
-}).show();
-</code></pre>
 
 <h3><span id="option-autofocus">autofocus</span></h3>
 
