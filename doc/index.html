@@ -305,6 +305,7 @@ pre tt {
 <li><a href="#option-okValue">okValue</a></li>
 <li><a href="#option-cancel">cancel</a></li>
 <li><a href="#option-cancelValue">cancelValue</a></li>
+<li><a href="#option-cancelDisplay">cancelDisplay</a></li>
 <li><a href="#option-button">button</a></li>
 </ul>
 </li>
@@ -367,15 +368,25 @@ pre tt {
 
 <h2><span id="module">引入 artDialog</span></h2>
 
+<h3>1.直接引用</h3>
+
+<pre><code>&lt;link rel="stylesheet" href="css/ui-dialog.css"&gt;
+&lt;script src="dist/dialog-min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<h3>2.作为 RequireJS 或 SeaJS 的模块引入</h3>
+
 <p>在模块中引入 artDialog（使用 RequireJS 或 SeaJS 加载）：</p>
 
 <pre><code>var dialog = require('./artDialog/src/dialog');
 //..
 </code></pre>
 
-<p><strong>全局依赖模块</strong>：jquery。如果需要支持 <a href="#quickref-iframe">iframe</a> 内容与拖拽，请引用加强版 dialog-plus。</p>
+<p><strong>注意：</strong>：内部依赖全局模块<code>require('jquery')</code>，请注意配置。</p>
 
 <p><a href="../test/show.html">seajs加载示例</a></p>
+
+<blockquote><p>如果需要支持 <a href="#quickref-iframe">iframe</a> 内容与拖拽，请引用加强版 dialog-plus.js</p></blockquote>
 
 <h2><span id="quickref">快速参考</span></h2>
 
@@ -828,6 +839,27 @@ d.show();
 }).show();
 </code></pre>
 
+<h3><span id="option-cancelDisplay">cancelDisplay</span></h3>
+
+<p>(默认值: <code>true</code>) 是否显示取消按钮。</p>
+
+<h4>类型</h4>
+
+<p>Boolean</p>
+
+<h4>示例</h4>
+
+<pre><code>dialog({
+    title: '提示',
+    content: '这是一个禁止关闭的对话框，并且没有取消按钮',
+    cancel: function () {
+        alert('禁止关闭');
+        return false;
+    },
+    cancelDisplay: false
+}).show();
+</code></pre>
+
 <h3><span id="option-button">button</span></h3>
 
 <p>自定义按钮组。</p>
@@ -1267,7 +1299,18 @@ seajs.config({
     "jquery": "jquery-1.10.2.js"
   }
 });
-seajs.use('./js/doc.js');
+if (location.search === '?debug-dist') {
+    document.write('<link rel="stylesheet" href="../css/ui-dialog.css">');
+    seajs.use('./js/doc.js', function () {
+        seajs.use('../dist/dialog-plus.js');
+    });
+} else {
+    seajs.use('../src/dialog-plus.js', function (dialog) {
+        window.dialog = dialog;
+    });
+    seajs.use('./js/doc.js');
+}
+
 </script>
 
 
@@ -1284,7 +1327,9 @@ require.config({
         jquery: '../lib/jquery-1.10.2'
     }
 });
-require(['./js/doc.js']);
+require(['../src/dialog-plus.js', './js/doc.js'], function(dialog){
+    window.dialog = dialog;
+});
 </script>
 [/RequireJS code]-->
 

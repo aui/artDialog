@@ -1,7 +1,7 @@
 define(function (require) {
 	
 var $ = require('jquery');
-var dialog = require('../../src/dialog-plus');
+//var dialog = require('../../src/dialog-plus');
 //var sh_languages = require('./sh_languages');
 var css = '../css/doc.css';
 
@@ -11,8 +11,9 @@ css = require[require.toUrl ? 'toUrl' : 'resolve'](css);
 css = '<link rel="stylesheet" href="' + css + '" />';
 $('base')[0] ? $('base').before(css) : $('head').append(css);
 
-window.dialog = dialog;
+
 window.$ = window.jQuery = $;
+//window.dialog = jQuery.dialog || dialog;
 window.console = window.console || {
 	log: $.noop
 };

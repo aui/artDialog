@@ -17,17 +17,20 @@ var css = defaults.cssUri;
 
 // css loader: RequireJS & SeaJS
 if (css) {
-    css = require[require.toUrl ? 'toUrl' : 'resolve'](css);
-    css = '<link rel="stylesheet" href="' + css + '" />';
-    if ($('base')[0]) {
-        $('base').before(css);
-    } else {
-        $('head').append(css);
+    var fn = require[require.toUrl ? 'toUrl' : 'resolve'];
+    if (fn) {
+        css = fn(css);
+        css = '<link rel="stylesheet" href="' + css + '" />';
+        if ($('base')[0]) {
+            $('base').before(css);
+        } else {
+            $('head').append(css);
+        } 
     }
 }
 
 
-var _version = '6.0.0';
+var _version = '6.0.2';
 var _count = 0;
 var _expando = new Date() - 0;
 var _isIE6 = !('minWidth' in $('html')[0].style);
@@ -90,7 +93,8 @@ var artDialog = function (options, ok, cancel) {
         options.button.push({
             id: 'cancel',
             value: options.cancelValue,
-            callback: options.cancel
+            callback: options.cancel,
+            display: options.cancelDisplay
         });
     }
     
@@ -370,9 +374,10 @@ $.extend(prototype, {
         args = args || [];
         var that = this;
         var html = '';
+        var number = 0;
         this.callbacks = {};
 
-        this._$('footer')[args.length ? 'show' : 'hide']();
+        
            
         if (typeof args === 'string') {
             html = args;
@@ -382,10 +387,19 @@ $.extend(prototype, {
                 val.id = val.id || val.value;
                 that.callbacks[val.id] = val.callback;
 
+                var style = '';
+
+                if (val.display === false) {
+                    style = ' style="display:none"';
+                } else {
+                    number ++;
+                }
+
                 html +=
                   '<button'
                 + ' type="button"'
                 + ' data-id="' + val.id + '"'
+                + style
                 + (val.disabled ? ' disabled' : '')
                 + (val.autofocus ? ' autofocus class="ui-dialog-autofocus"' : '')
                 + '>'
@@ -395,6 +409,7 @@ $.extend(prototype, {
             });
         }
 
+        this._$('footer')[number ? 'show' : 'hide']();
         this._$('button').html(html);
         
         return this;

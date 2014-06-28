@@ -49,6 +49,8 @@ define({
     
     // 取消按钮文本
     cancelValue: 'cancel',
+
+    cancelDisplay: true,
     
     // 内容宽度
     width: '',

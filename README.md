@@ -20,6 +20,11 @@ artDialog v6 —— 经典的网页对话框组件，内外皆用心雕琢。
 
 ##	更新历史
 
+6.0.2
+
+1. 提供无依赖 seajs 与 requirejs 的版本
+2. 取消按钮增加``cancelDisplay``配置，保留``cancel``事件的同时也不会显示取消按钮
+
 6.0.1
 
 1. 进一步完善焦点管理，避免抢夺开发者自己设置的焦点[#67](https://github.com/aui/artDialog/issues/67)
