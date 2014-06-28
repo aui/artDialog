@@ -53,6 +53,7 @@ artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
 		*	[okValue](#option-okValue)
 		*	[cancel](#option-cancel)
 		*	[cancelValue](#option-cancelValue)
+		*	[cancelDisplay](#option-cancelDisplay)
 		*	[button](#option-button)
 	*	外观
 		*	[width](#option-width)
@@ -85,6 +86,13 @@ artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
 	
 ##	[引入 artDialog](id:module)
 
+###	1.直接引用
+
+	<link rel="stylesheet" href="css/ui-dialog.css">
+	<script src="dist/dialog-min.js"></script>
+
+###	2.作为 RequireJS 或 SeaJS 的模块引入
+
 在模块中引入 artDialog（使用 RequireJS 或 SeaJS 加载）：
 
 ```
@@ -92,9 +100,11 @@ var dialog = require('./artDialog/src/dialog');
 //..
 ```
 
-**全局依赖模块**：jquery。如果需要支持 [iframe](#quickref-iframe) 内容与拖拽，请引用加强版 dialog-plus。
+**注意：**：内部依赖全局模块``require('jquery')``，请注意配置。
 
 [seajs加载示例](../test/show.html)
+
+> 如果需要支持 [iframe](#quickref-iframe) 内容与拖拽，请引用加强版 dialog-plus.js
 
 ##	[快速参考](id:quickref)
 
@@ -571,6 +581,28 @@ dialog({
 }).show();
 ```
 
+###	[cancelDisplay](id:option-cancelDisplay)
+
+(默认值: ``true``) 是否显示取消按钮。
+
+####	类型
+
+Boolean
+
+####	示例
+
+```
+dialog({
+	title: '提示',
+	content: '这是一个禁止关闭的对话框，并且没有取消按钮',
+	cancel: function () {
+		alert('禁止关闭');
+		return false;
+	},
+	cancelDisplay: false
+}).show();
+```
+
 ###	[button](id:option-button)
 
 自定义按钮组。
@@ -989,7 +1021,18 @@ seajs.config({
 	"jquery": "jquery-1.10.2.js"
   }
 });
-seajs.use('./js/doc.js');
+if (location.search === '?debug-dist') {
+	document.write('<link rel="stylesheet" href="../css/ui-dialog.css">');
+	seajs.use('./js/doc.js', function () {
+		seajs.use('../dist/dialog-plus.js');
+	});
+} else {
+	seajs.use('../src/dialog-plus.js', function (dialog) {
+		window.dialog = dialog;
+	});
+	seajs.use('./js/doc.js');
+}
+
 </script>
 <!--[/SeaJS code]-->
 
@@ -1001,7 +1044,9 @@ require.config({
 		jquery: '../lib/jquery-1.10.2'
 	}
 });
-require(['./js/doc.js']);
+require(['../src/dialog-plus.js', './js/doc.js'], function(dialog){
+	window.dialog = dialog;
+});
 </script>
 [/RequireJS code]-->
 

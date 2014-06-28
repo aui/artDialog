@@ -1,6 +1,6 @@
 /*!
  * popupjs
- * Date: 2013-12-15
+ * Date: 2014-01-15
  * https://github.com/aui/popupjs
  * (c) 2009-2013 TangBin, http://www.planeArt.cn
  *
@@ -150,7 +150,7 @@ $.extend(Popup.prototype, {
         this.__activeElement = this.__getActive();
 
         this.open = true;
-        this.follow = anchor;
+        this.follow = anchor || this.follow;
 
 
         if (!this.__ready) {

@@ -9,6 +9,7 @@
  */
 define(function (require) {
 
+var $ = require('jquery');
 var dialog = require('./dialog');
 var drag = require('./drag');
 
