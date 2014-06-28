@@ -839,7 +839,7 @@ if (css) {
 }
 
 
-var _version = '6.0.0';
+var _version = '6.0.2';
 var _count = 0;
 var _expando = new Date() - 0;
 var _isIE6 = !('minWidth' in $('html')[0].style);

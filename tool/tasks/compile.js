@@ -1,3 +1,8 @@
+'use strict';
+
+var path = require('path');
+var fs = require('fs');
+
 var fs = require('fs');
 var path = require('path');
 
@@ -64,7 +69,7 @@ function combo (base, target, uniq) {
 }
 
 
-exports.compile = function (base, target, name, namespace) {
+module.exports = function (base, target, name, namespace) {
 	namespace || 'this';
 	var file = path.resolve(base, target);
 	var dirname = path.dirname(file);
