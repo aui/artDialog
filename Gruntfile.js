@@ -3,7 +3,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         meta: {
-            banner: '/*!<%= pkg.name %> | <%= pkg.homepage %>*/\n'
+            banner: '/*!<%= pkg.name %> v<%= pkg.version %> | <%= pkg.homepage %>*/\n'
         },
         combo: {
             options: {

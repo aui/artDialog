@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 	        	grunt.file.write(f.dest, output);
 
 	        	var comboFile = path.relative('./', target);
-	        	grunt.log.writeln('File "' + target + '" created.');
+	        	grunt.log.writeln('File ' + f.dest + ' created.');
 	        });
 		});
 

@@ -59,7 +59,7 @@ function combo (base, target, uniq) {
 
 
 		if (!uniq[id]) {
-			requireContent += ('\n\n' + combo(base, file, uniq));
+			requireContent += combo(base, file, uniq);
 		}
 
 		return id;
