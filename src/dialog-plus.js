@@ -1,5 +1,5 @@
 /*!
- * artDialog-plus v6.0.0 
+ * artDialog-plus
  * Date: 2013-12-25
  * https://github.com/aui/artDialog
  * (c) 2009-2013 TangBin, http://www.planeArt.cn

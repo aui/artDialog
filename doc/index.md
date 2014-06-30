@@ -1,4 +1,4 @@
-#	artDialog``v6``
+#	artDialog
 
 [首页](http://aui.github.io/artDialog/) &gt; [文档与示例](http://aui.github.io/artDialog/doc/index.html)
 
@@ -6,12 +6,14 @@
 
 artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
 
-1.	支持普通与气泡形式的对话框
-2.	信息无障碍支持：焦点管理；支持 ARIA 标准
-3.	面向未来：基于 HTML5 Dialog 的 API
-4.	支持标准与模态对话框
-5.	丰富的展示状态与友好的编程接口	
-6.	自适应内容尺寸
+1.	支持普通与 12 方向气泡状对话框
+2.	完善的焦点处理，自动焦点附加与回退
+3. 支持 ARIA 标准
+4.	面向未来：基于 HTML5 Dialog 的 API
+5.	支持标准与模态对话框
+6.	丰富且友好的编程接口	
+7.	能自适应内容尺寸
+8.	仅 4kb (gzip)
 
 ##	文档导航
 
@@ -33,8 +35,8 @@ artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
 	*	[remove()](#api-remove)
 	*	[content(html)](#api-content)
 	*	[title(text)](#api-title)
-	*	[width([value])](#api-width)
-	*	[height([value])](#api-height)
+	*	[width(value)](#api-width)
+	*	[height(value)](#api-height)
 	*	[reset()](#api-reset)
 	*	[button(args)](#api-button)
 	*	[focus()](#api-focus)
@@ -60,9 +62,9 @@ artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
 		*	[height](#option-height)
 		*	[skin](#option-skin)
 		*	[padding](#option-padding)
-		*	[align](#option-align)
 	*	交互
 		*	[fixed](#option-fixed)
+		*	[align](#option-align)
 		*	[quickClose](#option-quickClose)
 		*	[autofocus](#option-autofocus)
 		*	[zIndex](#option-zIndex)
@@ -80,7 +82,8 @@ artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
 	*	[open](#property-open)
 	*	[returnValue](#property-returnValue)
 *	[其他](#other)
-	*	[自定义皮肤](#other-css)
+	*	[自定义样式](#other-skin)
+	*	[源码构建](#other-grunt)
 	*	[artDialog v5 升级 v6 参考](#other-upgrade)
 	*	[支持](#other-support)
 	
@@ -90,17 +93,16 @@ artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
 
 	<link rel="stylesheet" href="css/ui-dialog.css">
 	<script src="dist/dialog-min.js"></script>
+	//..
 
 ###	2.作为 RequireJS 或 SeaJS 的模块引入
-
-在模块中引入 artDialog（使用 RequireJS 或 SeaJS 加载）：
 
 ```
 var dialog = require('./artDialog/src/dialog');
 //..
 ```
 
-**注意：**：内部依赖全局模块``require('jquery')``，请注意配置。
+**注意：**：内部依赖全局模块``require('jquery')``，请注意全局模块配置是否正确。
 
 [seajs加载示例](../test/show.html)
 
@@ -349,7 +351,7 @@ d.title('hello world');
 d.show();
 ```
 
-###	[width([value])](id:api-width)
+###	[width(value)](id:api-width)
 
 设置对话框宽度。
 
@@ -363,7 +365,7 @@ dialog({
 .show();
 ```
 
-###	[height([value])](id:api-height)
+###	[height(value)](id:api-height)
 
 设置对话框高度。
 
@@ -732,6 +734,26 @@ dialog({
 }).show();
 ```
 
+###	[fixed](id:option-fixed)
+
+(默认值: ``false``) 开启固定定位。
+
+固定定位是 css2.1 ``position``的一个属性，它能固定在浏览器某个地方，也不受滚动条拖动影响。IE6 与部分移动浏览器对其支持不好，内部会转成绝对定位。
+
+####	类型
+
+Boolean
+
+####	示例
+
+```
+dialog({
+	fixed: true,
+	title: '消息',
+	content: '请拖动滚动条查看'
+}).show();
+```
+
 ###	[align](id:option-align)
 
 (默认值: ``"bottom left"``) 设置对话框与其他元素的对齐方式。
@@ -767,26 +789,6 @@ d.show(document.getElementById('option-align'));
 ```
 
 [各个参数演示](../test/align.html)
-
-###	[fixed](id:option-fixed)
-
-(默认值: ``false``) 开启固定定位。
-
-固定定位是 css2.1 ``position``的一个属性，它能固定在浏览器某个地方，也不受滚动条拖动影响。IE6 与部分移动浏览器对其支持不好，内部会转成绝对定位。
-
-####	类型
-
-Boolean
-
-####	示例
-
-```
-dialog({
-	fixed: true,
-	title: '消息',
-	content: '请拖动滚动条查看'
-}).show();
-```
 
 ###	[autofocus](id:option-autofocus)
 
@@ -995,11 +997,15 @@ d.show();
 ```
 ##	[其他](id:other)
 
-###	[自定义皮肤](id:other-css)
+###	[自定义样式](id:other-skin)
 
 打开配置文件： src/dialog-config.js，其中``cssUir``字段是 css 文件的路径，``innerHTML``字段则是 artDialog 的模板。修改这两个字段即可很方便的设计属于自己的皮肤。
 
 一套皮肤可以添加不同的``className``实现多种状态，可参考 [skin](#option-skin) 选项。
+
+###	[源码构建](id:other-grunt)
+
+使用[GruntJS](http://gruntjs.cn)在 artDialog 源码根目录执行即可。
 
 ###	[artDialog v5 升级 v6 参考](id:other-upgrade)
 
@@ -1007,48 +1013,19 @@ d.show();
 
 ###	[支持](id:other-support)
 
-artDialog 是基于 [LGPL](https://github.com/aui/artDialog/blob/master/LICENSE.md) 协议免费开源的程序，问题反馈可在 [Github issues](https://github.com/aui/artDialog/issues?state=open) 上进行（为了保证效率，请务必描述清楚你的问题，例如包含 artDialog 版本号、浏览器版本等必要信息，不合格问题将可能会被清理）。
+artDialog 是基于 [LGPL](https://github.com/aui/artDialog/blob/master/LICENSE.md) 协议免费开源的程序，问题反馈可在 [Github issues](https://github.com/aui/artDialog/issues?state=open) 上进行（为了保证效率，请务必描述清楚你的问题，例如包含 artDialog 版本号、浏览器版本等必要信息，有 demo 甚佳。不合格问题将可能会被关闭）。
 
 =======================
 
-如果你喜欢 artDialog，请为我[捐赠](https://me.alipay.com/planeart)一杯咖啡以支持开源。如果您认为基于 artDialog 进行二次开发可以节省公司人力成本，亦可购买[商业授权](https://github.com/aui/artDialog/blob/master/LICENSE.md)。
+如果你喜欢 artDialog，请[捐赠](https://me.alipay.com/planeart)一杯咖啡的费用以支持 artDialog。如果您认为 LGPL 开源协议满足不了您的项目，亦可购买[商业授权](https://github.com/aui/artDialog/blob/master/LICENSE.md)。
 
-<!--[SeaJS code]-->
-<script src="../lib/sea.js"></script>
-<script>
-seajs.config({
-  alias: {
-	"jquery": "jquery-1.10.2.js"
-  }
-});
-if (location.search === '?debug-dist') {
-	document.write('<link rel="stylesheet" href="../css/ui-dialog.css">');
-	seajs.use('./js/doc.js', function () {
-		seajs.use('../dist/dialog-plus.js');
-	});
-} else {
-	seajs.use('../src/dialog-plus.js', function (dialog) {
-		window.dialog = dialog;
-	});
-	seajs.use('./js/doc.js');
-}
+<script src="../lib/jquery-1.10.2.js"></script>
 
-</script>
-<!--[/SeaJS code]-->
+<link rel="stylesheet" href="../css/ui-dialog.css" />
+<script src="../dist/dialog-plus.js"></script>
 
-<!--[RequireJS code]
-<script src="../lib/require.js"></script>
-<script>
-require.config({
-	paths: {
-		jquery: '../lib/jquery-1.10.2'
-	}
-});
-require(['../src/dialog-plus.js', './js/doc.js'], function(dialog){
-	window.dialog = dialog;
-});
-</script>
-[/RequireJS code]-->
+<link rel="stylesheet" href="./css/doc.css" />
+<script src="./js/doc.js"></script>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

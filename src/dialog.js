@@ -1,6 +1,6 @@
 /*!
- * artDialog v6.0.0 
- * Date: 2013-12-25
+ * artDialog
+ * Date: 2014-06-29
  * https://github.com/aui/artDialog
  * (c) 2009-2013 TangBin, http://www.planeArt.cn
  *
@@ -30,9 +30,8 @@ if (css) {
 }
 
 
-var _version = '6.0.2';
 var _count = 0;
-var _expando = new Date() - 0;
+var _expando = new Date() - 0; // Data.now()
 var _isIE6 = !('minWidth' in $('html')[0].style);
 var _isMobile = 'createTouch' in document && !('onmousemove' in document)
     || /(iPhone|iPad|iPod)/i.test(navigator.userAgent);
@@ -120,8 +119,6 @@ var artDialog = function (options, ok, cancel) {
 var popup = function () {};
 popup.prototype = Popup.prototype;
 var prototype = artDialog.prototype = new popup();
-
-artDialog.version = _version;
 
 artDialog.create = function (options) {
     var that = this;

@@ -1,35 +1,30 @@
 !(function () {
 
+var __modules__ = {};
+
 function require (id) {
-    var mod = require._modules[id];
-    var exports = mod.exports = {};
+    var mod = __modules__[id];
+    var exports = 'exports';
 
     if (typeof mod === 'object') {
         return mod;
     }
 
-    return mod.call(
-        exports,
-        require,
-        exports,
-        mod
-    ) || exports;
-}
+    if (!mod[exports]) {
+        mod[exports] = {};
+        mod[exports] = mod.call(mod[exports], require, mod[exports], mod) || mod[exports];
+    }
 
-require._modules = {};
+    return mod[exports];
+}
 
 function define (path, fn) {
-    require._modules[path] = fn;
+    __modules__[path] = fn;
 }
-
 
 define('jquery', function () {
 	return jQuery;
 });
-
-
-
-
 
 
 
@@ -43,7 +38,7 @@ define('jquery', function () {
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
  */
-define("src/popup", function (require) {
+define("popup", function (require) {
 
 var $ = require("jquery");
 
@@ -705,18 +700,10 @@ return Popup;
 
 });
 
-
-
 /*!
- * artDialog v6.0.0 - 默认配置
- * Date: 2013-12-13
- * https://github.com/aui/artDialog
- * (c) 2009-2013 TangBin, http://www.planeArt.cn
- *
- * This is licensed under the GNU LGPL, version 2.1 or later.
- * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
+ * artDialog - 默认配置
  */
-define("src/dialog-config", {
+define("dialog-config", {
 
     /* -----已注释的配置继承自 popup.js，仍可以再这里重新定义它----- */
 
@@ -810,19 +797,19 @@ define("src/dialog-config", {
 });
 
 /*!
- * artDialog v6.0.0 
- * Date: 2013-12-25
+ * artDialog
+ * Date: 2014-06-29
  * https://github.com/aui/artDialog
  * (c) 2009-2013 TangBin, http://www.planeArt.cn
  *
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
  */
-define("src/dialog", function (require) {
+define("dialog", function (require) {
 
 var $ = require("jquery");
-var Popup = require("src/popup");
-var defaults = require("src/dialog-config");
+var Popup = require("popup");
+var defaults = require("dialog-config");
 var css = defaults.cssUri;
 
 
@@ -841,9 +828,8 @@ if (css) {
 }
 
 
-var _version = '6.0.0';
 var _count = 0;
-var _expando = new Date() - 0;
+var _expando = new Date() - 0; // Data.now()
 var _isIE6 = !('minWidth' in $('html')[0].style);
 var _isMobile = 'createTouch' in document && !('onmousemove' in document)
     || /(iPhone|iPad|iPod)/i.test(navigator.userAgent);
@@ -931,8 +917,6 @@ var artDialog = function (options, ok, cancel) {
 var popup = function () {};
 popup.prototype = Popup.prototype;
 var prototype = artDialog.prototype = new popup();
-
-artDialog.version = _version;
 
 artDialog.create = function (options) {
     var that = this;
@@ -1293,8 +1277,6 @@ return artDialog;
 
 
 
-
-
 /*!
  * drag.js
  * Date: 2013-12-06
@@ -1303,7 +1285,7 @@ return artDialog;
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
  */
-define("src/drag", function (require) {
+define("drag", function (require) {
 
 var $ = require("jquery");
 
@@ -1521,7 +1503,7 @@ return DragEvent;
 });
 
 /*!
- * artDialog-plus v6.0.0 
+ * artDialog-plus
  * Date: 2013-12-25
  * https://github.com/aui/artDialog
  * (c) 2009-2013 TangBin, http://www.planeArt.cn
@@ -1529,11 +1511,11 @@ return DragEvent;
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
  */
-define("src/dialog-plus", function (require) {
+define("dialog-plus", function (require) {
 
 var $ = require("jquery");
-var dialog = require("src/dialog");
-var drag = require("src/drag");
+var dialog = require("dialog");
+var drag = require("drag");
 
 dialog.oncreate = function (api) {
 
@@ -1665,6 +1647,6 @@ return dialog;
 });
 
 
-window.dialog = require("src/dialog-plus");
+window.dialog = require("dialog-plus");
 
 })();
