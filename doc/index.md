@@ -102,9 +102,7 @@ var dialog = require('./artDialog/src/dialog');
 //..
 ```
 
-**注意：**：内部依赖全局模块``require('jquery')``，请注意全局模块配置是否正确。
-
-[seajs加载示例](../test/show.html)
+**注意：**内部依赖全局模块``require('jquery')``，请注意全局模块配置是否正确。[seajs加载示例](../test/show.html)
 
 > 如果需要支持 [iframe](#quickref-iframe) 内容与拖拽，请引用加强版 dialog-plus.js
 
@@ -139,6 +137,8 @@ var d = dialog({
 });
 d.show(document.getElementById('quickref-bubble'));
 ```
+
+[12 个方向定位演示](../test/align.html)
 
 ###	[添加按钮](id:quickref-button)
 
@@ -788,7 +788,7 @@ var d = dialog({
 d.show(document.getElementById('option-align'));
 ```
 
-[各个参数演示](../test/align.html)
+[12 个方向定位演示](../test/align.html)
 
 ###	[autofocus](id:option-autofocus)
 
