@@ -1,6 +1,6 @@
 /*!
- * artDialog v6.0.0 
- * Date: 2013-12-13
+ * ui-dialog.css
+ * Date: 2014-07-03
  * (c) 2009-2013 TangBin, http://www.planeArt.cn
  *
  * This is licensed under the GNU LGPL, version 2.1 or later.
@@ -251,7 +251,6 @@
     left: 8px;
 }
 
-/*默认让三角有8px, 不显示*/
 .ui-dialog-arrow-a,
 .ui-dialog-arrow-b {
     position: absolute;
@@ -263,13 +262,10 @@
     _filter:chroma(color=#FF3FFF);
     border:8px dashed transparent;
 }
-
-/*如果有follow则显示小三角*/
 .ui-popup-follow .ui-dialog-arrow-a,
 .ui-popup-follow .ui-dialog-arrow-b{
     display: block;
 }
-
 .ui-popup-top-left .ui-dialog-arrow-a,
 .ui-popup-top .ui-dialog-arrow-a,
 .ui-popup-top-right .ui-dialog-arrow-a {

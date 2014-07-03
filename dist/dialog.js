@@ -572,7 +572,9 @@ $.extend(Popup.prototype, {
             temp[1][align[1]] = center[name[align[1]]];
         }
 
-        className += align.join('-');
+
+        //添加follow的css, 为了给css使用
+        className += align.join('-') + ' '+ this.className+ '-follow';
         
         that.__followSkin = className;
 
