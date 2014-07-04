@@ -3,13 +3,15 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         meta: {
-            banner: '/*!<%= pkg.name %> v<%= pkg.version %> | <%= pkg.homepage %>*/\n'
+            banner: '/*! <%= pkg.name %> v<%= pkg.version %> | <%= pkg.homepage %> */\n'
         },
-        combo: {
+        unwrap: {
             options: {
                 base: './src',
+                globalBase: './src/global_modules',
                 name: 'dialog',
                 namespace: 'window',
+                banner: '<%= meta.banner %>'
             },
             'dialog.js': {
                 src: './src/dialog.js',
@@ -35,8 +37,8 @@ module.exports = function (grunt) {
         }
     });
 
-    require('./tool/tasks/combo.js')(grunt);
+    grunt.loadNpmTasks('grunt-unwrap');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.registerTask('default', ['combo', 'uglify']);
+    grunt.registerTask('default', ['unwrap', 'uglify']);
 
 };

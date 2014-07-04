@@ -19,7 +19,8 @@
     "devDependencies": {
         "grunt-cli": "*",
         "grunt": "*",
-        "grunt-contrib-uglify": "*"
+        "grunt-contrib-uglify": "*",
+        "grunt-unwrap": "*"
     },
     "license": "LGPL"
 }

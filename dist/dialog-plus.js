@@ -1,3 +1,4 @@
+/*! artDialog v6.0.2 | https://github.com/aui/artDialog */
 !(function () {
 
 var __modules__ = {};
@@ -22,18 +23,18 @@ function define (path, fn) {
     __modules__[path] = fn;
 }
 
-define('jquery', function () {
+
+
+define("jquery", function () {
 	return jQuery;
 });
-
-
 
 
 /*!
  * popupjs
  * Date: 2014-01-15
  * https://github.com/aui/popupjs
- * (c) 2009-2013 TangBin, http://www.planeArt.cn
+ * (c) 2009-2014 TangBin, http://www.planeArt.cn
  *
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
@@ -702,9 +703,7 @@ return Popup;
 
 });
 
-/*!
- * artDialog - 默认配置
- */
+// artDialog - 默认配置
 define("dialog-config", {
 
     /* -----已注释的配置继承自 popup.js，仍可以再这里重新定义它----- */
@@ -802,7 +801,7 @@ define("dialog-config", {
  * artDialog
  * Date: 2014-06-29
  * https://github.com/aui/artDialog
- * (c) 2009-2013 TangBin, http://www.planeArt.cn
+ * (c) 2009-2014 TangBin, http://www.planeArt.cn
  *
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
@@ -1282,7 +1281,8 @@ return artDialog;
 /*!
  * drag.js
  * Date: 2013-12-06
- * (c) 2009-2013 TangBin, http://www.planeArt.cn
+ * https://github.com/aui/artDialog
+ * (c) 2009-2014 TangBin, http://www.planeArt.cn
  *
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
@@ -1508,7 +1508,7 @@ return DragEvent;
  * artDialog-plus
  * Date: 2013-12-25
  * https://github.com/aui/artDialog
- * (c) 2009-2013 TangBin, http://www.planeArt.cn
+ * (c) 2009-2014 TangBin, http://www.planeArt.cn
  *
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
