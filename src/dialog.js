@@ -187,6 +187,7 @@ artDialog.create = function (options) {
             'onmousedown' in document ? 'mousedown' : 'click',
             function () {
             that._trigger('cancel');
+            return false;// 阻止抢夺焦点
         });
     }
 

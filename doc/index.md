@@ -91,6 +91,7 @@ artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
 
 ###	1.直接引用
 
+	<script src="lib/jquery-1.10.2.js"></script>
 	<link rel="stylesheet" href="css/ui-dialog.css">
 	<script src="dist/dialog-min.js"></script>
 	//..
@@ -98,7 +99,7 @@ artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
 ###	2.作为 RequireJS 或 SeaJS 的模块引入
 
 ```
-var dialog = require('./artDialog/src/dialog');
+var dialog = require('./src/dialog');
 //..
 ```
 

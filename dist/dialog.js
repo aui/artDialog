@@ -53,22 +53,24 @@ function Popup () {
     this.destroyed = false;
 
 
-    this.__popup = $('<div />')
+    this.__popup = $('<div />')/*使用 <dialog /> 可能导致 z-index 永远置顶的问题*/
     .attr({
         tabindex: '-1'
     })
     .css({
         display: 'none',
         position: 'absolute',
+        /*
         left: 0,
         top: 0,
         bottom: 'auto',
         right: 'auto',
         margin: 0,
         padding: 0,
-        outline: 0,
         border: '0 none',
         background: 'transparent'
+        */
+        outline: 0
     })
     .html(this.innerHTML)
     .appendTo('body');
@@ -219,8 +221,6 @@ $.extend(Popup.prototype, {
         this.__backdrop.show();
 
 
-
-
         this.reset().focus();
         this.__dispatchEvent('show');
 
@@ -247,7 +247,7 @@ $.extend(Popup.prototype, {
             this.__popup.hide().removeClass(this.className + '-show');
             this.__backdrop.hide();
             this.open = false;
-            this.blur();
+            this.blur();// 恢复焦点，照顾键盘操作的用户
             this.__dispatchEvent('close');
         }
     
@@ -271,10 +271,6 @@ $.extend(Popup.prototype, {
         this.__unlock();
         this.__popup.remove();
         this.__backdrop.remove();
-
-
-        // 恢复焦点，照顾键盘操作的用户
-        this.blur();
 
         if (!_isIE6) {
             $(window).off('resize', this.__onresize);
@@ -986,6 +982,7 @@ artDialog.create = function (options) {
             'onmousedown' in document ? 'mousedown' : 'click',
             function () {
             that._trigger('cancel');
+            return false;// 阻止抢夺焦点
         });
     }
 
