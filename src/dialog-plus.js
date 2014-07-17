@@ -93,7 +93,7 @@ dialog.oncreate = function (api) {
         for (var i = 0; i < frames.length; i ++) {
             try {
                 if (originalOptions instanceof frames[i].Object) {
-                    // 让 iframe 刷新前时候也关闭对话框，
+                    // 让 iframe 刷新的时候也关闭对话框，
                     // 防止要执行的对象被强制收回导致 IE 报错：“不能执行已释放 Script 的代码”
                     $(frames[i]).one('unload', un);
                     break;
