@@ -88,7 +88,11 @@ dialog.oncreate = function (api) {
                     $iframe.contents().on('DOMSubtreeModified propertychange',adjustHeight);
                     // 父窗口大小改变时调整iframe大小
                     $(window).on('resize', adjustHeight);
-
+                    // 在对话框移除时去掉事件绑定
+                    api.onbeforeremove = function () {
+                        $iframe.contents().off('DOMSubtreeModified propertychange',adjustHeight);
+                        $(window).off('resize', adjustHeight);
+                    }
                 }
             }
 
