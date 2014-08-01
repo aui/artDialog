@@ -387,7 +387,11 @@ pre tt {
 
 <p><strong>注意：</strong>内部依赖全局模块<code>require('jquery')</code>，请注意全局模块配置是否正确。<a href="../test/show.html">seajs加载示例</a></p>
 
-<blockquote><p>如果需要支持 <a href="#quickref-iframe">iframe</a> 内容与拖拽，请引用加强版 dialog-plus.js</p></blockquote>
+<blockquote><ul>
+<li>如果需要支持 <a href="#quickref-iframe">iframe</a> 内容与拖拽，请引用加强版 dialog-plus.js</li>
+<li>jquery 最低要求版本为<code>1.7+</code></li>
+</ul>
+</blockquote>
 
 <h2><span id="quickref">快速参考</span></h2>
 
@@ -1246,8 +1250,6 @@ dialog.get('id-demo').title('8888888888');
 <h3><span id="property-open">open</span></h3>
 
 <p>判断对话框是否被打开。</p>
-
-<p>这是一个只读方法。</p>
 
 <h3><span id="property-returnValue">returnValue</span></h3>
 

@@ -105,7 +105,8 @@ var dialog = require('./src/dialog');
 
 **注意：**内部依赖全局模块``require('jquery')``，请注意全局模块配置是否正确。[seajs加载示例](../test/show.html)
 
-> 如果需要支持 [iframe](#quickref-iframe) 内容与拖拽，请引用加强版 dialog-plus.js
+> * 如果需要支持 [iframe](#quickref-iframe) 内容与拖拽，请引用加强版 dialog-plus.js
+> * jquery 最低要求版本为``1.7+``
 
 ##	[快速参考](id:quickref)
 
@@ -972,8 +973,6 @@ dialog.get('id-demo').title('8888888888');
 ###	[open](id:property-open)
 
 判断对话框是否被打开。
-
-这是一个只读方法。
 
 ###	[returnValue](id:property-returnValue)
 
