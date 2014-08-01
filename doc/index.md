@@ -91,6 +91,7 @@ artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
 
 ###	1.直接引用
 
+	<script src="lib/jquery-1.10.2.js"></script>
 	<link rel="stylesheet" href="css/ui-dialog.css">
 	<script src="dist/dialog-min.js"></script>
 	//..
@@ -98,15 +99,14 @@ artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
 ###	2.作为 RequireJS 或 SeaJS 的模块引入
 
 ```
-var dialog = require('./artDialog/src/dialog');
+var dialog = require('./src/dialog');
 //..
 ```
 
-**注意：**：内部依赖全局模块``require('jquery')``，请注意全局模块配置是否正确。
+**注意：**内部依赖全局模块``require('jquery')``，请注意全局模块配置是否正确。[seajs加载示例](../test/show.html)
 
-[seajs加载示例](../test/show.html)
-
-> 如果需要支持 [iframe](#quickref-iframe) 内容与拖拽，请引用加强版 dialog-plus.js
+> * 如果需要支持 [iframe](#quickref-iframe) 内容与拖拽，请引用加强版 dialog-plus.js
+> * jquery 最低要求版本为``1.7+``
 
 ##	[快速参考](id:quickref)
 
@@ -139,6 +139,8 @@ var d = dialog({
 });
 d.show(document.getElementById('quickref-bubble'));
 ```
+
+[12 个方向定位演示](../test/align.html)
 
 ###	[添加按钮](id:quickref-button)
 
@@ -788,7 +790,7 @@ var d = dialog({
 d.show(document.getElementById('option-align'));
 ```
 
-[各个参数演示](../test/align.html)
+[12 个方向定位演示](../test/align.html)
 
 ###	[autofocus](id:option-autofocus)
 
@@ -971,8 +973,6 @@ dialog.get('id-demo').title('8888888888');
 ###	[open](id:property-open)
 
 判断对话框是否被打开。
-
-这是一个只读方法。
 
 ###	[returnValue](id:property-returnValue)
 

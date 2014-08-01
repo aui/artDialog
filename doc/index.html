@@ -373,22 +373,25 @@ pre tt {
 
 <h3>1.直接引用</h3>
 
-<pre><code>&lt;link rel="stylesheet" href="css/ui-dialog.css"&gt;
+<pre><code>&lt;script src="lib/jquery-1.10.2.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" href="css/ui-dialog.css"&gt;
 &lt;script src="dist/dialog-min.js"&gt;&lt;/script&gt;
 //..
 </code></pre>
 
 <h3>2.作为 RequireJS 或 SeaJS 的模块引入</h3>
 
-<pre><code>var dialog = require('./artDialog/src/dialog');
+<pre><code>var dialog = require('./src/dialog');
 //..
 </code></pre>
 
-<p><strong>注意：</strong>：内部依赖全局模块<code>require('jquery')</code>，请注意全局模块配置是否正确。</p>
+<p><strong>注意：</strong>内部依赖全局模块<code>require('jquery')</code>，请注意全局模块配置是否正确。<a href="../test/show.html">seajs加载示例</a></p>
 
-<p><a href="../test/show.html">seajs加载示例</a></p>
-
-<blockquote><p>如果需要支持 <a href="#quickref-iframe">iframe</a> 内容与拖拽，请引用加强版 dialog-plus.js</p></blockquote>
+<blockquote><ul>
+<li>如果需要支持 <a href="#quickref-iframe">iframe</a> 内容与拖拽，请引用加强版 dialog-plus.js</li>
+<li>jquery 最低要求版本为<code>1.7+</code></li>
+</ul>
+</blockquote>
 
 <h2><span id="quickref">快速参考</span></h2>
 
@@ -418,6 +421,8 @@ d.showModal();
 });
 d.show(document.getElementById('quickref-bubble'));
 </code></pre>
+
+<p><a href="../test/align.html">12 个方向定位演示</a></p>
 
 <h3><span id="quickref-button">添加按钮</span></h3>
 
@@ -1065,7 +1070,7 @@ dialog({
 d.show(document.getElementById('option-align'));
 </code></pre>
 
-<p><a href="../test/align.html">各个参数演示</a></p>
+<p><a href="../test/align.html">12 个方向定位演示</a></p>
 
 <h3><span id="option-autofocus">autofocus</span></h3>
 
@@ -1245,8 +1250,6 @@ dialog.get('id-demo').title('8888888888');
 <h3><span id="property-open">open</span></h3>
 
 <p>判断对话框是否被打开。</p>
-
-<p>这是一个只读方法。</p>
 
 <h3><span id="property-returnValue">returnValue</span></h3>
 
