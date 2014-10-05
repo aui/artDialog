@@ -1005,7 +1005,7 @@ d.show();
 
 ###	[源码构建](id:other-grunt)
 
-使用[GruntJS](http://gruntjs.cn)在 artDialog 源码根目录执行即可。
+使用 [GruntJS](http://gruntjs.cn) 在 artDialog 源码根目录执行即可。
 
 ###	[artDialog v5 升级 v6 参考](id:other-upgrade)
 
@@ -1017,7 +1017,7 @@ artDialog 是基于 [LGPL](https://github.com/aui/artDialog/blob/master/LICENSE.
 
 =======================
 
-如果你喜欢 artDialog，请[捐赠](https://me.alipay.com/planeart)一杯咖啡的费用以支持 artDialog。如果您认为 LGPL 开源协议满足不了您的项目，亦可购买[商业授权](https://github.com/aui/artDialog/blob/master/LICENSE.md)。
+如果你喜欢 artDialog，请 [捐赠](https://me.alipay.com/planeart) 一杯咖啡的费用以支持 artDialog。如果您认为 LGPL 开源协议满足不了您的项目，亦可购买 [商业授权](https://github.com/aui/artDialog/blob/master/LICENSE.md)。
 
 <script src="../lib/jquery-1.10.2.js"></script>
 

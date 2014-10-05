@@ -826,7 +826,7 @@ if (css) {
 
 
 var _count = 0;
-var _expando = new Date() - 0; // Data.now()
+var _expando = new Date() - 0; // Date.now()
 var _isIE6 = !('minWidth' in $('html')[0].style);
 var _isMobile = 'createTouch' in document && !('onmousemove' in document)
     || /(iPhone|iPad|iPod)/i.test(navigator.userAgent);
@@ -963,17 +963,6 @@ artDialog.create = function (options) {
     // 添加视觉参数
     this._$('dialog').addClass(this.skin);
     this._$('body').css('padding', this.padding);
-
-
-    // 按钮组点击
-    $popup.on('click', '[data-id]', function (event) {
-        var $this = $(this);
-        if (!$this.attr('disabled')) {// IE BUG
-            that._trigger($this.data('id'));
-        }
-    
-        event.preventDefault();
-    });
 
 
     // 点击遮罩自动关闭对话框
@@ -1174,6 +1163,7 @@ $.extend(prototype, {
            
         if (typeof args === 'string') {
             html = args;
+            number ++;
         } else {
             $.each(args, function (i, val) {
 
@@ -1203,8 +1193,18 @@ $.extend(prototype, {
         }
 
         this._$('footer')[number ? 'show' : 'hide']();
-        this._$('button').html(html);
+
+        this._$('button')
+        .html(html)
+        .on('click', '[data-id]', function (event) {
+            var $this = $(this);
+            if (!$this.attr('disabled')) {// IE BUG
+                that._trigger($this.data('id'));
+            }
         
+            event.preventDefault();
+        });
+
         return this;
     },
 
@@ -1596,7 +1596,7 @@ dialog.oncreate = function (api) {
         for (var i = 0; i < frames.length; i ++) {
             try {
                 if (originalOptions instanceof frames[i].Object) {
-                    // 让 iframe 刷新前时候也关闭对话框，
+                    // 让 iframe 刷新的时候也关闭对话框，
                     // 防止要执行的对象被强制收回导致 IE 报错：“不能执行已释放 Script 的代码”
                     $(frames[i]).one('unload', un);
                     break;

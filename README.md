@@ -20,6 +20,11 @@ artDialog v6 —— 经典的网页对话框组件，内外皆用心雕琢。
 
 ##	更新历史
 
+6.0.3
+
+1. 修复``button``方法直接传入 html 不显示的问题
+2. 修复版本管理导致[#78](https://github.com/aui/artDialog/issues/78)重现问题
+
 6.0.2
 
 1. 提供无依赖 seajs 与 requirejs 的版本
