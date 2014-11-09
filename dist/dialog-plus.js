@@ -1,4 +1,4 @@
-/*! artDialog v6.0.2 | https://github.com/aui/artDialog */
+/*! artDialog v6.0.4 | https://github.com/aui/artDialog */
 !(function () {
 
 var __modules__ = {};
@@ -31,14 +31,15 @@ define("jquery", function () {
 
 
 /*!
- * popupjs
- * Date: 2014-01-15
+ * PopupJS
+ * Date: 2014-11-09
  * https://github.com/aui/popupjs
  * (c) 2009-2014 TangBin, http://www.planeArt.cn
  *
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
  */
+
 define("popup", function (require) {
 
 var $ = require("jquery");
@@ -53,10 +54,8 @@ function Popup () {
     this.destroyed = false;
 
 
-    this.__popup = $('<div />')/*使用 <dialog /> 可能导致 z-index 永远置顶的问题*/
-    .attr({
-        tabindex: '-1'
-    })
+    this.__popup = $('<div />')
+    /*使用 <dialog /> 元素可能导致 z-index 永远置顶的问题(chrome)*/
     .css({
         display: 'none',
         position: 'absolute',
@@ -72,11 +71,16 @@ function Popup () {
         */
         outline: 0
     })
+    .attr('tabindex', '-1')
     .html(this.innerHTML)
     .appendTo('body');
 
 
-    this.__backdrop = $('<div />');
+    this.__backdrop = this.__mask = $('<div />')
+    .css({
+        opacity: .7,
+        background: '#000'
+    });
 
 
     // 使用 HTMLElement 作为外部接口使用，而不是 jquery 对象
@@ -132,16 +136,16 @@ $.extend(Popup.prototype, {
      * @event
      */
 
-    /** 浮层 DOM 素节点 */
+    /** 浮层 DOM 素节点[*] */
     node: null,
 
-    /** 遮罩 DOM 节点 */
+    /** 遮罩 DOM 节点[*] */
     backdrop: null,
 
-    /** 是否开启固定定位 */
+    /** 是否开启固定定位[*] */
     fixed: false,
 
-    /** 判断对话框是否删除 */
+    /** 判断对话框是否删除[*] */
     destroyed: true,
 
     /** 判断对话框是否显示 */
@@ -153,19 +157,13 @@ $.extend(Popup.prototype, {
     /** 是否自动聚焦 */
     autofocus: true,
 
-    /** 对齐方式 */
+    /** 对齐方式[*] */
     align: 'bottom left',
-
-    /** 设置遮罩背景颜色 */
-    backdropBackground: '#000',
-
-    /** 设置遮罩透明度 */
-    backdropOpacity: 0.7,
 
     /** 内部的 HTML 字符串 */
     innerHTML: '',
 
-    /** 类名 */
+    /** CSS 类名 */
     className: 'ui-popup',
 
     /**
@@ -180,6 +178,7 @@ $.extend(Popup.prototype, {
 
         var that = this;
         var popup = this.__popup;
+        var backdrop = this.__backdrop;
 
         this.__activeElement = this.__getActive();
 
@@ -187,38 +186,74 @@ $.extend(Popup.prototype, {
         this.follow = anchor || this.follow;
 
 
+        // 初始化 show 方法
         if (!this.__ready) {
 
-            popup.addClass(this.className);
+            popup
+            .addClass(this.className)
+            .attr('role', this.modal ? 'alertdialog' : 'dialog')
+            .css('position', this.fixed ? 'fixed' : 'absolute');
 
+            if (!_isIE6) {
+                $(window).on('resize', $.proxy(this.reset, this));
+            }
+
+            // 模态浮层的遮罩
             if (this.modal) {
-                this.__lock();
+                var backdropCss = {
+                    position: 'fixed',
+                    left: 0,
+                    top: 0,
+                    width: '100%',
+                    height: '100%',
+                    overflow: 'hidden',
+                    userSelect: 'none',
+                    zIndex: this.zIndex || Popup.zIndex
+                };
+
+
+                popup.addClass(this.className + '-modal');
+
+
+                if (!_isFixed) {
+                    $.extend(backdropCss, {
+                        position: 'absolute',
+                        width: $(window).width() + 'px',
+                        height: $(document).height() + 'px'
+                    });
+                }
+
+
+                backdrop
+                .css(backdropCss)
+                .attr({tabindex: '0'})
+                .on('focus', $.proxy(this.focus, this));
+
+                // 锁定 tab 的焦点操作
+                this.__mask = backdrop
+                .clone(true)
+                .attr('style', '')
+                .insertAfter(popup);
+
+                backdrop
+                .addClass(this.className + '-backdrop')
+                .insertBefore(popup);
+
+                this.__ready = true;
             }
 
 
             if (!popup.html()) {
                 popup.html(this.innerHTML);
             }
-
-
-            if (!_isIE6) {
-                $(window).on('resize', this.__onresize = function () {
-                    that.reset();
-                });
-            }
-
-
-            this.__ready = true;
         }
 
 
         popup
         .addClass(this.className + '-show')
-        .attr('role', this.modal ? 'alertdialog' : 'dialog')
-        .css('position', this.fixed ? 'fixed' : 'absolute')
         .show();
 
-        this.__backdrop.show();
+        backdrop.show();
 
 
         this.reset().focus();
@@ -267,14 +302,18 @@ $.extend(Popup.prototype, {
         if (Popup.current === this) {
             Popup.current = null;
         }
-        
-        this.__unlock();
+
+
+        // 从 DOM 中移除节点
         this.__popup.remove();
         this.__backdrop.remove();
+        this.__mask.remove();
+
 
         if (!_isIE6) {
-            $(window).off('resize', this.__onresize);
+            $(window).off('resize', this.reset);
         }
+
 
         this.__dispatchEvent('remove');
 
@@ -286,7 +325,7 @@ $.extend(Popup.prototype, {
     },
 
 
-    /** 手动刷新位置 */
+    /** 重置位置 */
     reset: function () {
 
         var elem = this.follow;
@@ -307,7 +346,9 @@ $.extend(Popup.prototype, {
     focus: function () {
 
         var node = this.node;
+        var popup = this.__popup;
         var current = Popup.current;
+        var index = this.zIndex = Popup.zIndex ++;
 
         if (current && current !== this) {
             current.blur(false);
@@ -315,7 +356,7 @@ $.extend(Popup.prototype, {
 
         // 检查焦点是否在浮层里面
         if (!$.contains(node, this.__getActive())) {
-            var autofocus = this.__popup.find('[autofocus]')[0];
+            var autofocus = popup.find('[autofocus]')[0];
 
             if (!this._autofocus && autofocus) {
                 this._autofocus = true;
@@ -326,9 +367,13 @@ $.extend(Popup.prototype, {
             this.__focus(autofocus);
         }
 
+        // 设置叠加高度
+        popup.css('zIndex', index);
+        //this.__backdrop.css('zIndex', index);
+
         Popup.current = this;
-        this.__popup.addClass(this.className + '-focus');
-        this.__zIndex();
+        popup.addClass(this.className + '-focus');
+
         this.__dispatchEvent('focus');
 
         return this;
@@ -429,18 +474,6 @@ $.extend(Popup.prototype, {
             var elem = contentDocument && contentDocument.activeElement || activeElement;
             return elem;
         } catch (e) {}
-    },
-
-
-    // 置顶浮层
-    __zIndex: function () {
-    
-        var index = Popup.zIndex ++;
-        
-        // 设置叠加高度
-        this.__popup.css('zIndex', index);
-        this.__backdrop.css('zIndex', index - 1);
-        this.zIndex = index;
     },
 
 
@@ -607,7 +640,7 @@ $.extend(Popup.prototype, {
             return offset;
         }
 
-        // {Element Ifarme}
+        // {Element: Ifarme}
         var frameElement = defaultView.frameElement;
         var $ownerDocument = $(ownerDocument);
         var docLeft =  $ownerDocument.scrollLeft();
@@ -620,68 +653,6 @@ $.extend(Popup.prototype, {
             left: offset.left + frameLeft - docLeft,
             top: offset.top + frameTop - docTop
         };
-    },
-    
-    
-    // 设置屏锁遮罩
-    __lock: function () {
-
-        var that = this;
-        var popup = this.__popup;
-        var backdrop = this.__backdrop;
-        var backdropCss = {
-            position: 'fixed',
-            left: 0,
-            top: 0,
-            width: '100%',
-            height: '100%',
-            overflow: 'hidden',
-            userSelect: 'none',
-            opacity: 0,
-            background: this.backdropBackground
-        };
-
-
-        popup.addClass(this.className + '-modal');
-        
-
-        // 避免遮罩不能盖住上一次的对话框
-        // 如果当前对话框是上一个对话框创建，点击的那一瞬间它会增长 zIndex 值
-        Popup.zIndex = Popup.zIndex + 2;
-        this.__zIndex();
-
-
-        if (!_isFixed) {
-            $.extend(backdropCss, {
-                position: 'absolute',
-                width: $(window).width() + 'px',
-                height: $(document).height() + 'px'
-            });
-        }
-
-
-        backdrop
-        .css(backdropCss)
-        .animate({opacity: this.backdropOpacity}, 150)
-        .insertAfter(popup)
-        // 锁住模态对话框的 tab 简单办法
-        // 甚至可以避免焦点落入对话框外的 iframe 中
-        .attr({tabindex: '0'})
-        .on('focus', function () {
-            that.focus();
-        });
-
-    },
-    
-
-    // 卸载屏锁遮罩
-    __unlock: function () {
-
-        if (this.modal) {
-            this.__popup.removeClass(this.className + '-modal');
-            this.__backdrop.remove();
-            delete this.modal;
-        }
     }
     
 });
@@ -714,10 +685,10 @@ define("dialog-config", {
     //zIndex: 1024,
 
     // 设置遮罩背景颜色
-    //backdropBackground: '#000',
+    backdropBackground: '#000',
 
     // 设置遮罩透明度
-    //backdropOpacity: 0.7,
+    backdropOpacity: 0.7,
 
     // 消息内容
     content: '<span class="ui-dialog-loading">Loading..</span>',
@@ -795,7 +766,7 @@ define("dialog-config", {
 
 /*!
  * artDialog
- * Date: 2014-06-29
+ * Date: 2014-11-09
  * https://github.com/aui/artDialog
  * (c) 2009-2014 TangBin, http://www.planeArt.cn
  *
@@ -845,7 +816,7 @@ var artDialog = function (options, ok, cancel) {
     
 
     options = $.extend(true, {}, artDialog.defaults, options);
-    options._ = originalOptions;
+    options.original = originalOptions;
 
     var id = options.id = options.id || _expando + _count;
     var api = artDialog.get(id);
@@ -866,9 +837,7 @@ var artDialog = function (options, ok, cancel) {
     // 快捷关闭支持：点击对话框外快速关闭对话框
     if (options.quickClose) {
         options.modal = true;
-        if (!originalOptions.backdropOpacity) {
-            options.backdropOpacity = 0;
-        }
+        options.backdropOpacity = 0;
     }
     
 
@@ -920,7 +889,9 @@ artDialog.create = function (options) {
 
     $.extend(this, new Popup());
 
+    var originalOptions = options.original;
     var $popup = $(this.node).html(options.innerHTML);
+    var $backdrop = $(this.backdrop);
 
     this.options = options;
     this._popup = $popup;
@@ -965,15 +936,27 @@ artDialog.create = function (options) {
     this._$('body').css('padding', this.padding);
 
 
-    // 点击遮罩自动关闭对话框
+    // 点击任意空白处关闭对话框
     if (options.quickClose) {
-        $(this.backdrop).on(
+        $backdrop
+        .on(
             'onmousedown' in document ? 'mousedown' : 'click',
             function () {
             that._trigger('cancel');
             return false;// 阻止抢夺焦点
         });
     }
+
+
+    // 遮罩设置
+    this.addEventListener('show', function () {
+        $backdrop.css({
+            opacity: 0,
+            background: options.backdropBackground
+        }).animate(
+            {opacity: options.backdropOpacity}
+        , 150);
+    });
 
 
     // ESC 快捷键关闭对话框
@@ -1116,8 +1099,19 @@ $.extend(prototype, {
      */
     content: function (html) {
     
-        this._$('content').empty('')
-        [typeof html === 'object' ? 'append' : 'html'](html);
+        var $content = this._$('content');
+
+        // HTMLElement
+        if (typeof html === 'object') {
+            html = $(html);
+            $content.empty('').append(html.show());
+            this.addEventListener('remove', function () {
+                $('body').append(html.hide());
+            });
+        // String
+        } else {
+            $content.html(html);
+        }
                 
         return this.reset();
     },
@@ -1151,6 +1145,7 @@ $.extend(prototype, {
     /**
      * 设置按钮组
      * @param   {Array, String}
+     * Options: value, callback, autofocus, disabled 
      */
     button: function (args) {
         args = args || [];
@@ -1158,7 +1153,6 @@ $.extend(prototype, {
         var html = '';
         var number = 0;
         this.callbacks = {};
-
         
            
         if (typeof args === 'string') {
@@ -1167,10 +1161,10 @@ $.extend(prototype, {
         } else {
             $.each(args, function (i, val) {
 
-                val.id = val.id || val.value;
-                that.callbacks[val.id] = val.callback;
-
+                var id = val.id = val.id || val.value;
                 var style = '';
+                that.callbacks[id] = val.callback;
+
 
                 if (val.display === false) {
                     style = ' style="display:none"';
@@ -1181,7 +1175,7 @@ $.extend(prototype, {
                 html +=
                   '<button'
                 + ' type="button"'
-                + ' data-id="' + val.id + '"'
+                + ' i-id="' + id + '"'
                 + style
                 + (val.disabled ? ' disabled' : '')
                 + (val.autofocus ? ' autofocus class="ui-dialog-autofocus"' : '')
@@ -1189,21 +1183,21 @@ $.extend(prototype, {
                 +   val.value
                 + '</button>';
 
+                that._$('button')
+                .on('click', '[i-id=' + id +']', function (event) {                
+                    var $this = $(this);
+                    if (!$this.attr('disabled')) {// IE BUG
+                        that._trigger(id);
+                    }
+                
+                    event.preventDefault();
+                });
+
             });
         }
 
+        this._$('button').html(html);
         this._$('footer')[number ? 'show' : 'hide']();
-
-        this._$('button')
-        .html(html)
-        .on('click', '[data-id]', function (event) {
-            var $this = $(this);
-            if (!$this.attr('disabled')) {// IE BUG
-                that._trigger($this.data('id'));
-            }
-        
-            event.preventDefault();
-        });
 
         return this;
     },
@@ -1224,7 +1218,6 @@ $.extend(prototype, {
     
     // 触发按钮回调函数
     _trigger: function (id) {
-    
         var fn = this.callbacks[id];
             
         return typeof fn !== 'function' || fn.call(this) !== false ?
@@ -1239,7 +1232,7 @@ artDialog.oncreate = $.noop;
 
 
 
-/** 最顶层的对话框API */
+/** 获取最顶层的对话框API */
 artDialog.getCurrent = function () {
     return Popup.current;
 };
@@ -1503,7 +1496,7 @@ return DragEvent;
 
 /*!
  * artDialog-plus
- * Date: 2013-12-25
+ * Date: 2013-11-09
  * https://github.com/aui/artDialog
  * (c) 2009-2014 TangBin, http://www.planeArt.cn
  *
@@ -1519,7 +1512,7 @@ var drag = require("drag");
 dialog.oncreate = function (api) {
 
     var options = api.options;
-    var originalOptions = options._;
+    var originalOptions = options.original;
 
     // 页面地址
     var url = options.url;

@@ -1,6 +1,6 @@
 /*!
  * artDialog-plus
- * Date: 2013-12-25
+ * Date: 2013-11-09
  * https://github.com/aui/artDialog
  * (c) 2009-2014 TangBin, http://www.planeArt.cn
  *
@@ -16,7 +16,7 @@ var drag = require('./drag');
 dialog.oncreate = function (api) {
 
     var options = api.options;
-    var originalOptions = options._;
+    var originalOptions = options.original;
 
     // 页面地址
     var url = options.url;

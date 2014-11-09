@@ -4,7 +4,7 @@
 
 ============================
 
-artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
+artDialog —— 经典、优雅的网页对话框控件。
 
 1.	支持普通与 12 方向气泡状对话框
 2.	完善的焦点处理，自动焦点附加与回退
@@ -25,7 +25,7 @@ artDialog —— 经典的网页对话框组件，内外皆用心雕琢。
 	*	[添加按钮](#quickref-button)
 	*	[控制对话框关闭](#quickref-close)
 	*	[给对话框左下脚添加复选框](#quickref-statusbar)
-	*	[阻止对话框关闭](#quickref-callback)
+	*	[点按钮不关闭对话框](#quickref-callback)
 	*	[不显示关闭按钮](#quickref-cancel)
 	*	[创建 iframe 内容](#quickref-iframe)
 *	[方法](#api)
@@ -189,7 +189,7 @@ var d = dialog({
 d.show();
 ```
 
-###	[阻止对话框关闭](id:quickref-callback)
+###	[点按钮不关闭对话框](id:quickref-callback)
 
 按钮事件返回 false 则不会触发关闭。
 
@@ -340,6 +340,8 @@ dialog({
 	id: 'EF893L'
 }).show();
 ```
+
+> v6.0.4 更新：隐藏元素将会自动显示，并且对话框卸载的时候会放回到``body``中
 
 ###	[title(text)](id:api-title)
 
@@ -1017,7 +1019,7 @@ artDialog 是基于 [LGPL](https://github.com/aui/artDialog/blob/master/LICENSE.
 
 =======================
 
-如果你喜欢 artDialog，请 [捐赠](https://me.alipay.com/planeart) 一杯咖啡的费用以支持 artDialog。如果您认为 LGPL 开源协议满足不了您的项目，亦可购买 [商业授权](https://github.com/aui/artDialog/blob/master/LICENSE.md)。
+[artDialog 商业授权](https://github.com/aui/artDialog/blob/master/LICENSE.md)
 
 <script src="../lib/jquery-1.10.2.js"></script>
 
@@ -1026,12 +1028,3 @@ artDialog 是基于 [LGPL](https://github.com/aui/artDialog/blob/master/LICENSE.
 
 <link rel="stylesheet" href="./css/doc.css" />
 <script src="./js/doc.js"></script>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-46294919-1', 'aui.github.io');
-  ga('send', 'pageview');
-</script>

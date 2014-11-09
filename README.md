@@ -1,24 +1,24 @@
 #	artDialog
 
-artDialog v6 —— 经典的网页对话框组件，内外皆用心雕琢。
+artDialog——经典、优雅的网页对话框控件。
+文档与示例：<http://aui.github.io/artDialog/doc/index.html>
 
-##	用户
+##	成功案例
 
-四年来，有超过 40 万网站在使用 artDialog，其中不乏国内顶尖的产品：
+超过 40 万网站在使用 artDialog，其中不乏国内顶尖的产品：
 
 *	[QQ空间 v8（腾讯）](http://qzone.qq.com)
 *	[Phpcms（盛大）](http://www.phpcms.cn)
 *	[极路由](http://www.hiwifi.com)
-
-##	文档与示例
-
-<http://aui.github.io/artDialog/doc/index.html>
-
-##	兼容性
-
-测试通过：IE6-IE11、Chrome、Firefox、Safari、Opera
+*	...
 
 ##	更新历史
+
+6.0.4
+
+1. ``content()``方法传入隐藏元素并显示，并且``remove()``的时候会将元素插入到``body``避免被销毁 #126 #103
+2. 修复``button``方法可能会多次绑定事件的问题
+3. 模态对话框可以避免 shift + tab 将焦点移出对话框 #67
 
 6.0.3
 
@@ -48,8 +48,6 @@ artDialog v6 —— 经典的网页对话框组件，内外皆用心雕琢。
 
 免费，且开源，基于[LGPL](./LICENSE.md)协议。
 
-##	支持我们
+------------------
 
-[贡献代码](https://github.com/aui/artDialog) || [捐赠一杯咖啡](https://me.alipay.com/planeart) || [商业授权](./LICENSE.md)
-
-artDialog，献给那些愿意为 web 极致体验付出的人们！
+*artDialog，因极致而骄傲！——作者，糖饼*

@@ -5,8 +5,7 @@
 	<title>test</title>
 </head>
 <body>
-<button id="test">content('hello world')</button> <button id="test2">content(elem)</button>
-<div id="test-content" style="color:red;"><p>我是DOM节点</p></div>
+<button id="test">content('hello world')</button>
 <script src="../lib/sea.js"></script>
 <script>
 seajs.config({
@@ -22,15 +21,7 @@ seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
 	var d = dialog({
 		title: '消息',
 		content: '风吹起的青色衣衫，夕阳里的温暖容颜，你比以前更加美丽，像盛开的花<br>——许巍《难忘的一天》',
-		okValue: '确 定',
-		ok: function () {
-			this.content('不许点确定关闭哈');
-			return false;
-		},
-		cancel: function () {
-			this.content('不许点取消关闭哈');
-			return false;
-		}
+		okValue: '确 定'
 	});
 
 	d.show();
@@ -39,9 +30,10 @@ seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
 		d.content('hello world');
 	});
 
-	var elem = document.getElementById('test-content');
-	$('#test2').on('click', function () {
-		d.content(elem);
+	d.addEventListener('remove', function () {
+		$('#test').off('click').on('click', function () {
+			alert('对话框已经销毁');
+		});
 	});
 
 });

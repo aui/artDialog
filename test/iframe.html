@@ -22,7 +22,7 @@
 </head>
 <body>
 <script>
-!/http/.test(location.protocol) && document.write('<h1>请在服务端预览（部分浏览器本地 iframe 会跨域无权限）</h1>');
+!/http/.test(location.protocol) && document.write('<h1>请在服务端预览（Chrome 浏览器本地访问 iframe 会跨域无权限）</h1>');
 </script>
 <div id="doc">
 	<iframe id="test-iframe" src="about:blank" data-src="show-element.html"></iframe>

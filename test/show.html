@@ -32,7 +32,9 @@ seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
 				return false;
 			},
 			cancelValue: '取消',
-			cancel: function () {}
+			cancel: function () {
+				alert('你点了取消按钮')
+			}
 		});
 
 		d.show();

@@ -236,7 +236,7 @@ pre tt {
 
 <hr />
 
-<p>artDialog —— 经典的网页对话框组件，内外皆用心雕琢。</p>
+<p>artDialog —— 经典、优雅的网页对话框控件。</p>
 
 <ol>
 <li>支持普通与 12 方向气泡状对话框</li>
@@ -263,7 +263,7 @@ pre tt {
 <li><a href="#quickref-button">添加按钮</a></li>
 <li><a href="#quickref-close">控制对话框关闭</a></li>
 <li><a href="#quickref-statusbar">给对话框左下脚添加复选框</a></li>
-<li><a href="#quickref-callback">阻止对话框关闭</a></li>
+<li><a href="#quickref-callback">点按钮不关闭对话框</a></li>
 <li><a href="#quickref-cancel">不显示关闭按钮</a></li>
 <li><a href="#quickref-iframe">创建 iframe 内容</a></li>
 </ul>
@@ -468,7 +468,7 @@ setTimeout(function () {
 d.show();
 </code></pre>
 
-<h3><span id="quickref-callback">阻止对话框关闭</span></h3>
+<h3><span id="quickref-callback">点按钮不关闭对话框</span></h3>
 
 <p>按钮事件返回 false 则不会触发关闭。</p>
 
@@ -612,6 +612,8 @@ dialog({
     id: 'EF893L'
 }).show();
 </code></pre>
+
+<blockquote><p>v6.0.4 更新：隐藏元素将会自动显示，并且对话框卸载的时候会放回到<code>body</code>中</p></blockquote>
 
 <h3><span id="api-title">title(text)</span></h3>
 
@@ -1294,7 +1296,7 @@ d.show();
 
 <hr />
 
-<p>如果你喜欢 artDialog，请 <a href="https://me.alipay.com/planeart">捐赠</a> 一杯咖啡的费用以支持 artDialog。如果您认为 LGPL 开源协议满足不了您的项目，亦可购买 <a href="https://github.com/aui/artDialog/blob/master/LICENSE.md">商业授权</a>。</p>
+<p><a href="https://github.com/aui/artDialog/blob/master/LICENSE.md">artDialog 商业授权</a></p>
 
 <script src="../lib/jquery-1.10.2.js"></script>
 
@@ -1307,18 +1309,6 @@ d.show();
 <p><link rel="stylesheet" href="./css/doc.css" /></p>
 
 <script src="./js/doc.js"></script>
-
-
-
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-46294919-1', 'aui.github.io');
-  ga('send', 'pageview');
-</script>
 
 </body>
 </html>

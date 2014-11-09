@@ -13,10 +13,10 @@ define({
     //zIndex: 1024,
 
     // 设置遮罩背景颜色
-    //backdropBackground: '#000',
+    backdropBackground: '#000',
 
     // 设置遮罩透明度
-    //backdropOpacity: 0.7,
+    backdropOpacity: 0.7,
 
     // 消息内容
     content: '<span class="ui-dialog-loading">Loading..</span>',
