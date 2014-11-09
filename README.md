@@ -16,9 +16,9 @@ artDialog——经典、优雅的网页对话框控件。
 
 6.0.4
 
-1. ``content()``方法传入隐藏元素并显示，并且``remove()``的时候会将元素插入到``body``避免被销毁 #126 #103
+1. ``content()``方法传入隐藏元素并显示，并且``remove()``的时候会将元素插入到``body``避免被销毁 [#103](https://github.com/aui/artDialog/issues/103) [#126](https://github.com/aui/artDialog/issues/126)
 2. 修复``button``方法可能会多次绑定事件的问题
-3. 模态对话框可以避免 shift + tab 将焦点移出对话框 #67
+3. 模态对话框可以避免 shift + tab 将焦点移出对话框 [#67](https://github.com/aui/artDialog/issues/67)
 
 6.0.3
 
