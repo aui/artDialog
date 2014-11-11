@@ -11,7 +11,7 @@ module.exports = function (grunt) {
                 globalBase: './src/global_modules',
                 name: 'dialog',
                 namespace: 'window',
-                banner: '<%= meta.banner %单个>'
+                banner: '<%= meta.banner %>'
             },
             'dialog.js': {
                 src: './src/dialog.js',
