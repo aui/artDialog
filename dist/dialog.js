@@ -1,4 +1,4 @@
-/*! artDialog v6.0.4 | https://github.com/aui/artDialog */
+/*! artDialog v6.0.5 | https://github.com/aui/artDialog */
 !(function () {
 
 var __modules__ = {};
@@ -1105,7 +1105,7 @@ $.extend(prototype, {
         if (typeof html === 'object') {
             html = $(html);
             $content.empty('').append(html.show());
-            this.addEventListener('remove', function () {
+            this.addEventListener('beforeremove', function () {
                 $('body').append(html.hide());
             });
         // String

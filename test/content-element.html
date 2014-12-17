@@ -18,7 +18,7 @@ seajs.config({
 
 <script>
 seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
-
+	window.dialog = dialog;
 	$('#test').on('click', function () {
 		alert('click')
 	});
