@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<title>test</title>
+</head>
+<body>
+<button data-event="test">open dialog</button>
+<script src="../lib/sea.js"></script>
+<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+
+<script>
+seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
+
+
+	$('button[data-event=test]').on('click', function () {
+		var d = dialog({
+			title: '消息',
+			content: '风吹起的青色衣衫，夕阳里的温暖容颜，你比以前更加美丽，像盛开的花<br>——许巍《难忘的一天》',
+			quickClose: true,
+
+            /**
+             * 设定为false, 在没有设定cancel的时候 点击空白处关闭 不删除dialog的结构 
+             * 设定为true, 在没有设定cancel的时候 点击空白处关闭 删除dialog结构
+             */
+            isAutoRemove: true 
+		});
+
+		d.show();
+	});
+
+});
+</script>
+</body>
+</html>
