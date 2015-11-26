@@ -63,6 +63,9 @@ define({
     // 注意：css 只允许加载一个
     cssUri: '../css/ui-dialog.css',
 
+    // 是否在tirgger一些未定义的事件的时候，自动在close之后remove掉弹窗
+    isAutoRemove: true,
+
     // 模板（使用 table 解决 IE7 宽度自适应的 BUG）
     // js 使用 i="***" 属性识别结构，其余的均可自定义
     innerHTML:
