@@ -71,7 +71,6 @@ var artDialog = function (options, ok, cancel) {
     // 快捷关闭支持：点击对话框外快速关闭对话框
     if (options.quickClose) {
         options.modal = true;
-        options.backdropOpacity = 0;
     }
     
 
