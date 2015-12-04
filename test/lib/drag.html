@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <style>
+    html {
+        height: 100%;
+    }
+    body {
+        *margin: 0;
+        *padding: 0;
+        height: 150%
+    }
+    #test1 {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        z-index: 1;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        line-height: 100px;
+        background: #000;
+        color: #FFF;
+        cursor: move;
+    }
+    #test1:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+
+    #test2 {
+        position: fixed;
+        left: 120px;
+        top: 10px;
+        z-index: 1;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        line-height: 100px;
+        background: #000;
+        color: #FFF;
+        cursor: move;
+    }
+    #test2:after {
+        content: 'fixed';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+
+    #test3-wrap {
+        position: absolute;
+        left: 230px;
+        top: 10px;
+        width: 210px;
+        height: 210px;
+        background: #CCC;
+    }
+    #test3-wrap:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        color: #888;
+        font-size: 12px;
+    }
+    #test3 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        line-height: 100px;
+        background: #000;
+        color: #FFF;
+        cursor: move;
+    }
+    #test3:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+
+    #test4-wrap {
+        position: absolute;
+        left: 450px;
+        top: 10px;
+        width: 210px;
+        height: 210px;
+        background: #CCC;
+    }
+    #test4-wrap:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+    #test4 {
+        position: fixed;
+        left: 450px;
+        top: 10px;
+        z-index: 1;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        line-height: 100px;
+        background: #000;
+        color: #FFF;
+        cursor: move;
+    }
+    #test4:after {
+        content: 'fixed';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+
+
+    #test5-wrap {
+        position: fixed;
+        left: 670px;
+        top: 10px;
+        width: 210px;
+        height: 210px;
+        background: #CCC;
+    }
+    #test5-wrap:after {
+        content: 'fixed';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        color: #888;
+        font-size: 12px;
+    }
+    #test5 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        line-height: 100px;
+        background: #000;
+        color: #FFF;
+        cursor: move;
+    }
+    #test5:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+
+    /*---------*/
+
+    #test6 {
+        position: absolute;
+        left: 10px;
+        top: 230px;
+        z-index: 1;
+        width: 90px;
+        height: 90px;
+        text-align: center;
+        line-height: 100px;
+        background: #000;
+        color: #FFF;
+        border: 5px solid #888;
+        cursor: move;
+    }
+    #test6:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+
+    #test7 {
+        position: fixed;
+        left: 120px;
+        top: 230px;
+        z-index: 1;
+        width: 90px;
+        height: 90px;
+        text-align: center;
+        line-height: 100px;
+        background: #000;
+        color: #FFF;
+        border: 5px solid #888;
+        cursor: move;
+    }
+    #test7:after {
+        content: 'fixed';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+
+    #test8-wrap {
+        position: absolute;
+        left: 230px;
+        top: 230px;
+        width: 200px;
+        height: 200px;
+        background: #CCC;
+        border: 5px solid #888;
+    }
+    #test8-wrap:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        color: #888;
+        font-size: 12px;
+    }
+    #test8 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        width: 90px;
+        height: 90px;
+        text-align: center;
+        line-height: 100px;
+        background: #000;
+        color: #FFF;
+        border: 5px solid #888;
+        cursor: move;
+    }
+    #test8:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+
+    #test9-wrap {
+        position: absolute;
+        left: 450px;
+        top: 230px;
+        width: 200px;
+        height: 200px;
+        background: #CCC;
+        border: 5px solid #888;
+    }
+    #test9-wrap:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+    #test9 {
+        position: fixed;
+        left: 450px;
+        top: 230px;
+        z-index: 1;
+        width: 90px;
+        height: 90px;
+        text-align: center;
+        line-height: 100px;
+        background: #000;
+        color: #FFF;
+        border: 5px solid #888;
+        cursor: move;
+    }
+    #test9:after {
+        content: 'fixed';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+
+    #test10-wrap {
+        position: fixed;
+        left: 670px;
+        top: 230px;
+        width: 200px;
+        height: 200px;
+        background: #CCC;
+        border: 5px solid #888;
+    }
+    #test10-wrap:after {
+        content: 'fixed';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        color: #888;
+        font-size: 12px;
+    }
+    #test10 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        width: 90px;
+        height: 90px;
+        text-align: center;
+        line-height: 100px;
+        background: #000;
+        color: #FFF;
+        border: 5px solid #888;
+        cursor: move;
+    }
+    #test10:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+
+
+
+
+    /*---------*/
+
+    #test11 {
+        position: absolute;
+        left: 10px;
+        top: 450px;
+        z-index: 1;
+        width: 90px;
+        height: 90px;
+        text-align: center;
+        line-height: 40px;
+        background: #000;
+        color: #FFF;
+        border: 5px solid #888;
+    }
+    #test11:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+    #test11-header {
+        height: 30px;
+        background: #333;
+        cursor: move;
+    }
+
+    #test12 {
+        position: fixed;
+        left: 120px;
+        top: 450px;
+        z-index: 1;
+        width: 90px;
+        height: 90px;
+        text-align: center;
+        line-height: 40px;
+        background: #000;
+        color: #FFF;
+        border: 5px solid #888;
+    }
+    #test12:after {
+        content: 'fixed';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+    #test12-header {
+        height: 30px;
+        background: #333;
+        cursor: move;
+    }
+
+    #test13-wrap {
+        position: absolute;
+        left: 230px;
+        top: 440px;
+        width: 200px;
+        height: 200px;
+        background: #CCC;
+        border: 5px solid #888;
+        margin-top: 10px;
+    }
+    #test13-wrap:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        color: #888;
+        font-size: 12px;
+    }
+    #test13 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        width: 90px;
+        height: 90px;
+        text-align: center;
+        line-height: 40px;
+        background: #000;
+        color: #FFF;
+        border: 5px solid #888;
+    }
+    #test13:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+    #test13-header {
+        height: 30px;
+        background: #333;
+        cursor: move;
+    }
+
+    #test14-wrap {
+        position: absolute;
+        left: 450px;
+        top: 440px;
+        width: 200px;
+        height: 200px;
+        background: #CCC;
+        border: 5px solid #888;
+        margin-top: 10px;
+    }
+    #test14-wrap:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+    #test14 {
+        position: fixed;
+        left: 450px;
+        top: 450px;
+        z-index: 1;
+        width: 90px;
+        height: 90px;
+        text-align: center;
+        line-height: 40px;
+        background: #000;
+        color: #FFF;
+        border: 5px solid #888;
+    }
+    #test14:after {
+        content: 'fixed';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+    #test14-header {
+        height: 30px;
+        background: #333;
+        cursor: move;
+    }
+
+    #test15-wrap {
+        position: fixed;
+        left: 670px;
+        top: 440px;
+        width: 200px;
+        height: 200px;
+        background: #CCC;
+        border: 5px solid #888;
+        margin-top: 10px;
+    }
+    #test15-wrap:after {
+        content: 'fixed';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        color: #888;
+        font-size: 12px;
+    }
+    #test15 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        width: 90px;
+        height: 90px;
+        text-align: center;
+        line-height: 40px;
+        background: #000;
+        color: #FFF;
+        border: 5px solid #888;
+    }
+    #test15:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+    #test15-header {
+        height: 30px;
+        background: #333;
+        cursor: move;
+    }
+    </style>
+</head>
+<body>
+
+
+<div id="test1" class="test xxx">test1</div>
+<div id="test2">test2</div>
+<div id="test3-wrap">
+    <div id="test3">test3</div>
+</div>
+<div id="test4-wrap">
+    <div id="test4">test4</div>
+</div>
+<div id="test5-wrap">
+    <div id="test5">test5</div>
+</div>
+
+<div id="test6">test6</div>
+<div id="test7">test7</div>
+<div id="test8-wrap">
+    <div id="test8">test8</div>
+</div>
+<div id="test9-wrap">
+    <div id="test9">test9</div>
+</div>
+<div id="test10-wrap">
+    <div id="test10">test10</div>
+</div>
+
+<div id="test11"><div id="test11-header"></div>test11</div>
+<div id="test12"><div id="test12-header"></div>test12</div>
+<div id="test13-wrap">
+    <div id="test13"><div id="test13-header"></div>test13</div>
+</div>
+<div id="test14-wrap">
+    <div id="test14"><div id="test14-header"></div>test14</div>
+</div>
+<div id="test15-wrap-wrap">
+<div id="test15-wrap">
+    <div id="test15"><div id="test15-header"></div>test15</div>
+</div>
+</div>
+
+<script src="../lib/sea.js"></script>
+<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+
+<script>
+seajs.use(['jquery', '../src/lib/drag'], function ($, Drag) {
+
+    var d = new Drag(document.getElementById('test1'));
+    console.log(d);
+    new Drag(document.getElementById('test2'));
+    new Drag(document.getElementById('test3'));
+    new Drag(document.getElementById('test4'));
+    new Drag(document.getElementById('test5'));
+
+    new Drag(document.getElementById('test6'));
+    new Drag(document.getElementById('test7'));
+    new Drag(document.getElementById('test8'));
+    new Drag(document.getElementById('test9'));
+    new Drag(document.getElementById('test10'));
+
+    $('#test11-header').on(Drag.START, function (event) {
+        new Drag(document.getElementById('test11'), event);
+    });
+    $('#test12-header').on(Drag.START, function (event) {
+        new Drag(document.getElementById('test12'), event);
+    });
+    $('#test13-header').on(Drag.START, function (event) {
+        new Drag(document.getElementById('test13'), event);
+    });
+    $('#test14-header').on(Drag.START, function (event) {
+        new Drag(document.getElementById('test14'), event);
+    });
+    $('#test15-header').on(Drag.START, function (event) {
+        new Drag(document.getElementById('test15'), event);
+    });
+});
+</script>
+</body>
+</html>

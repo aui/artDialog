@@ -11,7 +11,7 @@ define(function (require) {
 
 var $ = require('jquery');
 var dialog = require('./dialog');
-var drag = require('./drag');
+var Drag = require('./lib/drag');
 
 dialog.oncreate = function (api) {
 
@@ -42,7 +42,7 @@ dialog.oncreate = function (api) {
         })
         .on('load', function () {
             var test;
-            
+
             try {
                 // 跨域测试
                 test = $iframe[0].contentWindow.frameElement;
@@ -53,7 +53,7 @@ dialog.oncreate = function (api) {
                 if (!options.width) {
                     api.width($iframe.contents().width());
                 }
-                
+
                 if (!options.height) {
                     api.height($iframe.contents().height());
                 }
@@ -98,17 +98,17 @@ dialog.oncreate = function (api) {
                     $(frames[i]).one('unload', un);
                     break;
                 }
-            } catch (e) {} 
+            } catch (e) {}
         }
     }
 
 
     // 拖拽支持
-    $(api.node).on(drag.types.start, '[i=title]', function (event) {
+    $(api.node).on(Drag.START, '[i=title]', function (event) {
         // 排除气泡类型的对话框
         if (!api.follow) {
             api.focus();
-            drag.create(api.node, event);
+            Drag.create(api.node, event);
         }
     });
 

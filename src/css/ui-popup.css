@@ -1,0 +1,19 @@
+.ui-popup {
+    display: none;
+    position: absolute;
+}
+.ui-popup-show {
+    display: block;
+}
+
+.ui-popup dialog {
+    display: block;
+    position: initial;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    border: none 0;
+    background: transparent;
+    color: inherit;
+}

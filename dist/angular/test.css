@@ -1,15 +1,176 @@
-/*!
- * ui-dialog.css
- * Date: 2014-07-03
- * https://github.com/aui/artDialog
- * (c) 2009-2014 TangBin, http://www.planeArt.cn
- *
- * This is licensed under the GNU LGPL, version 2.1 or later.
- * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
- */
-.ui-dialog {
-    *zoom:1;
-    _float: left;
+.ui-popup {
+    display: none;
+    position: absolute;
+}
+.ui-popup-show {
+    display: block;
+}
+
+.ui-popup dialog {
+    display: block;
+    position: initial;
+    width: auto;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    border: none 0;
+    background: transparent;
+    color: inherit;
+}.ui-bubble {
+    position: relative;
+    background-color: #FDF8DF;
+    border: 1px solid #999;
+    border-radius: 3px;
+    outline: 0;
+    background-clip: padding-box;
+    font-family: Helvetica, arial, sans-serif;
+    line-height: 1.428571429;
+    color: #CD9C4F;
+}
+.ui-popup-focus .ui-bubble {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.ui-bubble-content {
+    padding: 5px;
+}
+
+.ui-popup-top-left .ui-bubble,
+.ui-popup-top .ui-bubble,
+.ui-popup-top-right .ui-bubble {
+    top: -8px;
+}
+.ui-popup-bottom-left .ui-bubble,
+.ui-popup-bottom .ui-bubble,
+.ui-popup-bottom-right .ui-bubble {
+    top: 8px;
+}
+.ui-popup-left-top .ui-bubble,
+.ui-popup-left .ui-bubble,
+.ui-popup-left-bottom .ui-bubble {
+    left: -8px;
+}
+.ui-popup-right-top .ui-bubble,
+.ui-popup-right .ui-bubble,
+.ui-popup-right-bottom .ui-bubble {
+    left: 8px;
+}
+.ui-bubble::before,
+.ui-bubble::after {
+    content: '';
+    position: absolute;
+    display: none;
+    width: 0;
+    height: 0;
+    overflow:hidden;
+    _color:#FF3FFF;
+    _filter:chroma(color=#FF3FFF);
+    border:8px dashed transparent;
+}
+.ui-popup-anchor .ui-bubble::before,
+.ui-popup-anchor .ui-bubble::after{
+    display: block;
+}
+.ui-popup-top-left .ui-bubble::before,
+.ui-popup-top .ui-bubble::before,
+.ui-popup-top-right .ui-bubble::before {
+    bottom: -16px;
+    border-top:8px solid #7C7C7C;
+}
+.ui-popup-top-left .ui-bubble::after,
+.ui-popup-top .ui-bubble::after,
+.ui-popup-top-right .ui-bubble::after {
+    bottom: -15px;
+    border-top:8px solid #FDF8DF;
+}
+.ui-popup-top-left .ui-bubble::before,
+.ui-popup-top-left .ui-bubble::after  {
+    left: 15px;
+}
+.ui-popup-top .ui-bubble::before,
+.ui-popup-top .ui-bubble::after  {
+    left: 50%;
+    margin-left: -8px;
+}
+.ui-popup-top-right .ui-bubble::before,
+.ui-popup-top-right .ui-bubble::after {
+    right: 15px;
+}
+.ui-popup-bottom-left .ui-bubble::before,
+.ui-popup-bottom .ui-bubble::before,
+.ui-popup-bottom-right .ui-bubble::before {
+    top: -16px;
+    border-bottom:8px solid #7C7C7C;
+}
+.ui-popup-bottom-left .ui-bubble::after,
+.ui-popup-bottom .ui-bubble::after,
+.ui-popup-bottom-right .ui-bubble::after {
+    top: -15px;
+    border-bottom:8px solid #FDF8DF;
+}
+.ui-popup-bottom-left .ui-bubble::before,
+.ui-popup-bottom-left .ui-bubble::after {
+    left: 15px;
+}
+.ui-popup-bottom .ui-bubble::before,
+.ui-popup-bottom .ui-bubble::after {
+    margin-left: -8px;
+    left: 50%;
+}
+.ui-popup-bottom-right .ui-bubble::before,
+.ui-popup-bottom-right .ui-bubble::after {
+    right: 15px;
+}
+.ui-popup-left-top .ui-bubble::before,
+.ui-popup-left .ui-bubble::before,
+.ui-popup-left-bottom .ui-bubble::before {
+    right: -16px;
+    border-left:8px solid #7C7C7C;
+}
+.ui-popup-left-top .ui-bubble::after,
+.ui-popup-left .ui-bubble::after,
+.ui-popup-left-bottom .ui-bubble::after {
+    right: -15px;
+    border-left:8px solid #FDF8DF;
+}
+.ui-popup-left-top .ui-bubble::before,
+.ui-popup-left-top .ui-bubble::after {
+    top: 15px;
+}
+.ui-popup-left .ui-bubble::before,
+.ui-popup-left .ui-bubble::after {
+    margin-top: -8px;
+    top: 50%;
+}
+.ui-popup-left-bottom .ui-bubble::before,
+.ui-popup-left-bottom .ui-bubble::after {
+    bottom: 15px;
+}
+.ui-popup-right-top .ui-bubble::before,
+.ui-popup-right .ui-bubble::before,
+.ui-popup-right-bottom .ui-bubble::before {
+    left: -16px;
+    border-right:8px solid #7C7C7C;
+}
+.ui-popup-right-top .ui-bubble::after,
+.ui-popup-right .ui-bubble::after,
+.ui-popup-right-bottom .ui-bubble::after {
+    left: -15px;
+    border-right:8px solid #FDF8DF;
+}
+.ui-popup-right-top .ui-bubble::before,
+.ui-popup-right-top .ui-bubble::after {
+    top: 15px;
+}
+.ui-popup-right .ui-bubble::before,
+.ui-popup-right .ui-bubble::after {
+    margin-top: -8px;
+    top: 50%;
+}
+.ui-popup-right-bottom .ui-bubble::before,
+.ui-popup-right-bottom .ui-bubble::after {
+    bottom: 15px;
+}.ui-dialog {
     position: relative;
     background-color: #FFF;
     border: 1px solid #999;
@@ -37,14 +198,6 @@
 .ui-popup-modal .ui-dialog {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1), 0 0 256px rgba(255, 255, 255, .3);
 }
-.ui-dialog-grid {
-    width: auto;
-    margin: 0;
-    border: 0 none;
-    border-collapse:collapse;
-    border-spacing: 0;
-    background: transparent;
-}
 .ui-dialog-header,
 .ui-dialog-body,
 .ui-dialog-footer {
@@ -59,11 +212,9 @@
 }
 .ui-dialog-close {
     position: relative;
-    _position: absolute;
     float: right;
     top: 13px;
     right: 13px;
-    _height: 26px;
     padding: 0 4px;
     font-size: 21px;
     font-weight: bold;
@@ -71,10 +222,8 @@
     color: #000;
     text-shadow: 0 1px 0 #FFF;
     opacity: .2;
-    filter: alpha(opacity=20);
     cursor: pointer;
     background: transparent;
-    _background: #FFF;
     border: 0;
     -webkit-appearance: none;
 }
@@ -85,14 +234,13 @@
     cursor: pointer;
     outline: 0;
     opacity: 0.5;
-    filter: alpha(opacity=50);
 }
 .ui-dialog-title {
     margin: 0;
     line-height: 1.428571429;
     min-height: 16.428571429px;
     padding: 15px;
-    overflow:hidden; 
+    overflow:hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     font-weight: bold;
@@ -142,7 +290,6 @@
     overflow:visible;
     display: inline-block;
     padding: 6px 12px;
-    _margin-left: 5px;
     margin-bottom: 0;
     font-size: 14px;
     font-weight: normal;
@@ -252,119 +399,117 @@
     left: 8px;
 }
 
-.ui-dialog-arrow-a,
-.ui-dialog-arrow-b {
+.ui-dialog::before,
+.ui-dialog::after {
     position: absolute;
     display: none;
     width: 0;
     height: 0;
     overflow:hidden;
-    _color:#FF3FFF;
-    _filter:chroma(color=#FF3FFF);
     border:8px dashed transparent;
 }
-.ui-popup-follow .ui-dialog-arrow-a,
-.ui-popup-follow .ui-dialog-arrow-b{
+.ui-popup-follow .ui-dialog::before,
+.ui-popup-follow .ui-dialog::after{
     display: block;
 }
-.ui-popup-top-left .ui-dialog-arrow-a,
-.ui-popup-top .ui-dialog-arrow-a,
-.ui-popup-top-right .ui-dialog-arrow-a {
+.ui-popup-top-left .ui-dialog::before,
+.ui-popup-top .ui-dialog::before,
+.ui-popup-top-right .ui-dialog::before {
     bottom: -16px;
     border-top:8px solid #7C7C7C;
 }
-.ui-popup-top-left .ui-dialog-arrow-b,
-.ui-popup-top .ui-dialog-arrow-b,
-.ui-popup-top-right .ui-dialog-arrow-b {
+.ui-popup-top-left .ui-dialog::after,
+.ui-popup-top .ui-dialog::after,
+.ui-popup-top-right .ui-dialog::after {
     bottom: -15px;
     border-top:8px solid #fff;
 }
-.ui-popup-top-left .ui-dialog-arrow-a,
-.ui-popup-top-left .ui-dialog-arrow-b  {
+.ui-popup-top-left .ui-dialog::before,
+.ui-popup-top-left .ui-dialog::after  {
     left: 15px;
 }
-.ui-popup-top .ui-dialog-arrow-a,
-.ui-popup-top .ui-dialog-arrow-b  {
+.ui-popup-top .ui-dialog::before,
+.ui-popup-top .ui-dialog::after  {
     left: 50%;
     margin-left: -8px;
 }
-.ui-popup-top-right .ui-dialog-arrow-a,
-.ui-popup-top-right .ui-dialog-arrow-b {
+.ui-popup-top-right .ui-dialog::before,
+.ui-popup-top-right .ui-dialog::after {
     right: 15px;
 }
-.ui-popup-bottom-left .ui-dialog-arrow-a,
-.ui-popup-bottom .ui-dialog-arrow-a,
-.ui-popup-bottom-right .ui-dialog-arrow-a {
+.ui-popup-bottom-left .ui-dialog::before,
+.ui-popup-bottom .ui-dialog::before,
+.ui-popup-bottom-right .ui-dialog::before {
     top: -16px;
     border-bottom:8px solid #7C7C7C;
 }
-.ui-popup-bottom-left .ui-dialog-arrow-b,
-.ui-popup-bottom .ui-dialog-arrow-b,
-.ui-popup-bottom-right .ui-dialog-arrow-b {
+.ui-popup-bottom-left .ui-dialog::after,
+.ui-popup-bottom .ui-dialog::after,
+.ui-popup-bottom-right .ui-dialog::after {
     top: -15px;
     border-bottom:8px solid #fff;
 }
-.ui-popup-bottom-left .ui-dialog-arrow-a,
-.ui-popup-bottom-left .ui-dialog-arrow-b {
+.ui-popup-bottom-left .ui-dialog::before,
+.ui-popup-bottom-left .ui-dialog::after {
     left: 15px;
 }
-.ui-popup-bottom .ui-dialog-arrow-a,
-.ui-popup-bottom .ui-dialog-arrow-b {
+.ui-popup-bottom .ui-dialog::before,
+.ui-popup-bottom .ui-dialog::after {
     margin-left: -8px;
     left: 50%;
 }
-.ui-popup-bottom-right .ui-dialog-arrow-a,
-.ui-popup-bottom-right .ui-dialog-arrow-b {
+.ui-popup-bottom-right .ui-dialog::before,
+.ui-popup-bottom-right .ui-dialog::after {
     right: 15px;
 }
-.ui-popup-left-top .ui-dialog-arrow-a,
-.ui-popup-left .ui-dialog-arrow-a,
-.ui-popup-left-bottom .ui-dialog-arrow-a {
+.ui-popup-left-top .ui-dialog::before,
+.ui-popup-left .ui-dialog::before,
+.ui-popup-left-bottom .ui-dialog::before {
     right: -16px;
     border-left:8px solid #7C7C7C;
 }
-.ui-popup-left-top .ui-dialog-arrow-b,
-.ui-popup-left .ui-dialog-arrow-b,
-.ui-popup-left-bottom .ui-dialog-arrow-b {
+.ui-popup-left-top .ui-dialog::after,
+.ui-popup-left .ui-dialog::after,
+.ui-popup-left-bottom .ui-dialog::after {
     right: -15px;
     border-left:8px solid #fff;
 }
-.ui-popup-left-top .ui-dialog-arrow-a,
-.ui-popup-left-top .ui-dialog-arrow-b {
+.ui-popup-left-top .ui-dialog::before,
+.ui-popup-left-top .ui-dialog::after {
     top: 15px;
 }
-.ui-popup-left .ui-dialog-arrow-a,
-.ui-popup-left .ui-dialog-arrow-b {
+.ui-popup-left .ui-dialog::before,
+.ui-popup-left .ui-dialog::after {
     margin-top: -8px;
     top: 50%;
 }
-.ui-popup-left-bottom .ui-dialog-arrow-a,
-.ui-popup-left-bottom .ui-dialog-arrow-b {
+.ui-popup-left-bottom .ui-dialog::before,
+.ui-popup-left-bottom .ui-dialog::after {
     bottom: 15px;
 }
-.ui-popup-right-top .ui-dialog-arrow-a,
-.ui-popup-right .ui-dialog-arrow-a,
-.ui-popup-right-bottom .ui-dialog-arrow-a {
+.ui-popup-right-top .ui-dialog::before,
+.ui-popup-right .ui-dialog::before,
+.ui-popup-right-bottom .ui-dialog::before {
     left: -16px;
     border-right:8px solid #7C7C7C;
 }
-.ui-popup-right-top .ui-dialog-arrow-b,
-.ui-popup-right .ui-dialog-arrow-b,
-.ui-popup-right-bottom .ui-dialog-arrow-b {
+.ui-popup-right-top .ui-dialog::after,
+.ui-popup-right .ui-dialog::after,
+.ui-popup-right-bottom .ui-dialog::after {
     left: -15px;
     border-right:8px solid #fff;
 }
-.ui-popup-right-top .ui-dialog-arrow-a,
-.ui-popup-right-top .ui-dialog-arrow-b {
+.ui-popup-right-top .ui-dialog::before,
+.ui-popup-right-top .ui-dialog::after {
     top: 15px;
 }
-.ui-popup-right .ui-dialog-arrow-a,
-.ui-popup-right .ui-dialog-arrow-b {
+.ui-popup-right .ui-dialog::before,
+.ui-popup-right .ui-dialog::after {
     margin-top: -8px;
     top: 50%;
 }
-.ui-popup-right-bottom .ui-dialog-arrow-a,
-.ui-popup-right-bottom .ui-dialog-arrow-b {
+.ui-popup-right-bottom .ui-dialog::before,
+.ui-popup-right-bottom .ui-dialog::after {
     bottom: 15px;
 }
 
@@ -388,15 +533,12 @@
 
 .ui-dialog-loading {
     vertical-align: middle;
-    position: relative;
-    display: block;
+    display: inline-block;
     *zoom: 1;
     *display: inline;
     overflow: hidden;
     width: 32px;
     height: 32px;
-    top: 50%;
-    margin: -16px auto 0 auto;
     font-size: 0;
     text-indent: -999em;
     color: #666;

@@ -28,10 +28,8 @@ seajs.config({
 <script>
 seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
 	
-	var d = dialog({
-		width: 60,
-		height: 60
-	});
+	window.dialog = dialog;
+	var d = dialog();
 
 	d.show();
 

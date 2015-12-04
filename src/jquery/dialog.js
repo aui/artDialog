@@ -2,7 +2,7 @@
  * artDialog
  * Date: 2014-11-09
  * https://github.com/aui/artDialog
- * (c) 2009-2014 TangBin, http://www.planeArt.cn
+ * (c) 2009-2015 TangBin, http://www.planeArt.cn
  *
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
@@ -10,61 +10,35 @@
 define(function (require) {
 
 var $ = require('jquery');
-var Popup = require('./popup');
-var defaults = require('./dialog-config');
-var css = defaults.cssUri;
+var Popup = require('./lib/popup');
 
-
-// css loader: RequireJS & SeaJS
-if (css) {
-    var fn = require[require.toUrl ? 'toUrl' : 'resolve'];
-    if (fn) {
-        css = fn(css);
-        css = '<link rel="stylesheet" href="' + css + '" />';
-        if ($('base')[0]) {
-            $('base').before(css);
-        } else {
-            $('head').append(css);
-        } 
-    }
-}
 
 
 var _count = 0;
 var _expando = new Date() - 0; // Date.now()
-var _isIE6 = !('minWidth' in $('html')[0].style);
-var _isMobile = 'createTouch' in document && !('onmousemove' in document)
-    || /(iPhone|iPad|iPod)/i.test(navigator.userAgent);
-var _isFixed = !_isIE6 && !_isMobile;
 
 
 var artDialog = function (options, ok, cancel) {
 
     var originalOptions = options = options || {};
-    
+
 
     if (typeof options === 'string' || options.nodeType === 1) {
-    
-        options = {content: options, fixed: !_isMobile};
+
+        options = {content: options, fixed: true};
     }
-    
+
 
     options = $.extend(true, {}, artDialog.defaults, options);
     options.original = originalOptions;
 
     var id = options.id = options.id || _expando + _count;
     var api = artDialog.get(id);
-    
-    
+
+
     // 如果存在同名的对话框对象，则直接返回
     if (api) {
         return api.focus();
-    }
-    
-    
-    // 目前主流移动设备对fixed支持不好，禁用此特性
-    if (!_isFixed) {
-        options.fixed = false;
     }
 
 
@@ -73,7 +47,7 @@ var artDialog = function (options, ok, cancel) {
         options.modal = true;
         options.backdropOpacity = 0;
     }
-    
+
 
     // 按钮组
     if (!$.isArray(options.button)) {
@@ -85,7 +59,7 @@ var artDialog = function (options, ok, cancel) {
     if (cancel !== undefined) {
         options.cancel = cancel;
     }
-    
+
     if (options.cancel) {
         options.button.push({
             id: 'cancel',
@@ -94,13 +68,13 @@ var artDialog = function (options, ok, cancel) {
             display: options.cancelDisplay
         });
     }
-    
-    
+
+
     // 确定按钮
     if (ok !== undefined) {
         options.ok = ok;
     }
-    
+
     if (options.ok) {
         options.button.push({
             id: 'ok',
@@ -109,14 +83,14 @@ var artDialog = function (options, ok, cancel) {
             autofocus: true
         });
     }
-    
+
 
     return artDialog.list[id] = new artDialog.create(options);
 };
 
-var popup = function () {};
-popup.prototype = Popup.prototype;
-var prototype = artDialog.prototype = new popup();
+var Prototype = function () {};
+Prototype.prototype = Popup.prototype;
+var prototype = artDialog.prototype = new Prototype();
 
 artDialog.create = function (options) {
     var that = this;
@@ -130,7 +104,7 @@ artDialog.create = function (options) {
     this.options = options;
     this._popup = $popup;
 
-    
+
     $.each(options, function (name, value) {
         if (typeof that[name] === 'function') {
             that[name](value);
@@ -163,7 +137,7 @@ artDialog.create = function (options) {
         that._trigger('cancel');
         event.preventDefault();
     });
-    
+
 
     // 添加视觉参数
     this._$('dialog').addClass(this.skin);
@@ -205,7 +179,7 @@ artDialog.create = function (options) {
         if (!isTop || rinput.test(nodeName) && target.type !== 'button') {
             return;
         }
-        
+
         if (keyCode === 27) {
             that._trigger('cancel');
         }
@@ -219,7 +193,7 @@ artDialog.create = function (options) {
 
 
     _count ++;
-    
+
     artDialog.oncreate(this);
 
     return this;
@@ -237,7 +211,7 @@ $.extend(prototype, {
      * @name artDialog.prototype.show
      * @param   {HTMLElement Object, Event Object}  指定位置（可选）
      */
-    
+
     /**
      * 显示对话框（模态）
      * @name artDialog.prototype.showModal
@@ -326,31 +300,33 @@ $.extend(prototype, {
      * @event
      */
 
-    
+
     /**
      * 设置内容
      * @param    {String, HTMLElement}   内容
      */
     content: function (html) {
-    
+
         var $content = this._$('content');
+
+        this._back();
 
         // HTMLElement
         if (typeof html === 'object') {
-            html = $(html);
+            this._content = html = $(html);
+            this.addEventListener('beforeremove', this._back);
+
             $content.empty('').append(html.show());
-            this.addEventListener('beforeremove', function () {
-                $('body').append(html.hide());
-            });
+
         // String
         } else {
             $content.html(html);
         }
-                
+
         return this.reset();
     },
-    
-    
+
+
     /**
      * 设置标题
      * @param    {String}   标题内容
@@ -379,7 +355,7 @@ $.extend(prototype, {
     /**
      * 设置按钮组
      * @param   {Array, String}
-     * Options: value, callback, autofocus, disabled 
+     * Options: value, callback, autofocus, disabled
      */
     button: function (args) {
         args = args || [];
@@ -387,8 +363,8 @@ $.extend(prototype, {
         var html = '';
         var number = 0;
         this.callbacks = {};
-        
-           
+
+
         if (typeof args === 'string') {
             html = args;
             number ++;
@@ -418,12 +394,12 @@ $.extend(prototype, {
                 + '</button>';
 
                 that._$('button')
-                .on('click', '[i-id=' + id +']', function (event) {                
+                .on('click', '[i-id=' + id +']', function (event) {
                     var $this = $(this);
                     if (!$this.attr('disabled')) {// IE BUG
                         that._trigger(id);
                     }
-                
+
                     event.preventDefault();
                 });
 
@@ -445,19 +421,29 @@ $.extend(prototype, {
     },
 
 
+    _back: function () {
+        var $elem = this._content;
+        if ($elem && $elem[0].parentNode) {
+            $('body').append($elem.hide());
+        }
+        delete this._content;
+        this.removeEventListener('beforeremove', this._back);
+    },
+
+
     _$: function (i) {
         return this._popup.find('[i=' + i + ']');
     },
-    
-    
+
+
     // 触发按钮回调函数
     _trigger: function (id) {
         var fn = this.callbacks[id];
-            
+
         return typeof fn !== 'function' || fn.call(this) !== false ?
             this.close().remove() : this;
     }
-    
+
 });
 
 
@@ -491,8 +477,116 @@ artDialog.list = {};
 /**
  * 默认配置
  */
-artDialog.defaults = defaults;
+artDialog.defaults = {
 
+    /* -----已注释的配置继承自 popup.js，仍可以再这里重新定义它----- */
+
+    // 对齐方式
+    //align: 'bottom left',
+
+    // 是否固定定位
+    //fixed: false,
+
+    // 对话框叠加高度值(重要：此值不能超过浏览器最大限制)
+    //zIndex: 1024,
+
+    // 设置遮罩背景颜色
+    backdropBackground: '#000',
+
+    // 设置遮罩透明度
+    backdropOpacity: 0.7,
+
+    // 消息内容
+    content: '<span class="ui-dialog-loading">Loading..</span>',
+
+    // 标题
+    title: '',
+
+    // 对话框状态栏区域 HTML 代码
+    statusbar: '',
+
+    // 自定义按钮
+    button: null,
+
+    // 确定按钮回调函数
+    ok: null,
+
+    // 取消按钮回调函数
+    cancel: null,
+
+    // 确定按钮文本
+    okValue: 'ok',
+
+    // 取消按钮文本
+    cancelValue: 'cancel',
+
+    cancelDisplay: true,
+
+    // 内容宽度
+    width: '',
+
+    // 内容高度
+    height: '',
+
+    // 内容与边界填充距离
+    padding: '',
+
+    // 对话框自定义 className
+    skin: '',
+
+    // 是否支持快捷关闭（点击遮罩层自动关闭）
+    quickClose: false,
+
+    // css 文件路径，留空则不会使用 js 自动加载样式
+    // 注意：css 只允许加载一个
+    cssUri: '../css/ui-dialog.css',
+
+    // 模板（使用 table 解决 IE7 宽度自适应的 BUG）
+    // js 使用 i="***" 属性识别结构，其余的均可自定义
+    innerHTML:
+        '<div i="dialog" class="ui-dialog">'
+        +       '<div class="ui-dialog-arrow-a"></div>'
+        +       '<div class="ui-dialog-arrow-b"></div>'
+        +       '<table class="ui-dialog-grid">'
+        +           '<tr>'
+        +               '<td i="header" class="ui-dialog-header">'
+        +                   '<button i="close" class="ui-dialog-close">&#215;</button>'
+        +                   '<div i="title" class="ui-dialog-title"></div>'
+        +               '</td>'
+        +           '</tr>'
+        +           '<tr>'
+        +               '<td i="body" class="ui-dialog-body">'
+        +                   '<div i="content" class="ui-dialog-content"></div>'
+        +               '</td>'
+        +           '</tr>'
+        +           '<tr>'
+        +               '<td i="footer" class="ui-dialog-footer">'
+        +                   '<div i="statusbar" class="ui-dialog-statusbar"></div>'
+        +                   '<div i="button" class="ui-dialog-button"></div>'
+        +               '</td>'
+        +           '</tr>'
+        +       '</table>'
+        +'</div>'
+
+};
+
+
+var css = defaults.cssUri;
+
+
+// css loader: RequireJS & SeaJS
+if (css) {
+    var fn = require[require.toUrl ? 'toUrl' : 'resolve'];
+    if (fn) {
+        css = fn(css);
+        css = '<link rel="stylesheet" href="' + css + '" />';
+        if ($('base')[0]) {
+            $('base').before(css);
+        } else {
+            $('head').append(css);
+        }
+    }
+}
 
 
 return artDialog;

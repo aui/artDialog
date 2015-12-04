@@ -1,8 +1,7 @@
 /*!
- * PopupJS
- * Date: 2014-11-09
+ * PopupJS - 0.2.1
  * https://github.com/aui/popupjs
- * (c) 2009-2014 TangBin, http://www.planeArt.cn
+ * (c) 2014-2015 TangBin
  *
  * This is licensed under the GNU LGPL, version 2.1 or later.
  * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
@@ -13,19 +12,21 @@ define(function (require) {
 var $ = require('jquery');
 
 var _count = 0;
-var _isIE6 = !('minWidth' in $('html')[0].style);
-var _isFixed = !_isIE6;
 
 
-function Popup () {
+/**
+ * @param   {HTMLElement}
+ * @param   {HTMLElement}
+ */
+function Popup (node, backdrop) {
 
     this.destroyed = false;
+    this.__ng = node;
 
 
-    this.__popup = $('<div />')
+    this.__popup = $(node || '<div />')
     /*使用 <dialog /> 元素可能导致 z-index 永远置顶的问题(chrome)*/
     .css({
-        display: 'none',
         position: 'absolute',
         /*
         left: 0,
@@ -40,13 +41,17 @@ function Popup () {
         outline: 0
     })
     .attr('tabindex', '-1')
-    .html(this.innerHTML)
     .appendTo('body');
 
 
-    this.__backdrop = this.__mask = $('<div />')
+    if (!this.__ng) {
+        this.__popup.hide();
+    }
+
+
+    this.__backdrop = $('<div />')
     .css({
-        opacity: .7,
+        opacity: 0.7,
         background: '#000'
     });
 
@@ -61,7 +66,7 @@ function Popup () {
 
 
 $.extend(Popup.prototype, {
-    
+
     /**
      * 初始化完毕事件，在 show()、showModal() 执行
      * @name Popup.prototype.onshow
@@ -113,10 +118,10 @@ $.extend(Popup.prototype, {
     /** 是否开启固定定位[*] */
     fixed: false,
 
-    /** 判断对话框是否删除[*] */
+    /** 判断是否删除[*] */
     destroyed: true,
 
-    /** 判断对话框是否显示 */
+    /** 判断是否显示 */
     open: false,
 
     /** close 返回值 */
@@ -127,9 +132,6 @@ $.extend(Popup.prototype, {
 
     /** 对齐方式[*] */
     align: 'bottom left',
-
-    /** 内部的 HTML 字符串 */
-    innerHTML: '',
 
     /** CSS 类名 */
     className: 'ui-popup',
@@ -144,14 +146,13 @@ $.extend(Popup.prototype, {
             return this;
         }
 
-        var that = this;
         var popup = this.__popup;
         var backdrop = this.__backdrop;
 
         this.__activeElement = this.__getActive();
 
         this.open = true;
-        this.follow = anchor || this.follow;
+        this.anchor = anchor;//  || this.anchor
 
 
         // 初始化 show 方法
@@ -159,12 +160,9 @@ $.extend(Popup.prototype, {
 
             popup
             .addClass(this.className)
-            .attr('role', this.modal ? 'alertdialog' : 'dialog')
-            .css('position', this.fixed ? 'fixed' : 'absolute');
+            .attr('role', this.modal ? 'alertdialog' : 'dialog');
 
-            if (!_isIE6) {
-                $(window).on('resize', $.proxy(this.reset, this));
-            }
+            $(window).on('resize', $.proxy(this.reset, this));
 
             // 模态浮层的遮罩
             if (this.modal) {
@@ -180,46 +178,31 @@ $.extend(Popup.prototype, {
                 };
 
 
-                popup.addClass(this.className + '-modal');
+                popup.addClass(this.__name('modal'));
 
-
-                if (!_isFixed) {
-                    $.extend(backdropCss, {
-                        position: 'absolute',
-                        width: $(window).width() + 'px',
-                        height: $(document).height() + 'px'
-                    });
-                }
+                // 让焦点限制在浮层内
+                $(document).on('focusin', $.proxy(this.focus, this));
 
 
                 backdrop
                 .css(backdropCss)
-                .attr({tabindex: '0'})
-                .on('focus', $.proxy(this.focus, this));
+                .attr({tabindex: '0'});
 
-                // 锁定 tab 的焦点操作
-                this.__mask = backdrop
-                .clone(true)
-                .attr('style', '')
-                .insertAfter(popup);
 
                 backdrop
-                .addClass(this.className + '-backdrop')
+                .addClass(this.__name('backdrop'))
                 .insertBefore(popup);
 
                 this.__ready = true;
             }
 
-
-            if (!popup.html()) {
-                popup.html(this.innerHTML);
-            }
         }
 
+        popup.addClass(this.__name('show'));
 
-        popup
-        .addClass(this.className + '-show')
-        .show();
+        if (!this.__ng) {
+            popup.show();
+        }
 
         backdrop.show();
 
@@ -236,24 +219,30 @@ $.extend(Popup.prototype, {
         this.modal = true;
         return this.show.apply(this, arguments);
     },
-    
-    
+
+
     /** 关闭浮层 */
     close: function (result) {
-        
+
         if (!this.destroyed && this.open) {
-            
+
             if (result !== undefined) {
                 this.returnValue = result;
             }
-            
-            this.__popup.hide().removeClass(this.className + '-show');
+
+            this.__popup.removeClass(this.__name('show'));
             this.__backdrop.hide();
+
+            if (!this.__ng) {
+                this.__popup.hide();
+            }
+
             this.open = false;
             this.blur();// 恢复焦点，照顾键盘操作的用户
             this.__dispatchEvent('close');
+            $(document).off('focusin', $.proxy(this.focus, this));
         }
-    
+
         return this;
     },
 
@@ -265,8 +254,15 @@ $.extend(Popup.prototype, {
             return this;
         }
 
+
+        if (this.open) {
+            this.close();
+        }
+
+
         this.__dispatchEvent('beforeremove');
-        
+
+
         if (Popup.current === this) {
             Popup.current = null;
         }
@@ -275,13 +271,8 @@ $.extend(Popup.prototype, {
         // 从 DOM 中移除节点
         this.__popup.remove();
         this.__backdrop.remove();
-        this.__mask.remove();
 
-
-        if (!_isIE6) {
-            $(window).off('resize', this.reset);
-        }
-
+        $(window).off('resize', this.reset);
 
         this.__dispatchEvent('remove');
 
@@ -296,10 +287,20 @@ $.extend(Popup.prototype, {
     /** 重置位置 */
     reset: function () {
 
-        var elem = this.follow;
+        if (!this.open) {
+            return;
+        }
 
-        if (elem) {
-            this.__follow(elem);
+        var anchor = this.anchor;
+
+        if (typeof anchor === 'string') {
+            anchor = this.anchor = $(anchor)[0];
+        }
+
+        this.__popup.css('position', this.fixed ? 'fixed' : 'absolute');
+
+        if (anchor) {
+            this.__anchor(anchor);
         } else {
             this.__center();
         }
@@ -340,7 +341,7 @@ $.extend(Popup.prototype, {
         //this.__backdrop.css('zIndex', index);
 
         Popup.current = this;
-        popup.addClass(this.className + '-focus');
+        popup.addClass(this.__name('focus'));
 
         this.__dispatchEvent('focus');
 
@@ -360,7 +361,7 @@ $.extend(Popup.prototype, {
         }
 
         this._autofocus = false;
-        this.__popup.removeClass(this.className + '-focus');
+        this.__popup.removeClass(this.__name('focus'));
         this.__dispatchEvent('blur');
 
         return this;
@@ -391,6 +392,11 @@ $.extend(Popup.prototype, {
             }
         }
         return this;
+    },
+
+
+    __name: function (name) {
+        return this.className + '-' + name;
     },
 
 
@@ -447,7 +453,7 @@ $.extend(Popup.prototype, {
 
     // 居中浮层
     __center: function () {
-    
+
         var popup = this.__popup;
         var $window = $(window);
         var $document = $(document);
@@ -462,21 +468,21 @@ $.extend(Popup.prototype, {
         var top = (wh - oh) * 382 / 1000 + dt;// 黄金比例
         var style = popup[0].style;
 
-        
+
         style.left = Math.max(parseInt(left), dl) + 'px';
         style.top = Math.max(parseInt(top), dt) + 'px';
     },
-    
-    
+
+
     // 指定位置 @param    {HTMLElement, Event}  anchor
-    __follow: function (anchor) {
-        
+    __anchor: function (anchor) {
+
         var $elem = anchor.parentNode && $(anchor);
         var popup = this.__popup;
-        
 
-        if (this.__followSkin) {
-            popup.removeClass(this.__followSkin);
+
+        if (this.__anchorSkin) {
+            popup.removeClass(this.__anchorSkin);
         }
 
 
@@ -487,7 +493,7 @@ $.extend(Popup.prototype, {
                 return this.__center();
             }
         }
-        
+
         var that = this;
         var fixed = this.fixed;
 
@@ -518,7 +524,7 @@ $.extend(Popup.prototype, {
 
         var css = {};
         var align = this.align.split(' ');
-        var className = this.className + '-';
+        var className = this.__name('');
         var reverse = {top: 'bottom', bottom: 'top', left: 'right', right: 'left'};
         var name = {top: 'top', bottom: 'top', left: 'left', right: 'left'};
 
@@ -541,7 +547,7 @@ $.extend(Popup.prototype, {
             top: top + height / 2 - popupHeight / 2
         };
 
-        
+
         var range = {
             left: [minLeft, maxLeft],
             top: [minTop, maxTop]
@@ -571,17 +577,17 @@ $.extend(Popup.prototype, {
         }
 
 
-        //添加follow的css, 为了给css使用
-        className += align.join('-') + ' '+ this.className+ '-follow';
-        
-        that.__followSkin = className;
+        // 添加 anchor 的 css
+        className += align.join('-') + ' ' + this.__name('anchor');
+
+        that.__anchorSkin = className;
 
 
         if ($elem) {
             popup.addClass(className);
         }
 
-        
+
         css[name[align[0]]] = parseInt(temp[0][align[0]]);
         css[name[align[1]]] = parseInt(temp[1][align[1]]);
         popup.css(css);
@@ -589,40 +595,18 @@ $.extend(Popup.prototype, {
     },
 
 
-    // 获取元素相对于页面的位置（包括iframe内的元素）
-    // 暂时不支持两层以上的 iframe 套嵌
+    // 获取元素相对于页面的位置（不支持 iframe 内的元素）
     __offset: function (anchor) {
 
-        var isNode = anchor.parentNode;
+        var isNode = !!anchor.parentNode;
         var offset = isNode ? $(anchor).offset() : {
             left: anchor.pageX,
             top: anchor.pageY
         };
 
-
-        anchor = isNode ? anchor : anchor.target;
-        var ownerDocument = anchor.ownerDocument;
-        var defaultView = ownerDocument.defaultView || ownerDocument.parentWindow;
-        
-        if (defaultView == window) {// IE <= 8 只能使用两个等于号
-            return offset;
-        }
-
-        // {Element: Ifarme}
-        var frameElement = defaultView.frameElement;
-        var $ownerDocument = $(ownerDocument);
-        var docLeft =  $ownerDocument.scrollLeft();
-        var docTop = $ownerDocument.scrollTop();
-        var frameOffset = $(frameElement).offset();
-        var frameLeft = frameOffset.left;
-        var frameTop = frameOffset.top;
-        
-        return {
-            left: offset.left + frameLeft - docLeft,
-            top: offset.top + frameTop - docTop
-        };
+        return offset;
     }
-    
+
 });
 
 
@@ -637,3 +621,8 @@ Popup.current = null;
 return Popup;
 
 });
+
+// 更新记录
+// 取消对 iframe 支持
+// follow > anchor
+// fixed 支持多次设置

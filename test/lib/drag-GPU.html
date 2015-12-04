@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <style>
+    html {
+        height: 100%;
+    }
+    body {
+        *margin: 0;
+        *padding: 0;
+        height: 350%
+    }
+    #test1 {
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        width: 400px;
+        height: 1400px;
+        overflow: hidden;
+        border: 5px solid blue;
+        background: blue;
+        cursor: move;
+    }
+    #test1 iframe {
+        position: absolute;
+        top: 30px;
+        width: 400px;
+        height: 1370px;
+        border: 0 none;
+    }
+
+    #test2 {
+        position: absolute;
+        left: 450px;
+        top: 20px;
+        width: 400px;
+        height: 1400px;
+        overflow: hidden;
+        border: 5px solid blue;
+        background: blue;
+        cursor: move;
+    }
+    #test2 iframe {
+        position: absolute;
+        top: 30px;
+        width: 400px;
+        height: 1370px;
+        border: 0 none;
+    }
+
+    h3 {
+        font-size: 18px;
+        height: 30px;
+        margin: 0;
+        padding: 0;
+        line-height: 30px;
+        color: #FFF;
+    }
+    #test1:after, #test2:after {
+        content: '';
+        position: absolute;
+        top: 30px;
+        width: 100%;
+        height: 1370px;
+        background: rgba(255, 255, 255, .7)
+    }
+
+    </style>
+</head>
+<body>
+<div id="test1">
+    <h3>GPU = true</h3>
+    <iframe src="http://www.qq.com" frameborder="0"></iframe>
+</div>
+
+<div id="test2">
+    <h3>GPU = false</h3>
+    <iframe src="http://www.qq.com" frameborder="0"></iframe>
+</div>
+
+
+<script src="../lib/sea.js"></script>
+<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+
+<script>
+seajs.use(['jquery', '../src/lib/drag'], function ($, Drag) {
+    var zIndex = 1;
+
+    var elem1 = document.getElementById('test1');
+    var test1 = new Drag(elem1);
+    test1.GPU = true;
+    test1.onstart = function () {
+        zIndex ++;
+        elem1.style.zIndex = zIndex;
+    }
+
+    var elem2 = document.getElementById('test2');
+    var test2 = new Drag(elem2);
+    test2.GPU = false;
+    test2.onstart = function () {
+        zIndex ++;
+        elem2.style.zIndex = zIndex;
+    }
+});
+</script>
+</body>
+</html>
