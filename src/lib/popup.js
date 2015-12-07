@@ -16,9 +16,8 @@ var _count = 0;
 
 /**
  * @param   {HTMLElement}
- * @param   {HTMLElement}
  */
-function Popup (node, backdrop) {
+function Popup (node) {
 
     this.destroyed = false;
     this.__ng = node;
@@ -49,17 +48,9 @@ function Popup (node, backdrop) {
     }
 
 
-    this.__backdrop = $('<div />')
-    .css({
-        opacity: 0.7,
-        background: '#000'
-    });
-
-
     // 使用 HTMLElement 作为外部接口使用，而不是 jquery 对象
     // 统一的接口利于未来 Popup 移植到其他 DOM 库中
     this.node = this.__popup[0];
-    this.backdrop = this.__backdrop[0];
 
     _count ++;
 }
@@ -112,9 +103,6 @@ $.extend(Popup.prototype, {
     /** 浮层 DOM 素节点[*] */
     node: null,
 
-    /** 遮罩 DOM 节点[*] */
-    backdrop: null,
-
     /** 是否开启固定定位[*] */
     fixed: false,
 
@@ -147,7 +135,6 @@ $.extend(Popup.prototype, {
         }
 
         var popup = this.__popup;
-        var backdrop = this.__backdrop;
 
         this.__activeElement = this.__getActive();
 
@@ -155,57 +142,28 @@ $.extend(Popup.prototype, {
         this.anchor = anchor;//  || this.anchor
 
 
-        // 初始化 show 方法
-        if (!this.__ready) {
-
-            popup
-            .addClass(this.className)
-            .attr('role', this.modal ? 'alertdialog' : 'dialog');
-
-            $(window).on('resize', $.proxy(this.reset, this));
-
-            // 模态浮层的遮罩
-            if (this.modal) {
-                var backdropCss = {
-                    position: 'fixed',
-                    left: 0,
-                    top: 0,
-                    width: '100%',
-                    height: '100%',
-                    overflow: 'hidden',
-                    userSelect: 'none',
-                    zIndex: this.zIndex || Popup.zIndex
-                };
+        popup
+        .addClass(this.className)
+        .addClass(this.__name('show'))
+        .attr('role', this.modal ? 'alertdialog' : 'dialog');
 
 
-                popup.addClass(this.__name('modal'));
+        // 模态浮层的遮罩
+        if (this.modal) {
 
-                // 让焦点限制在浮层内
-                $(document).on('focusin', $.proxy(this.focus, this));
+            popup.addClass(this.__name('modal'));
 
-
-                backdrop
-                .css(backdropCss)
-                .attr({tabindex: '0'});
-
-
-                backdrop
-                .addClass(this.__name('backdrop'))
-                .insertBefore(popup);
-
-                this.__ready = true;
-            }
-
+            // 让焦点限制在浮层内
+            $(document).on('focusin', $.proxy(this.focus, this));
         }
 
-        popup.addClass(this.__name('show'));
 
         if (!this.__ng) {
             popup.show();
         }
 
-        backdrop.show();
 
+        $(window).on('resize', $.proxy(this.reset, this));
 
         this.reset().focus();
         this.__dispatchEvent('show');
@@ -231,7 +189,7 @@ $.extend(Popup.prototype, {
             }
 
             this.__popup.removeClass(this.__name('show'));
-            this.__backdrop.hide();
+            this.__popup.removeClass(this.__name('modal'))
 
             if (!this.__ng) {
                 this.__popup.hide();
@@ -270,7 +228,6 @@ $.extend(Popup.prototype, {
 
         // 从 DOM 中移除节点
         this.__popup.remove();
-        this.__backdrop.remove();
 
         $(window).off('resize', this.reset);
 
@@ -338,7 +295,6 @@ $.extend(Popup.prototype, {
 
         // 设置叠加高度
         popup.css('zIndex', index);
-        //this.__backdrop.css('zIndex', index);
 
         Popup.current = this;
         popup.addClass(this.__name('focus'));
