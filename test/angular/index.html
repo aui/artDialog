@@ -8,14 +8,13 @@
 <body>
 
 
-<button id="test" ng-click="x={show:true}">me</button>
-
+<button id="test" ng-click="x={show:true}" style="position: absolute;left:200px;top:20px">bubble:show</button>
 <bubble ng-show="x.show" modal="true" for="test" close="x.show=false">hello world</bubble>
 
-<button drag style="position: absolute;left:400px;top:20px">drag</button>
+<button drag style="position: absolute;left:400px;top:20px">drag me</button>
 
-<div ng-init="d={show: true,log: '--'}"></div>
 
+<button ng-click="d={show: true}">open dialog</button>
 
 <dialog ng-if="d.show" modal="true" drag close="d.show=false">
     <div dialog-title drag-handle>提示</div>
