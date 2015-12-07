@@ -81,7 +81,7 @@
 </div>
 
 
-<script src="../lib/sea.js"></script>
+<script src="../../lib/sea.js"></script>
 <script>
 seajs.config({
   alias: {
@@ -91,20 +91,18 @@ seajs.config({
 </script>
 
 <script>
-seajs.use(['jquery', '../src/lib/drag'], function ($, Drag) {
+seajs.use(['jquery', '../../src/lib/drag'], function ($, Drag) {
     var zIndex = 1;
 
     var elem1 = document.getElementById('test1');
-    var test1 = new Drag(elem1);
-    test1.GPU = true;
+    var test1 = new Drag(elem1, null, true);
     test1.onstart = function () {
         zIndex ++;
         elem1.style.zIndex = zIndex;
     }
 
     var elem2 = document.getElementById('test2');
-    var test2 = new Drag(elem2);
-    test2.GPU = false;
+    var test2 = new Drag(elem2, null, false);
     test2.onstart = function () {
         zIndex ++;
         elem2.style.zIndex = zIndex;

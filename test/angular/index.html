@@ -7,18 +7,21 @@
 </head>
 <body>
 
-<button id="test" ng-init="x={show:true}">me</button>
-<bubble ng-show="x.show" for="test" close="x.show=false">hello world</bubble>
+
+<button id="test" ng-click="x={show:true}">me</button>
+
+<bubble ng-show="x.show" modal="true" for="test" close="x.show=false">hello world</bubble>
 
 <button drag style="position: absolute;left:400px;top:20px">drag</button>
 
 <div ng-init="d={show: true,log: '--'}"></div>
 
 
-<dialog ng-if="d.show" drag close="d.show=false">
+<dialog ng-if="d.show" modal="true" drag close="d.show=false">
     <div dialog-title drag-handle>提示</div>
     <div dialog-content>hello wrold</div>
     <div dialog-close ng-click="d.show = false"></div>
+    <div dialog-buttons><button autofocus>确定</button></div>
 </dialog>
 
 
