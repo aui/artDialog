@@ -5,15 +5,14 @@
 .ui-popup-show {
     display: block;
 }
-
-.ui-popup dialog {
-    display: block;
-    position: initial;
-    width: auto;
-    height: auto;
-    padding: 0;
-    margin: 0;
-    border: none 0;
-    background: transparent;
-    color: inherit;
+.ui-popup-modal::before {
+    content: '';
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .7);
+    -webkit-transform: scale(3);
+    transform: scale(3);
 }
