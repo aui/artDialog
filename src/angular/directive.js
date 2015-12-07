@@ -98,7 +98,12 @@ function directive(name, options) {
                 if (attrs.ngHide) scope.$watch('ngHide', toggle);
 
 
-                function toggle() {
+                function toggle(v) {
+
+                    if (typeof v === 'undefined') {
+                        return;
+                    }
+
                     var value = true;
 
                     switch (attrs) {
@@ -117,7 +122,7 @@ function directive(name, options) {
 
                     if (value) {
                         popup[showType](scope.anchor);
-                    } else if (!attrs.ngIf) {
+                    } else /*if (!attrs.ngIf)*/ {
                         popup.close();
                     }
 
@@ -158,7 +163,7 @@ function directive(name, options) {
                 // scope.$on('$destroy', callback) >> 这种方式对 ngAnimate 支持不好
                 elem.one('$destroy', function() {
                     $(document).off('keydown', esc);
-                    popup.remove();
+                    popup.close().remove();
                 });
 
 
