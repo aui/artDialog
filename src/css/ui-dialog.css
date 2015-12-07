@@ -2,7 +2,7 @@
 .ui-dialog {
     position: relative;
     background-color: #FFF;
-    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, .3);
     border-radius: 6px;
     outline: 0;
     background-clip: padding-box;
@@ -155,7 +155,7 @@
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
           box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
-.ui-dialog-footer button[disabled] {
+.ui-dialog-footer button:disabled {
   pointer-events: none;
   cursor: not-allowed;
   opacity: 0.65;
@@ -182,29 +182,29 @@
   background-image: none;
 }
 
-.ui-dialog-footer button[disabled],
-.ui-dialog-footer button[disabled]:hover,
-.ui-dialog-footer button[disabled]:focus,
-.ui-dialog-footer button[disabled]:active {
+.ui-dialog-footer button:disabled,
+.ui-dialog-footer button:disabled:hover,
+.ui-dialog-footer button:disabled:focus,
+.ui-dialog-footer button:disabled:active {
   background-color: #ffffff;
   border-color: #cccccc;
 }
 
-.ui-dialog-footer button.ui-dialog-autofocus {
+.ui-dialog-footer button[autofocus] {
   color: #ffffff;
   background-color: #428bca;
   border-color: #357ebd;
 }
 
-.ui-dialog-footer button.ui-dialog-autofocus:hover,
-.ui-dialog-footer button.ui-dialog-autofocus:focus,
-.ui-dialog-footer button.ui-dialog-autofocus:active {
+.ui-dialog-footer button[autofocus]:hover,
+.ui-dialog-footer button[autofocus]:focus,
+.ui-dialog-footer button[autofocus]:active {
   color: #ffffff;
   background-color: #3276b1;
   border-color: #285e8e;
 }
 
-.ui-dialog-footer button.ui-dialog-autofocus:active {
+.ui-dialog-footer button[autofocus]:active {
   background-image: none;
 }
 .ui-popup-top-left .ui-dialog,
