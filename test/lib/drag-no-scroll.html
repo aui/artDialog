@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <style>
+    #test1 {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        z-index: 1;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+        line-height: 100px;
+        background: #000;
+        color: #FFF;
+        cursor: move;
+    }
+    #test1:after {
+        content: 'absolute';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        line-height: 1em;
+        text-align: left;
+        color: #888;
+        font-size: 12px;
+    }
+    </style>
+</head>
+<body>
+
+
+<div id="test1" class="test xxx">test1</div>
+
+<script src="../../lib/sea.js"></script>
+<script>
+seajs.config({
+  alias: {
+    "jquery": "jquery-1.10.2.js"
+  }
+});
+</script>
+
+<script>
+seajs.use(['jquery', '../../src/lib/drag'], function ($, Drag) {
+
+    var d = new Drag(document.getElementById('test1'));
+});
+</script>
+</body>
+</html>

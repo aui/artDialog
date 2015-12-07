@@ -21,8 +21,8 @@ webpackJsonp([0,1],[
 
 	__webpack_require__(3);
 	__webpack_require__(11);
-	__webpack_require__(16);
-	__webpack_require__(19);
+	__webpack_require__(14);
+	__webpack_require__(17);
 	module.exports = {};
 
 /***/ },
@@ -31,8 +31,8 @@ webpackJsonp([0,1],[
 
 	__webpack_require__(4);
 
-	var $ = __webpack_require__(10);
-	var directive = __webpack_require__(15);
+	var $ = __webpack_require__(8);
+	var directive = __webpack_require__(9);
 
 	directive('popup', {
 	    template: '<div class="ui-popup" ng-transclude></div>'
@@ -48,8 +48,220 @@ webpackJsonp([0,1],[
 /* 5 */,
 /* 6 */,
 /* 7 */,
-/* 8 */,
+/* 8 */
+/***/ function(module, exports) {
+
+	module.exports = jQuery;
+
+/***/ },
 /* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* global require,module */
+
+	'use strict';
+
+	var angular = __webpack_require__(1);
+	var Popup = __webpack_require__(10);
+	var namespace = angular.module('artDialog', []);
+
+
+	function directive(name, options) {
+	    namespace.directive(name, ['$parse', function($parse) {
+
+	        var directive = {
+	            template: options.template,
+	            restrict: 'AE',
+	            transclude: true,
+	            replace: true,
+	            scope: {
+
+	                'ngIf': '=',
+	                'ngShow': '=',
+	                'ngHide': '=',
+
+	                'close': '&',
+
+	                // 吸附到指定 ID 元素
+	                'for': '@',
+
+	                // 对齐方式，配合 for
+	                'align': '@',
+
+	                // 是否固定定位（跟随滚动条）
+	                'fixed': '@',
+
+	                // 是否是模态浮层
+	                'modal': '@'
+
+	            },
+	            controller: ['$scope', '$element', '$attrs',
+	                function($scope, $element, $attrs) {
+	                    this.$close = function() {
+	                        $scope.close();
+	                    };
+	                }
+	            ],
+	            link: function(scope, elem, attrs, superheroCtrl) {
+
+	                var $ = angular.element;
+	                var popup = new Popup(elem[0]);
+
+	                var type = {
+	                    'for': 'String@id',
+	                    'align': 'String',
+	                    'fixed': 'Boolean',
+	                    'modal': 'Boolean'
+	                };
+
+	                var scapegoat = {
+	                    'for': 'anchor'
+	                };
+
+
+	                var parse = {
+	                    'String@id': function(value) {
+	                        return document.getElementById(value || '');
+	                    },
+
+	                    'Boolean': function(value) {
+	                        return $parse(value)();
+	                    }
+	                };
+
+
+
+	                Object.keys(type).forEach(function(key) {
+	                    if (attrs[key]) scope.$watch(key, function(value) {
+	                        var name = key;
+
+	                        if (scapegoat[name]) {
+	                            name = scapegoat[name];
+	                        }
+
+	                        if (type[key]) {
+	                            value = parse[type[key]](value);
+	                        }
+
+	                        popup[name] = value;
+	                        scope[name] = value;
+	                        popup.reset();
+	                    });
+	                });
+
+
+	                // 通过模型控制对话框显示与隐藏
+
+	                if (attrs.ngIf) scope.$watch('ngIf', toggle);
+	                if (attrs.ngShow) scope.$watch('ngShow', toggle);
+	                if (attrs.ngHide) scope.$watch('ngHide', toggle);
+
+
+	                function toggle(v) {
+
+	                    if (typeof v === 'undefined') {
+	                        return;
+	                    }
+
+	                    var value = true;
+
+	                    switch (attrs) {
+	                        case 'ngIf':
+	                            value = scope.ngIf;
+	                            break;
+	                        case 'ngShow':
+	                            value = scope.ngShow;
+	                            break;
+	                        case 'ngHide':
+	                            value = !scope.ngHide;
+	                            break;
+	                    }
+
+	                    var showType = scope.modal ? 'showModal' : 'show';
+
+	                    if (value) {
+	                        popup[showType](scope.anchor);
+	                    } else /*if (!attrs.ngIf)*/ {
+	                        popup.close();
+	                    }
+
+	                }
+
+
+
+	                // ESC 快捷键关闭浮层
+	                function esc(event) {
+
+	                    var target = event.target;
+	                    var nodeName = target.nodeName;
+	                    var rinput = /^input|textarea$/i;
+	                    var isBlur = Popup.current === popup;
+	                    var isInput = rinput.test(nodeName) && target.type !== 'button';
+	                    var keyCode = event.keyCode;
+
+	                    // 避免输入状态中 ESC 误操作关闭
+	                    if (!isBlur || isInput) {
+	                        return;
+	                    }
+
+	                    if (keyCode === 27) {
+	                        superheroCtrl.$close();
+	                        scope.$apply();
+	                    }
+	                }
+
+
+	                $(document).on('keydown', esc);
+
+
+	                (options.link || function() {}).apply(this, arguments);
+
+
+	                // ng 销毁事件控制对话框关闭
+	                // 控制器销毁或者 ng-if="false" 都可能触发此
+	                // scope.$on('$destroy', callback) >> 这种方式对 ngAnimate 支持不好
+	                elem.one('$destroy', function() {
+	                    $(document).off('keydown', esc);
+	                    popup.close().remove();
+	                });
+
+
+
+	            }
+	        };
+
+
+	        angular.extend(directive.scope, options.scope);
+
+
+	        return directive;
+	    }]);
+
+	    var child = {
+	        childDirective: function(subName, subOptions) {
+	            namespace.directive(subName, function() {
+	                return {
+	                    require: '^' + name,
+	                    restrict: 'AE',
+	                    transclude: true,
+	                    replace: true,
+	                    template: subOptions.template
+	                };
+	            });
+
+	            return child;
+	        }
+	    };
+
+	    return child;
+	}
+
+	directive.module = namespace;
+
+	module.exports = directive;
+
+/***/ },
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -63,16 +275,15 @@ webpackJsonp([0,1],[
 
 	!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
 
-	var $ = __webpack_require__(10);
+	var $ = __webpack_require__(8);
 
 	var _count = 0;
 
 
 	/**
 	 * @param   {HTMLElement}
-	 * @param   {HTMLElement}
 	 */
-	function Popup (node, backdrop) {
+	function Popup (node) {
 
 	    this.destroyed = false;
 	    this.__ng = node;
@@ -103,17 +314,9 @@ webpackJsonp([0,1],[
 	    }
 
 
-	    this.__backdrop = $('<div />')
-	    .css({
-	        opacity: 0.7,
-	        background: '#000'
-	    });
-
-
 	    // 使用 HTMLElement 作为外部接口使用，而不是 jquery 对象
 	    // 统一的接口利于未来 Popup 移植到其他 DOM 库中
 	    this.node = this.__popup[0];
-	    this.backdrop = this.__backdrop[0];
 
 	    _count ++;
 	}
@@ -166,9 +369,6 @@ webpackJsonp([0,1],[
 	    /** 浮层 DOM 素节点[*] */
 	    node: null,
 
-	    /** 遮罩 DOM 节点[*] */
-	    backdrop: null,
-
 	    /** 是否开启固定定位[*] */
 	    fixed: false,
 
@@ -201,7 +401,6 @@ webpackJsonp([0,1],[
 	        }
 
 	        var popup = this.__popup;
-	        var backdrop = this.__backdrop;
 
 	        this.__activeElement = this.__getActive();
 
@@ -209,57 +408,28 @@ webpackJsonp([0,1],[
 	        this.anchor = anchor;//  || this.anchor
 
 
-	        // 初始化 show 方法
-	        if (!this.__ready) {
-
-	            popup
-	            .addClass(this.className)
-	            .attr('role', this.modal ? 'alertdialog' : 'dialog');
-
-	            $(window).on('resize', $.proxy(this.reset, this));
-
-	            // 模态浮层的遮罩
-	            if (this.modal) {
-	                var backdropCss = {
-	                    position: 'fixed',
-	                    left: 0,
-	                    top: 0,
-	                    width: '100%',
-	                    height: '100%',
-	                    overflow: 'hidden',
-	                    userSelect: 'none',
-	                    zIndex: this.zIndex || Popup.zIndex
-	                };
+	        popup
+	        .addClass(this.className)
+	        .addClass(this.__name('show'))
+	        .attr('role', this.modal ? 'alertdialog' : 'dialog');
 
 
-	                popup.addClass(this.__name('modal'));
+	        // 模态浮层的遮罩
+	        if (this.modal) {
 
-	                // 让焦点限制在浮层内
-	                $(document).on('focusin', $.proxy(this.focus, this));
+	            popup.addClass(this.__name('modal'));
 
-
-	                backdrop
-	                .css(backdropCss)
-	                .attr({tabindex: '0'});
-
-
-	                backdrop
-	                .addClass(this.__name('backdrop'))
-	                .insertBefore(popup);
-
-	                this.__ready = true;
-	            }
-
+	            // 让焦点限制在浮层内
+	            $(document).on('focusin', $.proxy(this.focus, this));
 	        }
 
-	        popup.addClass(this.__name('show'));
 
 	        if (!this.__ng) {
 	            popup.show();
 	        }
 
-	        backdrop.show();
 
+	        $(window).on('resize', $.proxy(this.reset, this));
 
 	        this.reset().focus();
 	        this.__dispatchEvent('show');
@@ -285,7 +455,7 @@ webpackJsonp([0,1],[
 	            }
 
 	            this.__popup.removeClass(this.__name('show'));
-	            this.__backdrop.hide();
+	            this.__popup.removeClass(this.__name('modal'))
 
 	            if (!this.__ng) {
 	                this.__popup.hide();
@@ -324,7 +494,6 @@ webpackJsonp([0,1],[
 
 	        // 从 DOM 中移除节点
 	        this.__popup.remove();
-	        this.__backdrop.remove();
 
 	        $(window).off('resize', this.reset);
 
@@ -392,7 +561,6 @@ webpackJsonp([0,1],[
 
 	        // 设置叠加高度
 	        popup.css('zIndex', index);
-	        //this.__backdrop.css('zIndex', index);
 
 	        Popup.current = this;
 	        popup.addClass(this.__name('focus'));
@@ -682,19 +850,13 @@ webpackJsonp([0,1],[
 	// fixed 支持多次设置
 
 /***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	module.exports = jQuery;
-
-/***/ },
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(12);
 
-	var $ = __webpack_require__(10);
-	var directive = __webpack_require__(15);
+	var $ = __webpack_require__(8);
+	var directive = __webpack_require__(9);
 
 	directive('bubble', {
 	    template:
@@ -731,216 +893,14 @@ webpackJsonp([0,1],[
 
 /***/ },
 /* 13 */,
-/* 14 */,
-/* 15 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* global require,module */
+	__webpack_require__(15);
 
-	'use strict';
-
-	var angular = __webpack_require__(1);
-	var Popup = __webpack_require__(9);
-	var namespace = angular.module('artDialog', []);
-
-
-	function directive(name, options) {
-	    namespace.directive(name, ['$parse', function($parse) {
-
-	        var directive = {
-	            template: options.template,
-	            restrict: 'AE',
-	            transclude: true,
-	            replace: true,
-	            scope: {
-
-	                'ngIf': '=',
-	                'ngShow': '=',
-	                'ngHide': '=',
-
-	                'close': '&',
-
-	                // 吸附到指定 ID 元素
-	                'for': '@',
-
-	                // 对齐方式，配合 for
-	                'align': '@',
-
-	                // 是否固定定位（跟随滚动条）
-	                'fixed': '@',
-
-	                // 是否是模态浮层
-	                'modal': '@'
-
-	            },
-	            controller: ['$scope', '$element', '$attrs',
-	                function($scope, $element, $attrs) {
-	                    this.$close = function() {
-	                        $scope.close();
-	                    };
-	                }
-	            ],
-	            link: function(scope, elem, attrs, superheroCtrl) {
-
-	                var $ = angular.element;
-	                var popup = new Popup(elem[0]);
-
-	                var type = {
-	                    'for': 'String@id',
-	                    'align': 'String',
-	                    'fixed': 'Boolean',
-	                    'modal': 'Boolean'
-	                };
-
-	                var scapegoat = {
-	                    'for': 'anchor'
-	                };
-
-
-	                var parse = {
-	                    'String@id': function(value) {
-	                        return document.getElementById(value || '');
-	                    },
-
-	                    'Boolean': function(value) {
-	                        return $parse(value)();
-	                    }
-	                };
-
-
-
-	                Object.keys(type).forEach(function(key) {
-	                    if (attrs[key]) scope.$watch(key, function(value) {
-	                        var name = key;
-
-	                        if (scapegoat[name]) {
-	                            name = scapegoat[name];
-	                        }
-
-	                        if (type[key]) {
-	                            value = parse[type[key]](value);
-	                        }
-
-	                        popup[name] = value;
-	                        scope[name] = value;
-	                        popup.reset();
-	                    });
-	                });
-
-
-	                // 通过模型控制对话框显示与隐藏
-
-	                if (attrs.ngIf) scope.$watch('ngIf', toggle);
-	                if (attrs.ngShow) scope.$watch('ngShow', toggle);
-	                if (attrs.ngHide) scope.$watch('ngHide', toggle);
-
-
-	                function toggle() {
-	                    var value = true;
-
-	                    switch (attrs) {
-	                        case 'ngIf':
-	                            value = scope.ngIf;
-	                            break;
-	                        case 'ngShow':
-	                            value = scope.ngShow;
-	                            break;
-	                        case 'ngHide':
-	                            value = !scope.ngHide;
-	                            break;
-	                    }
-
-	                    var showType = scope.modal ? 'showModal' : 'show';
-
-	                    if (value) {
-	                        popup[showType](scope.anchor);
-	                    } else if (!attrs.ngIf) {
-	                        popup.close();
-	                    }
-
-	                }
-
-
-
-	                // ESC 快捷键关闭浮层
-	                function esc(event) {
-
-	                    var target = event.target;
-	                    var nodeName = target.nodeName;
-	                    var rinput = /^input|textarea$/i;
-	                    var isBlur = Popup.current === popup;
-	                    var isInput = rinput.test(nodeName) && target.type !== 'button';
-	                    var keyCode = event.keyCode;
-
-	                    // 避免输入状态中 ESC 误操作关闭
-	                    if (!isBlur || isInput) {
-	                        return;
-	                    }
-
-	                    if (keyCode === 27) {
-	                        superheroCtrl.$close();
-	                        scope.$apply();
-	                    }
-	                }
-
-
-	                $(document).on('keydown', esc);
-
-
-	                (options.link || function() {}).apply(this, arguments);
-
-
-	                // ng 销毁事件控制对话框关闭
-	                // 控制器销毁或者 ng-if="false" 都可能触发此
-	                // scope.$on('$destroy', callback) >> 这种方式对 ngAnimate 支持不好
-	                elem.one('$destroy', function() {
-	                    $(document).off('keydown', esc);
-	                    popup.remove();
-	                });
-
-
-
-	            }
-	        };
-
-
-	        angular.extend(directive.scope, options.scope);
-
-
-	        return directive;
-	    }]);
-
-	    var child = {
-	        childDirective: function(subName, subOptions) {
-	            namespace.directive(subName, function() {
-	                return {
-	                    require: '^' + name,
-	                    restrict: 'AE',
-	                    transclude: true,
-	                    replace: true,
-	                    template: subOptions.template
-	                };
-	            });
-
-	            return child;
-	        }
-	    };
-
-	    return child;
-	}
-
-	directive.module = namespace;
-
-	module.exports = directive;
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(17);
-
-	var $ = __webpack_require__(10);
-	var directive = __webpack_require__(15);
+	var $ = __webpack_require__(8);
+	var directive = __webpack_require__(9);
+	var id = 0;
 
 
 	var dialogTpl =
@@ -950,18 +910,21 @@ webpackJsonp([0,1],[
 	    '<div class="ui-dialog-footer"></div>' +
 	    '</div>';
 
-	var titleTpl = '<div class="ui-dialog-title" ng-transclude></div>';
+	var titleTpl = '<div class="ui-dialog-title" id="{{$titleId}}" ng-transclude></div>';
 	var closeTpl = '<button type="button" class="ui-dialog-close"><span aria-hidden="true">&times;</span></button>';
-	var contentTpl = '<div class="ui-dialog-content" ng-transclude></div>';
+	var contentTpl = '<div class="ui-dialog-content" id="{{$contentId}}" ng-transclude></div>';
 	var statusbarTpl = '<span class="ui-dialog-statusbar" ng-transclude></span>';
 	var bottonsTpl = '<span class="ui-dialog-buttons" ng-transclude></span>';
 
 	directive('dialog', {
-	    template: '<div class="ui-popup" ng-transclude></div>',
+	    template: '<div class="ui-popup" aria-labelledby="{{$titleId}}" aria-describedby="{{$contentId}}" ng-transclude></div>',
 	    link: function(scope, elem, attrs, superheroCtrl) {
 
 	        var dialog = $(dialogTpl);
 
+	        id ++;
+	        scope.$titleId = 'ui-dialog-title-' + id;
+	        scope.$contentId = 'ui-dialog-content-' + id;
 
 	        var childDirective = function(name) {
 	            var prefix = 'dialog';
@@ -1028,19 +991,19 @@ webpackJsonp([0,1],[
 	    });
 
 /***/ },
-/* 17 */
+/* 15 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 18 */,
-/* 19 */
+/* 16 */,
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var $ = __webpack_require__(10);
-	var Drag = __webpack_require__(20);
-	var directive = __webpack_require__(15);
+	var $ = __webpack_require__(8);
+	var Drag = __webpack_require__(18);
+	var directive = __webpack_require__(9);
 
 	directive.module
 	    .directive('drag', function () {
@@ -1048,7 +1011,6 @@ webpackJsonp([0,1],[
 	            restrict: 'A',
 	            controller: ['$scope', '$element', '$attrs',
 	                function($scope, $element, $attrs) {
-	                    this.$element = $element;
 	                    this.$destroyDrag = function() {
 	                        this.$drag.destroy();
 	                        delete this.$drag;
@@ -1056,7 +1018,9 @@ webpackJsonp([0,1],[
 	                }
 	            ],
 	            link: function(scope, elem, attrs, superheroCtrl) {
-	                superheroCtrl.$drag = new Drag(elem[0]);
+	                var drag = new Drag(elem[0]);
+	                superheroCtrl.$drag = drag;
+	                superheroCtrl.$element = elem[0];
 	            }
 	        };
 	    })
@@ -1067,7 +1031,7 @@ webpackJsonp([0,1],[
 	            link: function(scope, elem, attrs, superheroCtrl) {
 	                superheroCtrl.$destroyDrag();
 	                elem.on(Drag.START, function(event) {
-	                    new Drag(superheroCtrl.$element[0], event);
+	                    var drag = new Drag(superheroCtrl.$element, event);
 	                    event.preventDefault();
 	                });
 	            }
@@ -1075,7 +1039,7 @@ webpackJsonp([0,1],[
 	    });
 
 /***/ },
-/* 20 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -1087,286 +1051,294 @@ webpackJsonp([0,1],[
 	 * This is licensed under the GNU LGPL, version 2.1 or later.
 	 * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
 	 */
-	!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
+	/* global define */
+	!(__WEBPACK_AMD_DEFINE_RESULT__ = function(require) {
 
-	var $ = __webpack_require__(10);
+	    'use strict';
 
-
-	var $window = $(window);
-	var $document = $(document);
-	var isTouch = 'createTouch' in document;
-	var html = document.documentElement;
-	var isIE6 = !('minWidth' in html.style);
-	var isLosecapture = !isIE6 && 'onlosecapture' in html;
-	var isSetCapture = 'setCapture' in html;
-	function noop () {}
-	function preventDefault () {
-	    return false;
-	}
-
-	var eventTypes = {
-	    start: isTouch ? 'touchstart' : 'mousedown',
-	    move: isTouch ? 'touchmove' : 'mousemove',
-	    end: isTouch ? 'touchend' : 'mouseup'
-	};
-
-	var touchId = 0;
-	var getEvent = isTouch ? function (event, touchId) {
-	    return (event.touches || event.originalEvent.touches)[touchId];
-	} : function (event) {
-	    return event;
-	};
+	    var $ = __webpack_require__(8);
 
 
-	var supports = (function () {
-	    var div = document.createElement('div');
-	    var vendors = 'Khtml Ms O Moz Webkit'.split(' ');
-	    var len = vendors.length;
+	    var $window = $(window);
+	    var $document = $(document);
+	    var isTouch = 'createTouch' in document;
+	    var html = document.documentElement;
+	    var isIE6 = !('minWidth' in html.style);
+	    var isLosecapture = !isIE6 && 'onlosecapture' in html;
+	    var isSetCapture = 'setCapture' in html;
 
-	    return function (prop) {
-	        if (prop in div.style) {
-	            return prop;
-	        }
+	    function noop() {}
 
-	        prop = prop.replace(/^[a-z]/, function  (val) {
-	            return val.toUpperCase();
-	        });
+	    function preventDefault() {
+	        return false;
+	    }
 
-	        while (len --) {
-	            if (vendors[len] + prop in div.style) {
-	                return vendors[len] + prop;
+	    var eventTypes = {
+	        start: isTouch ? 'touchstart' : 'mousedown',
+	        move: isTouch ? 'touchmove' : 'mousemove',
+	        end: isTouch ? 'touchend' : 'mouseup'
+	    };
+
+	    var touchId = 0;
+	    var getEvent = isTouch ? function(event, touchId) {
+	        return (event.touches || event.originalEvent.touches)[touchId];
+	    } : function(event) {
+	        return event;
+	    };
+
+
+	    var supports = (function() {
+	        var div = document.createElement('div');
+	        var vendors = 'Khtml Ms O Moz Webkit'.split(' ');
+	        var len = vendors.length;
+
+	        return function(prop) {
+	            if (prop in div.style) {
+	                return prop;
 	            }
+
+	            prop = prop.replace(/^[a-z]/, function(val) {
+	                return val.toUpperCase();
+	            });
+
+	            while (len--) {
+	                if (vendors[len] + prop in div.style) {
+	                    return vendors[len] + prop;
+	                }
+	            }
+
+	            return null;
+	        };
+	    })();
+
+
+	    var transform = supports('transform');
+
+
+
+	    /**
+	     * 拖拽事件类，解决浏览器兼容问题
+	     * @constructor
+	     */
+	    function Drag(elem, event, GPU) {
+
+	        if (elem) {
+	            return new Drag.create(elem, event, GPU);
 	        }
 
-	        return null;
-	    };
-	})();
-
-
-	var transform = supports('transform');
-
-
-
-
-	/**
-	 * 拖拽事件类，解决浏览器兼容问题
-	 * @constructor
-	 */
-	function Drag (elem, event) {
-
-	    if (elem) {
-	        return new Drag.create(elem, event);
+	        this.start = $.proxy(this.start, this);
+	        this.move = $.proxy(this.move, this);
+	        this.end = $.proxy(this.end, this);
 	    }
 
-	    this.start = $.proxy(this.start, this);
-	    this.move = $.proxy(this.move, this);
-	    this.end = $.proxy(this.end, this);
-	}
+	    Drag.prototype = {
 
-	Drag.prototype = {
+	        constructor: Drag,
 
-	    constructor: Drag,
+	        start: function(event) {
 
-	    start: function (event) {
+	            this.touchId = touchId;
+	            event = getEvent(event, touchId);
+	            touchId++;
 
-	        this.touchId = touchId;
-	        event = getEvent(event, touchId);
-	        touchId ++;
+	            this.target = $(event.target);
 
-	        this.target = $(event.target);
+	            $document
+	                .on('selectstart', preventDefault)
+	                .on('dblclick', this.end);
 
-	        $document
-	        .on('selectstart', preventDefault)
-	        .on('dblclick', this.end);
+	            if (isLosecapture) {
+	                this.target.on('losecapture', this.end);
+	            } else {
+	                $window.on('blur', this.end);
+	            }
 
-	        if (isLosecapture) {
-	            this.target.on('losecapture', this.end);
-	        } else {
-	            $window.on('blur', this.end);
+	            if (isSetCapture) {
+	                this.target[0].setCapture();
+	            }
+
+	            $document
+	                .on(eventTypes.move, this.move)
+	                .on(eventTypes.end, this.end);
+
+	            this.onstart(event);
+	            return false;
+	        },
+
+	        move: function(event) {
+	            event = getEvent(event, this.touchId);
+	            this.onmove(event);
+	            return false;
+	        },
+
+	        end: function(event) {
+	            this.touchId = touchId;
+	            event = getEvent(event, touchId);
+	            touchId--;
+
+	            $document
+	                .off('selectstart', preventDefault)
+	                .off('dblclick', this.end);
+
+	            if (isLosecapture) {
+	                this.target.off('losecapture', this.end);
+	            } else {
+	                $window.off('blur', this.end);
+	            }
+
+	            if (isSetCapture) {
+	                this.target[0].releaseCapture();
+	            }
+
+	            $document
+	                .off(eventTypes.move, this.move)
+	                .off(eventTypes.end, this.end);
+
+	            this.onend(event);
+	            return false;
 	        }
 
-	        if (isSetCapture) {
-	            this.target[0].setCapture();
-	        }
-
-	        $document
-	        .on(eventTypes.move, this.move)
-	        .on(eventTypes.end, this.end);
-
-	        this.onstart(event);
-	        return false;
-	    },
-
-	    move: function (event) {
-	        event = getEvent(event, this.touchId);
-	        this.onmove(event);
-	        return false;
-	    },
-
-	    end: function (event) {
-	        this.touchId = touchId;
-	        event = getEvent(event, touchId);
-	        touchId --;
-
-	        $document
-	        .off('selectstart', preventDefault)
-	        .off('dblclick', this.end);
-
-	        if (isLosecapture) {
-	            this.target.off('losecapture', this.end);
-	        } else {
-	            $window.off('blur', this.end);
-	        }
-
-	        if (isSetCapture) {
-	            this.target[0].releaseCapture();
-	        }
-
-	        $document
-	        .off(eventTypes.move, this.move)
-	        .off(eventTypes.end, this.end);
-
-	        this.onend(event);
-	        return false;
-	    }
-
-	};
-
-
-
-
-
-	/**
-	 * @constructor
-	 * @param   {HTMLElement}   被拖拽的元素
-	 * @param   {Event}         触发拖拽的事件对象。若无则监听 elem 的按下事件启动
-	 */
-
-	Drag.create = function (elem, event) {
-
-	    var $elem = $(elem);
-	    var drag = this;
-	    var dragEvent = new Drag();
-
-	    var x, y, minX, minY, maxX, maxY, startLeft, startTop, clientX, clientY;
-
-	    dragEvent.onstart = function (event) {
-	        var $wrap = elem.parentNode.nodeName === 'BODY' ?
-	            $document : $elem.offsetParent();
-
-	        var isFixed = $elem.css('position') === 'fixed';
-	        var position = $elem.position();
-	        var ww = $window.width();
-	        var wh = $window.height();
-	        var dl = $wrap.scrollLeft();
-	        var dt = $wrap.scrollTop();
-	        var dw = $wrap.width();
-	        var dh = $wrap.height();
-	        var w = $elem.outerWidth();
-	        var h = $elem.outerHeight();
-	        var l = position.left;
-	        var t = position.top;
-
-	        if (drag.GPU) {
-	            minX = isFixed ? -l : -l - dl;
-	            minY = isFixed ? -t : -t - dt;
-	            maxX = isFixed ? ww - w - l : dw - w - l;
-	            maxY = isFixed ? wh - h - t : dh - h - t;
-	            x = 0;
-	            y = 0;
-	            startLeft = l;
-	            startTop = t;
-	        } else {
-	            minX = 0;
-	            minY = 0;
-	            maxX = isFixed ? ww - w + minX : dw - w;
-	            maxY = isFixed ? wh - h + minY : dh - h;
-	            x = startLeft = isFixed ? l - dl : l;
-	            y = startTop = isFixed ? t - dt  : t;
-	        }
-
-
-	        clientX = event.clientX;
-	        clientY = event.clientY;
-
-	        drag.onstart(event);
 	    };
 
 
-	    dragEvent.onmove = function (event) {
 
-	        var style = elem.style;
+	    /**
+	     * @constructor
+	     * @param   {HTMLElement}   被拖拽的元素
+	     * @param   {Event}         触发拖拽的事件对象。若无则监听 elem 的按下事件启动
+	     */
 
-	        if (drag.GPU) {
-	            x = event.clientX - clientX;
-	            y = event.clientY - clientY;
-	        } else {
-	            x = event.clientX - clientX + startLeft;
-	            y = event.clientY - clientY + startTop;
+	    Drag.create = function(elem, event, GPU) {
+
+	        var $elem = $(elem);
+	        var drag = this;
+	        var dragEvent = new Drag();
+
+	        var x, y, minX, minY, maxX, maxY, startLeft, startTop, clientX, clientY;
+
+	        if (typeof GPU === 'undefined') {
+	            GPU = !!transform;
 	        }
 
-	        x = Math.max(minX, Math.min(maxX, x));
-	        y = Math.max(minY, Math.min(maxY, y));
+	        this.GPU = GPU;
+
+	        dragEvent.onstart = function(event) {
+	            var $wrap = elem.parentNode.nodeName === 'BODY' ?
+	                $document : $elem.offsetParent();
+
+	            var isFixed = $elem.css('position') === 'fixed';
+	            var position = $elem.position();
+	            var ww = $window.width();
+	            var wh = $window.height();
+	            var dl = $wrap.scrollLeft();
+	            var dt = $wrap.scrollTop();
+	            var dw = $wrap.width();
+	            var dh = $wrap.height();
+	            var w = $elem.outerWidth();
+	            var h = $elem.outerHeight();
+	            var l = position.left;
+	            var t = position.top;
+
+	            if (drag.GPU) {
+	                minX = isFixed ? -l : -l - dl;
+	                minY = isFixed ? -t : -t - dt;
+	                maxX = isFixed ? ww - w - l : dw - w - l;
+	                maxY = isFixed ? wh - h - t : dh - h - t;
+	                x = 0;
+	                y = 0;
+	                startLeft = l;
+	                startTop = t;
+	            } else {
+	                minX = 0;
+	                minY = 0;
+	                maxX = isFixed ? ww - w + minX : dw - w;
+	                maxY = isFixed ? wh - h + minY : dh - h;
+	                x = startLeft = l;
+	                y = startTop = t;
+	            }
 
 
-	        // 使用 GPU 加速
-	        if (drag.GPU) {
-	            style[transform] = 'translate3d(' + x + 'px, ' + y + 'px, 0px)';
-	        // 使用传统的方式
+	            clientX = event.clientX;
+	            clientY = event.clientY;
+
+	            drag.onstart(event);
+	        };
+
+
+	        dragEvent.onmove = function(event) {
+
+	            var style = elem.style;
+
+	            if (drag.GPU) {
+	                x = event.clientX - clientX;
+	                y = event.clientY - clientY;
+	            } else {
+	                x = event.clientX - clientX + startLeft;
+	                y = event.clientY - clientY + startTop;
+	            }
+
+	            x = Math.max(minX, Math.min(maxX, x));
+	            y = Math.max(minY, Math.min(maxY, y));
+
+
+	            // 使用 GPU 加速
+	            if (drag.GPU) {
+	                style[transform] = 'translate3d(' + x + 'px, ' + y + 'px, 0px)';
+	                // 使用传统的方式
+	            } else {
+	                style.left = x + 'px';
+	                style.top = y + 'px';
+	            }
+
+
+	            drag.onmove(event);
+	        };
+
+
+	        dragEvent.onend = function(event) {
+	            var style = elem.style;
+
+
+	            if (drag.GPU) {
+	                style[transform] = '';
+	                style.left = x + startLeft + 'px';
+	                style.top = y + startTop + 'px';
+	            } else {
+	                style.left = x + 'px';
+	                style.top = y + 'px';
+	            }
+
+	            drag.onend(event);
+	        };
+
+
+	        if (event) {
+	            // TODO onstart 事件此时可能还没注册
+	            dragEvent.start(event);
 	        } else {
-	            style.left = x + 'px';
-	            style.top = y + 'px';
+	            $elem.on(Drag.START, dragEvent.start);
+	            this.destroy = function() {
+	                $elem.off(Drag.START, dragEvent.start);
+	            };
 	        }
-
-
-	        drag.onmove(event);
 	    };
 
 
-	    dragEvent.onend = function (event) {
-	        var style = elem.style;
+	    Drag.START = eventTypes.start;
+	    Drag.MOVE = eventTypes.move;
+	    Drag.END = eventTypes.end;
 
 
-	        if (drag.GPU) {
-	            style[transform] = '';
-	            style.left = x + startLeft + 'px';
-	            style.top = y + startTop + 'px';
-	        } else {
-	            style.left = x + 'px';
-	            style.top = y + 'px';
-	        }
-
-	        drag.onend(event);
+	    Drag.create.prototype = {
+	        constructor: Drag.create,
+	        onstart: noop,
+	        onmove: noop,
+	        onend: noop,
+	        destroy: noop,
 	    };
 
 
-	    if (event) {
-	        dragEvent.start(event);
-	    } else {
-	        $elem.on(Drag.START, dragEvent.start);
-	        this.destroy = function () {
-	            $elem.off(Drag.START, dragEvent.start);
-	        }
-	    }
-	};
-
-
-	Drag.START = eventTypes.start;
-	Drag.MOVE = eventTypes.move;
-	Drag.END = eventTypes.end;
-
-
-	Drag.create.prototype = {
-	    constructor: Drag.create,
-	    GPU: !!transform,
-	    onstart: noop,
-	    onmove: noop,
-	    onend: noop,
-	    destroy: noop,
-	};
-
-
-	return Drag;
+	    return Drag;
 
 	}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
