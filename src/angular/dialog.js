@@ -50,7 +50,7 @@ directive('dialog', {
         var buttonsNode = childDirective('buttons');
 
 
-        childElem('header').append(titleNode).append(closeNode);
+        childElem('header').append(closeNode).append(titleNode);
         childElem('body').append(contentNode);
 
 

@@ -8,7 +8,6 @@ directive.module
             restrict: 'A',
             controller: ['$scope', '$element', '$attrs',
                 function($scope, $element, $attrs) {
-                    this.$element = $element;
                     this.$destroyDrag = function() {
                         this.$drag.destroy();
                         delete this.$drag;
@@ -17,6 +16,7 @@ directive.module
             ],
             link: function(scope, elem, attrs, superheroCtrl) {
                 superheroCtrl.$drag = new Drag(elem[0]);
+                superheroCtrl.$element = elem[0];
             }
         };
     })
@@ -27,7 +27,7 @@ directive.module
             link: function(scope, elem, attrs, superheroCtrl) {
                 superheroCtrl.$destroyDrag();
                 elem.on(Drag.START, function(event) {
-                    new Drag(superheroCtrl.$element[0], event);
+                    new Drag(superheroCtrl.$element, event);
                     event.preventDefault();
                 });
             }

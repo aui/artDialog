@@ -107,46 +107,53 @@ webpackJsonp([0,1],[
 	                var $ = angular.element;
 	                var popup = new Popup(elem[0]);
 
+
+	                // 要映射的字段
+	                var map = {
+	                    'for': 'anchor'
+	                };
+
+	                // 要转换的数据类型
 	                var type = {
 	                    'for': 'String@id',
-	                    'align': 'String',
+	                    'anchor': 'String@id',
 	                    'fixed': 'Boolean',
 	                    'modal': 'Boolean'
 	                };
 
-	                var scapegoat = {
-	                    'for': 'anchor'
-	                };
+
 
 
 	                var parse = {
+
 	                    'String@id': function(value) {
-	                        return document.getElementById(value || '');
+	                        return value ? document.getElementById(value) : null;
 	                    },
 
 	                    'Boolean': function(value) {
-	                        return $parse(value)();
+	                        return typeof value === 'string';
 	                    }
 	                };
 
 
+	                // 设置属性
 
 	                Object.keys(type).forEach(function(key) {
-	                    if (attrs[key]) scope.$watch(key, function(value) {
-	                        var name = key;
+	                    var value = attrs[key];
 
-	                        if (scapegoat[name]) {
-	                            name = scapegoat[name];
-	                        }
+	                    if (typeof value === 'undefined') {
+	                        return;
+	                    }
 
-	                        if (type[key]) {
-	                            value = parse[type[key]](value);
-	                        }
+	                    if (map[key]) {
+	                        key = map[key];
+	                    }
 
-	                        popup[name] = value;
-	                        scope[name] = value;
-	                        popup.reset();
-	                    });
+	                    if (type[key]) {
+	                        value = parse[type[key]](value);
+	                    }
+
+	                    popup[key] = value;
 	                });
 
 
@@ -177,11 +184,9 @@ webpackJsonp([0,1],[
 	                            break;
 	                    }
 
-	                    var showType = scope.modal ? 'showModal' : 'show';
-
 	                    if (value) {
-	                        popup[showType](scope.anchor);
-	                    } else /*if (!attrs.ngIf)*/ {
+	                        popup.show(popup.anchor);
+	                    } else {
 	                        popup.close();
 	                    }
 
@@ -405,7 +410,7 @@ webpackJsonp([0,1],[
 	        this.__activeElement = this.__getActive();
 
 	        this.open = true;
-	        this.anchor = anchor;//  || this.anchor
+	        this.anchor = anchor;
 
 
 	        popup
@@ -953,20 +958,15 @@ webpackJsonp([0,1],[
 
 
 	        if (!closeNode[0] && !titleNode[0]) {
-	            childElem('header').hide();
+	            childElem('header').remove();
 	        }
 
 
 	        if (statusbarNode[0] || buttonsNode[0]) {
 	            childElem('footer').append(statusbarNode).append(buttonsNode);
 	        } else {
-	            childElem('footer').hide();
+	            childElem('footer').remove();
 	        }
-
-
-	        // closeNode.click(function() {
-	        //     //superheroCtrl.$close();
-	        // });
 
 
 	        elem.append(dialog);
@@ -1018,8 +1018,7 @@ webpackJsonp([0,1],[
 	                }
 	            ],
 	            link: function(scope, elem, attrs, superheroCtrl) {
-	                var drag = new Drag(elem[0]);
-	                superheroCtrl.$drag = drag;
+	                superheroCtrl.$drag = new Drag(elem[0]);
 	                superheroCtrl.$element = elem[0];
 	            }
 	        };
@@ -1031,7 +1030,7 @@ webpackJsonp([0,1],[
 	            link: function(scope, elem, attrs, superheroCtrl) {
 	                superheroCtrl.$destroyDrag();
 	                elem.on(Drag.START, function(event) {
-	                    var drag = new Drag(superheroCtrl.$element, event);
+	                    new Drag(superheroCtrl.$element, event);
 	                    event.preventDefault();
 	                });
 	            }

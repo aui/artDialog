@@ -48,46 +48,53 @@ function directive(name, options) {
                 var $ = angular.element;
                 var popup = new Popup(elem[0]);
 
+
+                // 要映射的字段
+                var map = {
+                    'for': 'anchor'
+                };
+
+                // 要转换的数据类型
                 var type = {
                     'for': 'String@id',
-                    'align': 'String',
+                    'anchor': 'String@id',
                     'fixed': 'Boolean',
                     'modal': 'Boolean'
                 };
 
-                var scapegoat = {
-                    'for': 'anchor'
-                };
+
 
 
                 var parse = {
+
                     'String@id': function(value) {
-                        return document.getElementById(value || '');
+                        return value ? document.getElementById(value) : null;
                     },
 
                     'Boolean': function(value) {
-                        return $parse(value)();
+                        return typeof value === 'string';
                     }
                 };
 
 
+                // 设置属性
 
                 Object.keys(type).forEach(function(key) {
-                    if (attrs[key]) scope.$watch(key, function(value) {
-                        var name = key;
+                    var value = attrs[key];
 
-                        if (scapegoat[name]) {
-                            name = scapegoat[name];
-                        }
+                    if (typeof value === 'undefined') {
+                        return;
+                    }
 
-                        if (type[key]) {
-                            value = parse[type[key]](value);
-                        }
+                    if (map[key]) {
+                        key = map[key];
+                    }
 
-                        popup[name] = value;
-                        scope[name] = value;
-                        popup.reset();
-                    });
+                    if (type[key]) {
+                        value = parse[type[key]](value);
+                    }
+
+                    popup[key] = value;
                 });
 
 
@@ -118,11 +125,9 @@ function directive(name, options) {
                             break;
                     }
 
-                    var showType = scope.modal ? 'showModal' : 'show';
-
                     if (value) {
-                        popup[showType](scope.anchor);
-                    } else /*if (!attrs.ngIf)*/ {
+                        popup.show(popup.anchor);
+                    } else {
                         popup.close();
                     }
 

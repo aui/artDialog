@@ -139,7 +139,7 @@ $.extend(Popup.prototype, {
         this.__activeElement = this.__getActive();
 
         this.open = true;
-        this.anchor = anchor;//  || this.anchor
+        this.anchor = anchor;
 
 
         popup
