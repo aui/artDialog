@@ -20,7 +20,7 @@ var _count = 0;
 function Popup (node) {
 
     this.destroyed = false;
-    this.__ng = node;
+    this.__ng = !!node;
 
 
     this.__popup = $(node || '<div />')
@@ -198,7 +198,9 @@ $.extend(Popup.prototype, {
             this.open = false;
             this.blur();// 恢复焦点，照顾键盘操作的用户
             this.__dispatchEvent('close');
+
             $(document).off('focusin', $.proxy(this.focus, this));
+            $(window).off('resize', this.reset);
         }
 
         return this;
@@ -213,12 +215,12 @@ $.extend(Popup.prototype, {
         }
 
 
+        this.__dispatchEvent('beforeremove');
+
+
         if (this.open) {
             this.close();
         }
-
-
-        this.__dispatchEvent('beforeremove');
 
 
         if (Popup.current === this) {
@@ -229,7 +231,6 @@ $.extend(Popup.prototype, {
         // 从 DOM 中移除节点
         this.__popup.remove();
 
-        $(window).off('resize', this.reset);
 
         this.__dispatchEvent('remove');
 

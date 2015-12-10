@@ -1,19 +1,20 @@
-var $ = require('jquery');
+/* global require */
+
+'use strict';
+
 var Drag = require('../lib/drag');
 var directive = require('./directive');
 
 directive.module
-    .directive('drag', function () {
+    .directive('drag', function() {
         return {
             restrict: 'A',
-            controller: ['$scope', '$element', '$attrs',
-                function($scope, $element, $attrs) {
-                    this.$destroyDrag = function() {
-                        this.$drag.destroy();
-                        delete this.$drag;
-                    }.bind(this);
-                }
-            ],
+            controller: function() {
+                this.$destroyDrag = function() {
+                    this.$drag.destroy();
+                    delete this.$drag;
+                }.bind(this);
+            },
             link: function(scope, elem, attrs, superheroCtrl) {
                 superheroCtrl.$drag = new Drag(elem[0]);
                 superheroCtrl.$element = elem[0];

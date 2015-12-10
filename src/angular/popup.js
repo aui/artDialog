@@ -1,6 +1,9 @@
+/* global require */
+
+'use strict';
+
 require('../css/ui-popup.css');
 
-var $ = require('jquery');
 var directive = require('./directive');
 
 directive('popup', {

@@ -1,3 +1,7 @@
+/* global require */
+
+'use strict';
+
 require('../css/ui-bubble.css');
 
 var $ = require('jquery');

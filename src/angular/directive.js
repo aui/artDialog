@@ -8,7 +8,7 @@ var namespace = angular.module('artDialog', []);
 
 
 function directive(name, options) {
-    namespace.directive(name, ['$parse', function($parse) {
+    namespace.directive(name, function() {
 
         var directive = {
             template: options.template,
@@ -36,8 +36,7 @@ function directive(name, options) {
                 'modal': '@'
 
             },
-            controller: ['$scope', '$element', '$attrs',
-                function($scope, $element, $attrs) {
+            controller: ['$scope', function($scope) {
                     this.$close = function() {
                         $scope.close();
                     };
@@ -181,7 +180,7 @@ function directive(name, options) {
 
 
         return directive;
-    }]);
+    });
 
     var child = {
         childDirective: function(subName, subOptions) {
@@ -192,7 +191,7 @@ function directive(name, options) {
                     transclude: true,
                     replace: true,
                     template: ''
-                }, subOptions)
+                }, subOptions);
             });
 
             return child;

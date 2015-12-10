@@ -1,3 +1,7 @@
+/* global require */
+
+'use strict';
+
 require('../css/ui-dialog.css');
 
 var $ = require('jquery');
@@ -43,7 +47,7 @@ directive('dialog', {
             return dialog.find('.ui-dialog-' + name);
         };
 
-        var closeNode = childDirective('close');
+        var closeNode = $(closeTpl);
         var titleNode = childDirective('title');
         var contentNode = childDirective('content');
         var statusbarNode = childDirective('statusbar');
@@ -64,6 +68,12 @@ directive('dialog', {
         }
 
 
+        closeNode.click(function () {
+            superheroCtrl.$close();
+            scope.$apply();
+        });
+
+
         elem.append(dialog);
 
     }
@@ -72,9 +82,9 @@ directive('dialog', {
 .childDirective('dialogTitle', {
         template: titleTpl
     })
-    .childDirective('dialogClose', {
-        template: closeTpl
-    })
+    // .childDirective('dialogClose', {
+    //     template: closeTpl
+    // })
     .childDirective('dialogContent', {
         template: contentTpl
     })

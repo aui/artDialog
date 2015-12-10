@@ -3,8 +3,7 @@
     position: absolute;
 }
 .ui-popup:focus {
-    outline: 10px auto #7FBBFB;
-    outline-offset: -2px;
+    outline: 0;
 }
 .ui-popup-show {
     display: block;

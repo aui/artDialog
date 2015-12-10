@@ -22,11 +22,11 @@
     -webkit-transform: scale(1);
     transform: scale(1);
 }
-.ui-popup:focus .ui-dialog {
-    border: 1px solid rgba(0, 0, 0, .07);
-}
 .ui-popup-focus .ui-dialog {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+.ui-popup-focus:focus .ui-dialog {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 .ui-popup-modal .ui-dialog {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1), 0 0 256px rgba(255, 255, 255, .3);

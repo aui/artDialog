@@ -29,9 +29,12 @@ webpackJsonp([0,1],[
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* global require */
+
+	'use strict';
+
 	__webpack_require__(4);
 
-	var $ = __webpack_require__(8);
 	var directive = __webpack_require__(9);
 
 	directive('popup', {
@@ -67,7 +70,7 @@ webpackJsonp([0,1],[
 
 
 	function directive(name, options) {
-	    namespace.directive(name, ['$parse', function($parse) {
+	    namespace.directive(name, function() {
 
 	        var directive = {
 	            template: options.template,
@@ -95,8 +98,7 @@ webpackJsonp([0,1],[
 	                'modal': '@'
 
 	            },
-	            controller: ['$scope', '$element', '$attrs',
-	                function($scope, $element, $attrs) {
+	            controller: ['$scope', function($scope) {
 	                    this.$close = function() {
 	                        $scope.close();
 	                    };
@@ -240,7 +242,7 @@ webpackJsonp([0,1],[
 
 
 	        return directive;
-	    }]);
+	    });
 
 	    var child = {
 	        childDirective: function(subName, subOptions) {
@@ -251,7 +253,7 @@ webpackJsonp([0,1],[
 	                    transclude: true,
 	                    replace: true,
 	                    template: ''
-	                }, subOptions)
+	                }, subOptions);
 	            });
 
 	            return child;
@@ -291,7 +293,7 @@ webpackJsonp([0,1],[
 	function Popup (node) {
 
 	    this.destroyed = false;
-	    this.__ng = node;
+	    this.__ng = !!node;
 
 
 	    this.__popup = $(node || '<div />')
@@ -469,7 +471,9 @@ webpackJsonp([0,1],[
 	            this.open = false;
 	            this.blur();// 恢复焦点，照顾键盘操作的用户
 	            this.__dispatchEvent('close');
+
 	            $(document).off('focusin', $.proxy(this.focus, this));
+	            $(window).off('resize', this.reset);
 	        }
 
 	        return this;
@@ -484,12 +488,12 @@ webpackJsonp([0,1],[
 	        }
 
 
+	        this.__dispatchEvent('beforeremove');
+
+
 	        if (this.open) {
 	            this.close();
 	        }
-
-
-	        this.__dispatchEvent('beforeremove');
 
 
 	        if (Popup.current === this) {
@@ -500,7 +504,6 @@ webpackJsonp([0,1],[
 	        // 从 DOM 中移除节点
 	        this.__popup.remove();
 
-	        $(window).off('resize', this.reset);
 
 	        this.__dispatchEvent('remove');
 
@@ -860,6 +863,10 @@ webpackJsonp([0,1],[
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* global require */
+
+	'use strict';
+
 	__webpack_require__(12);
 
 	var $ = __webpack_require__(8);
@@ -902,6 +909,10 @@ webpackJsonp([0,1],[
 /* 13 */,
 /* 14 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* global require */
+
+	'use strict';
 
 	__webpack_require__(15);
 
@@ -948,7 +959,7 @@ webpackJsonp([0,1],[
 	            return dialog.find('.ui-dialog-' + name);
 	        };
 
-	        var closeNode = childDirective('close');
+	        var closeNode = $(closeTpl);
 	        var titleNode = childDirective('title');
 	        var contentNode = childDirective('content');
 	        var statusbarNode = childDirective('statusbar');
@@ -969,6 +980,12 @@ webpackJsonp([0,1],[
 	        }
 
 
+	        closeNode.click(function () {
+	            superheroCtrl.$close();
+	            scope.$apply();
+	        });
+
+
 	        elem.append(dialog);
 
 	    }
@@ -977,9 +994,9 @@ webpackJsonp([0,1],[
 	.childDirective('dialogTitle', {
 	        template: titleTpl
 	    })
-	    .childDirective('dialogClose', {
-	        template: closeTpl
-	    })
+	    // .childDirective('dialogClose', {
+	    //     template: closeTpl
+	    // })
 	    .childDirective('dialogContent', {
 	        template: contentTpl
 	    })
@@ -1001,22 +1018,23 @@ webpackJsonp([0,1],[
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var $ = __webpack_require__(8);
+	/* global require */
+
+	'use strict';
+
 	var Drag = __webpack_require__(18);
 	var directive = __webpack_require__(9);
 
 	directive.module
-	    .directive('drag', function () {
+	    .directive('drag', function() {
 	        return {
 	            restrict: 'A',
-	            controller: ['$scope', '$element', '$attrs',
-	                function($scope, $element, $attrs) {
-	                    this.$destroyDrag = function() {
-	                        this.$drag.destroy();
-	                        delete this.$drag;
-	                    }.bind(this);
-	                }
-	            ],
+	            controller: function() {
+	                this.$destroyDrag = function() {
+	                    this.$drag.destroy();
+	                    delete this.$drag;
+	                }.bind(this);
+	            },
 	            link: function(scope, elem, attrs, superheroCtrl) {
 	                superheroCtrl.$drag = new Drag(elem[0]);
 	                superheroCtrl.$element = elem[0];
