@@ -297,8 +297,9 @@ webpackJsonp([0,1],[
 	    this.__popup = $(node || '<div />')
 	    /*使用 <dialog /> 元素可能导致 z-index 永远置顶的问题(chrome)*/
 	    .css({
-	        position: 'absolute',
-	        /*
+	        //outline: 0,
+	        position: 'absolute'/*,
+
 	        left: 0,
 	        top: 0,
 	        bottom: 'auto',
@@ -308,7 +309,6 @@ webpackJsonp([0,1],[
 	        border: '0 none',
 	        background: 'transparent'
 	        */
-	        outline: 0
 	    })
 	    .attr('tabindex', '-1')
 	    .appendTo('body');
@@ -964,8 +964,7 @@ webpackJsonp([0,1],[
 	            childElem('header').remove();
 	        }
 
-
-	        if (!statusbarNode[0] || !buttonsNode[0]) {
+	        if (!statusbarNode[0] && !buttonsNode[0]) {
 	            childElem('footer').remove();
 	        }
 

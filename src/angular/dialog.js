@@ -59,8 +59,7 @@ directive('dialog', {
             childElem('header').remove();
         }
 
-
-        if (!statusbarNode[0] || !buttonsNode[0]) {
+        if (!statusbarNode[0] && !buttonsNode[0]) {
             childElem('footer').remove();
         }
 

@@ -2,6 +2,10 @@
     display: none;
     position: absolute;
 }
+.ui-popup:focus {
+    outline: 10px auto #7FBBFB;
+    outline-offset: -2px;
+}
 .ui-popup-show {
     display: block;
 }

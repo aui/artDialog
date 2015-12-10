@@ -2,6 +2,10 @@
     display: none;
     position: absolute;
 }
+.ui-popup:focus {
+    outline: 10px auto #7FBBFB;
+    outline-offset: -2px;
+}
 .ui-popup-show {
     display: block;
 }
@@ -192,6 +196,9 @@
     -webkit-transform: scale(1);
     transform: scale(1);
 }
+.ui-popup:focus .ui-dialog {
+    border: 1px solid rgba(0, 0, 0, .07);
+}
 .ui-popup-focus .ui-dialog {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
@@ -226,7 +233,7 @@
 }
 .ui-dialog-close:hover,
 .ui-dialog-close:focus {
-    color: #000000;
+    color: #000;
     text-decoration: none;
     cursor: pointer;
     outline: 0;

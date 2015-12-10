@@ -26,8 +26,9 @@ function Popup (node) {
     this.__popup = $(node || '<div />')
     /*使用 <dialog /> 元素可能导致 z-index 永远置顶的问题(chrome)*/
     .css({
-        position: 'absolute',
-        /*
+        //outline: 0,
+        position: 'absolute'/*,
+
         left: 0,
         top: 0,
         bottom: 'auto',
@@ -37,7 +38,6 @@ function Popup (node) {
         border: '0 none',
         background: 'transparent'
         */
-        outline: 0
     })
     .attr('tabindex', '-1')
     .appendTo('body');
