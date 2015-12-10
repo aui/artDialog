@@ -47,7 +47,7 @@ directive('dialog', {
             return dialog.find('.ui-dialog-' + name);
         };
 
-        var closeNode = $(closeTpl);
+        var closeNode = $(attrs.close ? closeTpl : '');
         var titleNode = childDirective('title');
         var contentNode = childDirective('content');
         var statusbarNode = childDirective('statusbar');
