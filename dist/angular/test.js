@@ -22,7 +22,7 @@ webpackJsonp([0,1],[
 	__webpack_require__(3);
 	__webpack_require__(11);
 	__webpack_require__(14);
-	__webpack_require__(17);
+	__webpack_require__(15);
 	module.exports = {};
 
 /***/ },
@@ -35,7 +35,7 @@ webpackJsonp([0,1],[
 
 	__webpack_require__(4);
 
-	var directive = __webpack_require__(9);
+	var directive = __webpack_require__(8);
 
 	directive('popup', {
 	    template: '<div class="ui-popup" ng-transclude></div>'
@@ -52,12 +52,6 @@ webpackJsonp([0,1],[
 /* 6 */,
 /* 7 */,
 /* 8 */
-/***/ function(module, exports) {
-
-	module.exports = jQuery;
-
-/***/ },
-/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global require,module */
@@ -65,12 +59,12 @@ webpackJsonp([0,1],[
 	'use strict';
 
 	var angular = __webpack_require__(1);
-	var Popup = __webpack_require__(10);
+	var Popup = __webpack_require__(9);
 	var namespace = angular.module('artDialog', []);
 
 
 	function directive(name, options) {
-	    namespace.directive(name, function() {
+	    return namespace.directive(name, function() {
 
 	        var directive = {
 	            template: options.template,
@@ -108,6 +102,7 @@ webpackJsonp([0,1],[
 
 	                var $ = angular.element;
 	                var popup = new Popup(elem[0]);
+
 
 
 	                // 要映射的字段
@@ -243,24 +238,6 @@ webpackJsonp([0,1],[
 
 	        return directive;
 	    });
-
-	    var child = {
-	        childDirective: function(subName, subOptions) {
-	            namespace.directive(subName, function() {
-	                return angular.extend({
-	                    require: '^' + name,
-	                    restrict: 'AE',
-	                    transclude: true,
-	                    replace: true,
-	                    template: ''
-	                }, subOptions);
-	            });
-
-	            return child;
-	        }
-	    };
-
-	    return child;
 	}
 
 	directive.module = namespace;
@@ -268,7 +245,7 @@ webpackJsonp([0,1],[
 	module.exports = directive;
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -282,7 +259,7 @@ webpackJsonp([0,1],[
 
 	!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
 
-	var $ = __webpack_require__(8);
+	var $ = __webpack_require__(10);
 
 	var _count = 0;
 
@@ -860,6 +837,12 @@ webpackJsonp([0,1],[
 	// 支持传入 elem
 
 /***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	module.exports = jQuery;
+
+/***/ },
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -869,8 +852,8 @@ webpackJsonp([0,1],[
 
 	__webpack_require__(12);
 
-	var $ = __webpack_require__(8);
-	var directive = __webpack_require__(9);
+	var $ = __webpack_require__(10);
+	var directive = __webpack_require__(8);
 
 	directive('bubble', {
 	    template:
@@ -914,11 +897,10 @@ webpackJsonp([0,1],[
 
 	'use strict';
 
-	__webpack_require__(15);
+	__webpack_require__(17);
 
-	var $ = __webpack_require__(8);
-	var directive = __webpack_require__(9);
-	var id = 0;
+	var $ = __webpack_require__(10);
+	var directive = __webpack_require__(8);
 
 
 	var dialogTpl =
@@ -928,21 +910,19 @@ webpackJsonp([0,1],[
 	    '<div class="ui-dialog-footer"></div>' +
 	    '</div>';
 
-	var titleTpl = '<div class="ui-dialog-title" id="{{$titleId}}" ng-transclude></div>';
+	var titleTpl = '<div class="ui-dialog-title" id="ui-dialog-title-{{$dialogId}}" ng-transclude></div>';
 	var closeTpl = '<button type="button" class="ui-dialog-close"><span aria-hidden="true">&times;</span></button>';
-	var contentTpl = '<div class="ui-dialog-content" id="{{$contentId}}" ng-transclude></div>';
+	var contentTpl = '<div class="ui-dialog-content" id="ui-dialog-content-{{$dialogId}}" ng-transclude></div>';
 	var statusbarTpl = '<span class="ui-dialog-statusbar" ng-transclude></span>';
 	var buttonsTpl = '<span class="ui-dialog-buttons" ng-transclude></span>';
 
 	directive('dialog', {
-	    template: '<div class="ui-popup" aria-labelledby="{{$titleId}}" aria-describedby="{{$contentId}}" ng-transclude></div>',
+	    template: '<div class="ui-popup" aria-labelledby="ui-dialog-title-{{$dialogId}}" aria-describedby="ui-dialog-content-{{$dialogId}}" ng-transclude></div>',
 	    link: function(scope, elem, attrs, superheroCtrl) {
 
 	        var dialog = $(dialogTpl);
 
-	        id ++;
-	        scope.$titleId = 'ui-dialog-title-' + id;
-	        scope.$contentId = 'ui-dialog-content-' + id;
+	        scope.$dialogId = scope.$id;
 
 	        var childDirective = function(name) {
 	            var prefix = 'dialog';
@@ -989,41 +969,53 @@ webpackJsonp([0,1],[
 	        elem.append(dialog);
 
 	    }
-	})
+	});
 
-	.childDirective('dialogTitle', {
-	        template: titleTpl
-	    })
-	    // .childDirective('dialogClose', {
-	    //     template: closeTpl
-	    // })
-	    .childDirective('dialogContent', {
-	        template: contentTpl
-	    })
-	    .childDirective('dialogStatusbar', {
-	        template: statusbarTpl
-	    })
-	    .childDirective('dialogButtons', {
-	        template: buttonsTpl
+
+	childDirective('dialogTitle', {
+	    template: titleTpl
+	});
+
+	childDirective('dialogContent', {
+	    template: contentTpl
+	});
+
+	childDirective('dialogStatusbar', {
+	    template: statusbarTpl
+	});
+
+	childDirective('dialogButtons', {
+	    template: buttonsTpl
+	});
+
+
+	function childDirective(subName, subOptions) {
+	    directive.module.directive(subName, function () {
+	        return angular.extend({
+	            require: '^dialog',
+	            restrict: 'AE',
+	            transclude: true,
+	            controller: ['$scope', function($scope) {
+	                $scope.$dialogId = $scope.$parent.$id;
+	                $scope.$close = function() {
+	                    $scope.$parent.close();
+	                };
+	            }],
+	            replace: true
+	        }, subOptions);
 	    });
+	}
 
 /***/ },
 /* 15 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 16 */,
-/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global require */
 
 	'use strict';
 
-	var Drag = __webpack_require__(18);
-	var directive = __webpack_require__(9);
+	var Drag = __webpack_require__(16);
+	var directive = __webpack_require__(8);
 
 	directive.module
 	    .directive('drag', function() {
@@ -1056,7 +1048,7 @@ webpackJsonp([0,1],[
 	    });
 
 /***/ },
-/* 18 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -1073,7 +1065,7 @@ webpackJsonp([0,1],[
 
 	    'use strict';
 
-	    var $ = __webpack_require__(8);
+	    var $ = __webpack_require__(10);
 
 
 	    var $window = $(window);
@@ -1358,6 +1350,12 @@ webpackJsonp([0,1],[
 	    return Drag;
 
 	}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 ]);

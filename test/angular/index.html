@@ -26,7 +26,7 @@
     <div dialog-content>hello wrold</div>
     <div dialog-buttons>
         <button autofocus>确定</button>
-        <button ng-click="dialog2.show = false">取消</button>
+        <button ng-click="$close()">取消</button>
     </div>
 </dialog>
 
@@ -37,7 +37,7 @@
     <div dialog-statusbar><label><input type="checkbox">下次不再显示</label></div>
     <div dialog-buttons>
         <button autofocus>确定</button>
-        <button ng-click="dialog3.show = false">取消</button>
+        <button ng-click="$close()">取消</button>
     </div>
 </dialog>
 

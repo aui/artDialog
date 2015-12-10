@@ -8,7 +8,7 @@ var namespace = angular.module('artDialog', []);
 
 
 function directive(name, options) {
-    namespace.directive(name, function() {
+    return namespace.directive(name, function() {
 
         var directive = {
             template: options.template,
@@ -46,6 +46,7 @@ function directive(name, options) {
 
                 var $ = angular.element;
                 var popup = new Popup(elem[0]);
+
 
 
                 // 要映射的字段
@@ -181,24 +182,6 @@ function directive(name, options) {
 
         return directive;
     });
-
-    var child = {
-        childDirective: function(subName, subOptions) {
-            namespace.directive(subName, function() {
-                return angular.extend({
-                    require: '^' + name,
-                    restrict: 'AE',
-                    transclude: true,
-                    replace: true,
-                    template: ''
-                }, subOptions);
-            });
-
-            return child;
-        }
-    };
-
-    return child;
 }
 
 directive.module = namespace;
