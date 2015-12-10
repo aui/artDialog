@@ -1,9 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="test">
 <head>
     <meta charset="UTF-8">
     <title>test</title>
-    <link rel="stylesheet" href="../../dist/angular/test.css">
+    <link rel="stylesheet" href="../../dist/angular/popups.css">
+    <script src="../../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../../node_modules/angular/angular.js"></script>
+    <script src="../../dist/angular/popups.js"></script>
+
+    <script>
+    angular.module('test', ['popups']);
+    </script>
 </head>
 <body>
 
@@ -69,11 +76,6 @@
 </dialog>
 
 
-<script src="../../node_modules/jquery/dist/jquery.js"></script>
-<script src="../../node_modules/angular/angular.js"></script>
 
-
-<script src="../../dist/angular/common.js"></script>
-<script src="../../dist/angular/test.js"></script>
 </body>
 </html>

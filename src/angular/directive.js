@@ -4,7 +4,7 @@
 
 var angular = require('angular');
 var Popup = require('../lib/popup');
-var namespace = angular.module('artDialog', []);
+var namespace = angular.module('popups', []);
 
 
 function directive(name, options) {

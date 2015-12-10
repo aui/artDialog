@@ -3,14 +3,13 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
-        test: './test/angular/js/test.js'
+        popups: './src/angular/index.js'
     },
     output: {
         path: 'dist/angular',
         filename: '[name].js'
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin('common.js'),
         new ExtractTextPlugin('[name].css')
     ],
     externals: {

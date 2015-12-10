@@ -13,14 +13,11 @@
     "type": "git",
     "url": "https://github.com/aui/artDialog.git"
   },
-  "main": "./src/angular/index.js",
+  "main": "./src/angular/popups.js",
   "devDependencies": {
     "angular": "^1.4.8",
     "css-loader": "^0.23.0",
     "extract-text-webpack-plugin": "^0.9.1",
-    "grunt": "*",
-    "grunt-cli": "*",
-    "grunt-contrib-uglify": "*",
     "jquery": "^2.1.4",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.9"

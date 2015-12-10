@@ -1,66 +1,91 @@
-webpackJsonp([0,1],[
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var angular = __webpack_require__(1);
-	__webpack_require__(2);
-
-	var app = angular.module('app', ['artDialog']);
-
-	angular.bootstrap(document.body, ['app']);
-
-/***/ },
-/* 1 */
-/***/ function(module, exports) {
-
-	module.exports = angular;
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(3);
-	__webpack_require__(11);
-	__webpack_require__(14);
-	__webpack_require__(15);
+	__webpack_require__(1);
+	__webpack_require__(10);
+	__webpack_require__(13);
+	__webpack_require__(16);
 	module.exports = {};
 
 /***/ },
-/* 3 */
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global require */
 
 	'use strict';
 
-	__webpack_require__(4);
+	__webpack_require__(2);
 
-	var directive = __webpack_require__(8);
+	var directive = __webpack_require__(6);
 
 	directive('popup', {
 	    template: '<div class="ui-popup" ng-transclude></div>'
 	});
 
 /***/ },
-/* 4 */
+/* 2 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
+/* 3 */,
+/* 4 */,
 /* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global require,module */
 
 	'use strict';
 
-	var angular = __webpack_require__(1);
-	var Popup = __webpack_require__(9);
-	var namespace = angular.module('artDialog', []);
+	var angular = __webpack_require__(7);
+	var Popup = __webpack_require__(8);
+	var namespace = angular.module('popups', []);
 
 
 	function directive(name, options) {
@@ -259,7 +284,13 @@ webpackJsonp([0,1],[
 	module.exports = directive;
 
 /***/ },
-/* 9 */
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = angular;
+
+/***/ },
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -273,7 +304,7 @@ webpackJsonp([0,1],[
 
 	!(__WEBPACK_AMD_DEFINE_RESULT__ = function (require) {
 
-	var $ = __webpack_require__(10);
+	var $ = __webpack_require__(9);
 
 	var _count = 0;
 
@@ -851,23 +882,23 @@ webpackJsonp([0,1],[
 	// 支持传入 elem
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = jQuery;
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global require */
 
 	'use strict';
 
-	__webpack_require__(12);
+	__webpack_require__(11);
 
-	var $ = __webpack_require__(10);
-	var directive = __webpack_require__(8);
+	var $ = __webpack_require__(9);
+	var directive = __webpack_require__(6);
 
 	directive('bubble', {
 	    template:
@@ -896,24 +927,24 @@ webpackJsonp([0,1],[
 	});
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 13 */,
-/* 14 */
+/* 12 */,
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global require */
 
 	'use strict';
 
-	__webpack_require__(17);
+	__webpack_require__(14);
 
-	var $ = __webpack_require__(10);
-	var directive = __webpack_require__(8);
+	var $ = __webpack_require__(9);
+	var directive = __webpack_require__(6);
 
 
 	var dialogTpl =
@@ -1019,7 +1050,14 @@ webpackJsonp([0,1],[
 	}
 
 /***/ },
-/* 15 */
+/* 14 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 15 */,
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global require */
@@ -1027,8 +1065,8 @@ webpackJsonp([0,1],[
 
 	'use strict';
 
-	var Drag = __webpack_require__(16);
-	var directive = __webpack_require__(8);
+	var Drag = __webpack_require__(17);
+	var directive = __webpack_require__(6);
 
 	directive.module
 	    .directive('drag', function() {
@@ -1061,7 +1099,7 @@ webpackJsonp([0,1],[
 	    });
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -1078,7 +1116,7 @@ webpackJsonp([0,1],[
 
 	    'use strict';
 
-	    var $ = __webpack_require__(10);
+	    var $ = __webpack_require__(9);
 
 
 	    var $window = $(window);
@@ -1364,11 +1402,5 @@ webpackJsonp([0,1],[
 
 	}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
-/***/ },
-/* 17 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
 /***/ }
-]);
+/******/ ]);
