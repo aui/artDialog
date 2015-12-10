@@ -582,3 +582,5 @@ return Popup;
 // 取消对 iframe 支持
 // follow > anchor
 // fixed 支持多次设置
+// 删除遮罩层
+// 支持传入 elem

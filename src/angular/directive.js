@@ -186,13 +186,13 @@ function directive(name, options) {
     var child = {
         childDirective: function(subName, subOptions) {
             namespace.directive(subName, function() {
-                return {
+                return angular.extend({
                     require: '^' + name,
                     restrict: 'AE',
                     transclude: true,
                     replace: true,
-                    template: subOptions.template
-                };
+                    template: ''
+                }, subOptions)
             });
 
             return child;

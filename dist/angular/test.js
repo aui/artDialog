@@ -245,13 +245,13 @@ webpackJsonp([0,1],[
 	    var child = {
 	        childDirective: function(subName, subOptions) {
 	            namespace.directive(subName, function() {
-	                return {
+	                return angular.extend({
 	                    require: '^' + name,
 	                    restrict: 'AE',
 	                    transclude: true,
 	                    replace: true,
-	                    template: subOptions.template
-	                };
+	                    template: ''
+	                }, subOptions)
 	            });
 
 	            return child;
@@ -853,6 +853,8 @@ webpackJsonp([0,1],[
 	// 取消对 iframe 支持
 	// follow > anchor
 	// fixed 支持多次设置
+	// 删除遮罩层
+	// 支持传入 elem
 
 /***/ },
 /* 11 */
@@ -919,7 +921,7 @@ webpackJsonp([0,1],[
 	var closeTpl = '<button type="button" class="ui-dialog-close"><span aria-hidden="true">&times;</span></button>';
 	var contentTpl = '<div class="ui-dialog-content" id="{{$contentId}}" ng-transclude></div>';
 	var statusbarTpl = '<span class="ui-dialog-statusbar" ng-transclude></span>';
-	var bottonsTpl = '<span class="ui-dialog-buttons" ng-transclude></span>';
+	var buttonsTpl = '<span class="ui-dialog-buttons" ng-transclude></span>';
 
 	directive('dialog', {
 	    template: '<div class="ui-popup" aria-labelledby="{{$titleId}}" aria-describedby="{{$contentId}}" ng-transclude></div>',
@@ -955,6 +957,7 @@ webpackJsonp([0,1],[
 
 	        childElem('header').append(closeNode).append(titleNode);
 	        childElem('body').append(contentNode);
+	        childElem('footer').append(statusbarNode).append(buttonsNode);
 
 
 	        if (!closeNode[0] && !titleNode[0]) {
@@ -962,9 +965,7 @@ webpackJsonp([0,1],[
 	        }
 
 
-	        if (statusbarNode[0] || buttonsNode[0]) {
-	            childElem('footer').append(statusbarNode).append(buttonsNode);
-	        } else {
+	        if (!statusbarNode[0] || !buttonsNode[0]) {
 	            childElem('footer').remove();
 	        }
 
@@ -987,7 +988,7 @@ webpackJsonp([0,1],[
 	        template: statusbarTpl
 	    })
 	    .childDirective('dialogButtons', {
-	        template: bottonsTpl
+	        template: buttonsTpl
 	    });
 
 /***/ },

@@ -9,6 +9,7 @@
     font-family: Helvetica, arial, sans-serif;
     font-size: 14px;
     line-height: 1.428571429;
+    text-align: left;
     color: #333;
     opacity: 0;
     -webkit-transform: scale(0);
@@ -27,16 +28,13 @@
 .ui-popup-modal .ui-dialog {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1), 0 0 256px rgba(255, 255, 255, .3);
 }
-.ui-dialog-header,
-.ui-dialog-body,
-.ui-dialog-footer {
-    padding: 0;
-    border: 0 none;
-    text-align: left;
-    background: transparent;
-}
 .ui-dialog-header {
     white-space: nowrap;
+}
+.ui-dialog-header::after {
+    content: '';
+    display: block;
+    height: 0;
     border-bottom: 1px solid #E5E5E5;
 }
 .ui-dialog-close {
@@ -89,6 +87,14 @@
 }
 .ui-dialog-footer {
     padding: 0 20px 20px 20px;
+    text-align: center;
+}
+.ui-dialog-footer::after {
+    content: '';
+    display: block;
+    clear: both;
+    height: 0;
+    overflow: hidden;
 }
 .ui-dialog-statusbar {
     float: left;
@@ -106,7 +112,7 @@
 .ui-dialog-statusbar .label {
     vertical-align: middle;
 }
-.ui-dialog-button {
+.ui-dialog-buttons {
     float: right;
     white-space: nowrap;
 }
@@ -230,6 +236,7 @@
 
 .ui-dialog::before,
 .ui-dialog::after {
+    content: '';
     position: absolute;
     display: none;
     width: 0;
@@ -237,8 +244,8 @@
     overflow:hidden;
     border:8px dashed transparent;
 }
-.ui-popup-follow .ui-dialog::before,
-.ui-popup-follow .ui-dialog::after{
+.ui-popup-anchor .ui-dialog::before,
+.ui-popup-anchor .ui-dialog::after{
     display: block;
 }
 .ui-popup-top-left .ui-dialog::before,

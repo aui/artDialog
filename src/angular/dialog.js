@@ -16,7 +16,7 @@ var titleTpl = '<div class="ui-dialog-title" id="{{$titleId}}" ng-transclude></d
 var closeTpl = '<button type="button" class="ui-dialog-close"><span aria-hidden="true">&times;</span></button>';
 var contentTpl = '<div class="ui-dialog-content" id="{{$contentId}}" ng-transclude></div>';
 var statusbarTpl = '<span class="ui-dialog-statusbar" ng-transclude></span>';
-var bottonsTpl = '<span class="ui-dialog-buttons" ng-transclude></span>';
+var buttonsTpl = '<span class="ui-dialog-buttons" ng-transclude></span>';
 
 directive('dialog', {
     template: '<div class="ui-popup" aria-labelledby="{{$titleId}}" aria-describedby="{{$contentId}}" ng-transclude></div>',
@@ -52,6 +52,7 @@ directive('dialog', {
 
         childElem('header').append(closeNode).append(titleNode);
         childElem('body').append(contentNode);
+        childElem('footer').append(statusbarNode).append(buttonsNode);
 
 
         if (!closeNode[0] && !titleNode[0]) {
@@ -59,9 +60,7 @@ directive('dialog', {
         }
 
 
-        if (statusbarNode[0] || buttonsNode[0]) {
-            childElem('footer').append(statusbarNode).append(buttonsNode);
-        } else {
+        if (!statusbarNode[0] || !buttonsNode[0]) {
             childElem('footer').remove();
         }
 
@@ -84,5 +83,5 @@ directive('dialog', {
         template: statusbarTpl
     })
     .childDirective('dialogButtons', {
-        template: bottonsTpl
+        template: buttonsTpl
     });
