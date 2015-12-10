@@ -10,19 +10,17 @@
 
 <button id="test" ng-click="x={show:true}" style="position: absolute;left:200px;top:50px">bubble:show</button>
 <bubble ng-show="x.show" for="test" close="x.show=false">hello world</bubble>
-
 <button drag style="position: absolute;left:400px;top:50px">drag me</button>
-
 
 <button ng-click="dialog={show: true}">dialog</button>
 <dialog ng-if="dialog.show" close="dialog.show=false">
-    <div dialog-title>提示1</div>
+    <div dialog-title>提示</div>
     <div dialog-content>hello wrold</div>
 </dialog>
 
 <button ng-click="dialog2={show: true}">dialog:有按钮</button>
 <dialog ng-if="dialog2.show" close="dialog2.show=false">
-    <div dialog-title>提示2</div>
+    <div dialog-title>提示</div>
     <div dialog-content>hello wrold</div>
     <div dialog-buttons>
         <button autofocus>确定</button>
@@ -32,7 +30,7 @@
 
 <button ng-click="dialog3={show: true}">dialog:有状态栏</button>
 <dialog ng-if="dialog3.show" close="dialog3.show=false">
-    <div dialog-title>提示3</div>
+    <div dialog-title>提示</div>
     <div dialog-content>hello wrold</div>
     <div dialog-statusbar><label><input type="checkbox">下次不再显示</label></div>
     <div dialog-buttons>
@@ -43,7 +41,7 @@
 
 <button ng-click="dialog4={show: true}">dialog:模态</button>
 <dialog ng-if="dialog4.show" modal close="dialog4.show=false">
-    <div dialog-title>提示4</div>
+    <div dialog-title>提示</div>
     <div dialog-content>hello wrold</div>
 </dialog>
 
@@ -54,13 +52,19 @@
 
 <button ng-click="dialog6={show: true}">dialog:可拖拽</button>
 <dialog ng-if="dialog6.show" drag close="dialog6.show=false">
-    <div dialog-title drag-handle>提示6</div>
+    <div dialog-title drag-handle>提示</div>
     <div dialog-content>hello wrold</div>
 </dialog>
 
 <button id="dialog7-btn" ng-click="dialog7={show: true}">dialog:可吸附</button>
 <dialog ng-if="dialog7.show" for="dialog7-btn" close="dialog7.show=false">
-    <div dialog-title>提示7</div>
+    <div dialog-title>提示</div>
+    <div dialog-content>hello wrold</div>
+</dialog>
+
+<button ng-click="dialog8={show: true}">dialog:定时关闭</button>
+<dialog ng-if="dialog8.show" close="dialog8.show=false" duration="2000">
+    <div dialog-title>提示</div>
     <div dialog-content>hello wrold</div>
 </dialog>
 

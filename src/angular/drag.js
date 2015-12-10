@@ -1,4 +1,5 @@
 /* global require */
+// TODO 控制器销毁的时候要卸载 document 或 window 的事件
 
 'use strict';
 

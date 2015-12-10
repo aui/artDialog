@@ -56,7 +56,7 @@ directive('dialog', {
         childElem('footer').append(statusbarNode).append(buttonsNode);
 
 
-        if (!closeNode[0] && !titleNode[0]) {
+        if (!titleNode[0]) {
             childElem('header').remove();
         }
 
@@ -67,7 +67,6 @@ directive('dialog', {
 
         closeNode.click(function () {
             superheroCtrl.$close();
-            scope.$apply();
         });
 
 

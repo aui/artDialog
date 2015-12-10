@@ -33,20 +33,32 @@ function directive(name, options) {
                 'fixed': '@',
 
                 // 是否是模态浮层
-                'modal': '@'
+                'modal': '@',
+
+                // 显示持续时间
+                'duration': '@'
 
             },
-            controller: ['$scope', function($scope) {
-                    this.$close = function() {
+            controller: ['$scope', '$window', function($scope, $window) {
+                this.$close = function() {
+                    $window.clearTimeout($scope.$$time);
+                    $scope.close();
+                    $scope.$apply();
+                };
+
+                this.$duration = function(duration) {
+                    $window.clearTimeout($scope.$$time);
+                    $scope.$$time = $window.setTimeout(function() {
                         $scope.close();
-                    };
-                }
-            ],
+                        $scope.$apply();
+                    }, duration);
+                };
+
+            }],
             link: function(scope, elem, attrs, superheroCtrl) {
 
                 var $ = angular.element;
                 var popup = new Popup(elem[0]);
-
 
 
                 // 要映射的字段
@@ -61,7 +73,6 @@ function directive(name, options) {
                     'fixed': 'Boolean',
                     'modal': 'Boolean'
                 };
-
 
 
 
@@ -127,12 +138,16 @@ function directive(name, options) {
 
                     if (value) {
                         popup.show(popup.anchor);
+
+                        if (attrs.duration) {
+                            superheroCtrl.$duration(Number(attrs.duration));
+                        }
+
                     } else {
                         popup.close();
                     }
 
                 }
-
 
 
                 // ESC 快捷键关闭浮层
@@ -152,7 +167,6 @@ function directive(name, options) {
 
                     if (keyCode === 27) {
                         superheroCtrl.$close();
-                        scope.$apply();
                     }
                 }
 

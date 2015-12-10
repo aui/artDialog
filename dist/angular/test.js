@@ -89,20 +89,32 @@ webpackJsonp([0,1],[
 	                'fixed': '@',
 
 	                // 是否是模态浮层
-	                'modal': '@'
+	                'modal': '@',
+
+	                // 显示持续时间
+	                'duration': '@'
 
 	            },
-	            controller: ['$scope', function($scope) {
-	                    this.$close = function() {
+	            controller: ['$scope', '$window', function($scope, $window) {
+	                this.$close = function() {
+	                    $window.clearTimeout($scope.$$time);
+	                    $scope.close();
+	                    $scope.$apply();
+	                };
+
+	                this.$duration = function(duration) {
+	                    $window.clearTimeout($scope.$$time);
+	                    $scope.$$time = $window.setTimeout(function() {
 	                        $scope.close();
-	                    };
-	                }
-	            ],
+	                        $scope.$apply();
+	                    }, duration);
+	                };
+
+	            }],
 	            link: function(scope, elem, attrs, superheroCtrl) {
 
 	                var $ = angular.element;
 	                var popup = new Popup(elem[0]);
-
 
 
 	                // 要映射的字段
@@ -117,7 +129,6 @@ webpackJsonp([0,1],[
 	                    'fixed': 'Boolean',
 	                    'modal': 'Boolean'
 	                };
-
 
 
 
@@ -183,12 +194,16 @@ webpackJsonp([0,1],[
 
 	                    if (value) {
 	                        popup.show(popup.anchor);
+
+	                        if (attrs.duration) {
+	                            superheroCtrl.$duration(Number(attrs.duration));
+	                        }
+
 	                    } else {
 	                        popup.close();
 	                    }
 
 	                }
-
 
 
 	                // ESC 快捷键关闭浮层
@@ -208,7 +223,6 @@ webpackJsonp([0,1],[
 
 	                    if (keyCode === 27) {
 	                        superheroCtrl.$close();
-	                        scope.$apply();
 	                    }
 	                }
 
@@ -869,7 +883,6 @@ webpackJsonp([0,1],[
 	        function click(event) {
 	            if (!$.contains(elem[0], event.target)) {
 	                superheroCtrl.$close();
-	                scope.$apply();
 	            }
 	        }
 
@@ -951,7 +964,7 @@ webpackJsonp([0,1],[
 	        childElem('footer').append(statusbarNode).append(buttonsNode);
 
 
-	        if (!closeNode[0] && !titleNode[0]) {
+	        if (!titleNode[0]) {
 	            childElem('header').remove();
 	        }
 
@@ -962,7 +975,6 @@ webpackJsonp([0,1],[
 
 	        closeNode.click(function () {
 	            superheroCtrl.$close();
-	            scope.$apply();
 	        });
 
 
@@ -1011,6 +1023,7 @@ webpackJsonp([0,1],[
 /***/ function(module, exports, __webpack_require__) {
 
 	/* global require */
+	// TODO 控制器销毁的时候要卸载 document 或 window 的事件
 
 	'use strict';
 

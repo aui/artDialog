@@ -21,7 +21,6 @@ directive('bubble', {
         function click(event) {
             if (!$.contains(elem[0], event.target)) {
                 superheroCtrl.$close();
-                scope.$apply();
             }
         }
 
