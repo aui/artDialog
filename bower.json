@@ -1,0 +1,31 @@
+{
+  "name": "artDialog",
+  "version": "6.0.5",
+  "homepage": "https://github.com/aui/artDialog",
+  "authors": [
+    "aui"
+  ],
+  "description": "经典的网页对话框组件，内外皆用心雕琢",
+  "main": [
+    "css/ui-dialog.css",
+    "dist/dialog.js",
+    "dist/dialog-plus.js"
+  ],
+  "keywords": [
+    "dialog"
+  ],
+  "license": "LGPL",
+  "ignore": [
+    "**/.*",
+    "doc",
+    "lib",
+    "node_modules",
+    "bower_components",
+    "package.json",
+    "Gruntfile.js",
+    "test"
+  ],
+  "dependencies": {
+    "jquery": ">=1.7"
+  }
+}
