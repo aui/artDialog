@@ -3,6 +3,8 @@
 artDialog——经典、优雅的网页对话框控件。
 文档与示例：<http://aui.github.io/artDialog/doc/index.html>
 
+AngularJS 版本：<https://github.com/aui/angular-popups>
+
 ##	成功案例
 
 超过 40 万网站在使用 artDialog，其中不乏国内顶尖的产品：
@@ -47,7 +49,3 @@ artDialog——经典、优雅的网页对话框控件。
 ##	授权协议
 
 免费，且开源，基于[LGPL](./LICENSE.md)协议。
-
-------------------
-
-*artDialog，因极致而骄傲！——作者，糖饼*
