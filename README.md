@@ -1,4 +1,6 @@
-#	artDialog
+#	a-art-dialog
+
+fork from artDialog。
 
 artDialog——经典、优雅的网页对话框控件。
 文档与示例：<http://aui.github.io/artDialog/doc/index.html>
