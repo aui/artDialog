@@ -1,16 +1,16 @@
 {
-  "name": "art-dialog",
+  "name": "a-art-dialog",
   "version": "6.1.1",
   "readmeFilename": "README.md",
   "description": "经典的网页对话框组件，内外皆用心雕琢",
-  "homepage": "https://github.com/aui/artDialog",
+  "homepage": "https://github.com/shuizhongyueming/a-art-dialog",
   "keywords": [
     "dialog"
   ],
-  "author": "aui",
+  "author": "shuizhongyueming@gmail.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aui/artDialog.git"
+    "url": "https://github.com/shuizhongyueming/a-art-dialog.git"
   },
   "main": "./src/dialog.js",
   "dependencies": {
