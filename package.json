@@ -4,6 +4,9 @@
   "readmeFilename": "README.md",
   "description": "经典的网页对话框组件，内外皆用心雕琢",
   "homepage": "https://github.com/shuizhongyueming/a-art-dialog",
+  "scripts": {
+      "build": "grunt"
+  },
   "keywords": [
     "dialog"
   ],

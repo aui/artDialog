@@ -1,4 +1,4 @@
-/*! artDialog v6.0.5 | https://github.com/aui/artDialog */
+/*! a-art-dialog v6.1.1 | https://github.com/shuizhongyueming/a-art-dialog */
 !(function () {
 
 var __modules__ = {};
@@ -136,35 +136,38 @@ $.extend(Popup.prototype, {
      * @event
      */
 
-    /** 浮层 DOM 素节点[*] */
+    // 浮层 DOM 素节点[*] 
     node: null,
 
-    /** 遮罩 DOM 节点[*] */
+    // 遮罩 DOM 节点[*] 
     backdrop: null,
 
-    /** 是否开启固定定位[*] */
+    // 是否开启固定定位[*] 
     fixed: false,
 
-    /** 判断对话框是否删除[*] */
+    // 判断对话框是否删除[*] 
     destroyed: true,
 
-    /** 判断对话框是否显示 */
+    // 判断对话框是否显示 
     open: false,
 
-    /** close 返回值 */
+    // close 返回值 
     returnValue: '',
 
-    /** 是否自动聚焦 */
+    // 是否自动聚焦 
     autofocus: true,
 
-    /** 对齐方式[*] */
+    // 对齐方式[*] 
     align: 'bottom left',
 
-    /** 内部的 HTML 字符串 */
+    // 内部的 HTML 字符串 
     innerHTML: '',
 
-    /** CSS 类名 */
+    // CSS 类名 
     className: 'ui-popup',
+
+    // 是否显示为模态框
+    modal: false,
 
     /**
      * 显示浮层
@@ -514,8 +517,7 @@ $.extend(Popup.prototype, {
 
         // 隐藏元素不可用
         if ($elem) {
-            var o = $elem.offset();
-            if (o.left * o.top < 0) {
+            if ($elem.is(':hidden')) {
                 return this.__center();
             }
         }
@@ -669,6 +671,7 @@ Popup.current = null;
 return Popup;
 
 });
+
 
 // artDialog - 默认配置
 define("dialog-config", {
@@ -837,7 +840,6 @@ var artDialog = function (options, ok, cancel) {
     // 快捷关闭支持：点击对话框外快速关闭对话框
     if (options.quickClose) {
         options.modal = true;
-        options.backdropOpacity = 0;
     }
     
 
