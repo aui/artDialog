@@ -137,6 +137,12 @@ $.extend(Popup.prototype, {
     // 是否显示为模态框
     modal: false,
 
+    // 是否在无法完整展现弹窗的时候居中展现弹窗
+    isCenterForFallback: true,
+
+    // 是否开启debug模式[最好只在测试的时候开启]
+    debug: false,
+
     /**
      * 显示浮层
      * @param   {HTMLElement, Event}  指定位置（可选）
@@ -396,6 +402,13 @@ $.extend(Popup.prototype, {
         return this;
     },
 
+    // log
+    __log: function(){
+        if (this.debug && console && console.log) {
+            console.log.apply(console, arguments);
+        }
+    },
+
 
     // 获取事件缓存
     __getEventListener: function (type) {
@@ -482,14 +495,6 @@ $.extend(Popup.prototype, {
             popup.removeClass(this.__followSkin);
         }
 
-
-        // 隐藏元素不可用
-        if ($elem) {
-            if ($elem.is(':hidden')) {
-                return this.__center();
-            }
-        }
-        
         var that = this;
         var fixed = this.fixed;
 
@@ -586,6 +591,19 @@ $.extend(Popup.prototype, {
         
         css[name[align[0]]] = parseInt(temp[0][align[0]]);
         css[name[align[1]]] = parseInt(temp[1][align[1]]);
+
+        /**
+         * 在弹窗的最终定位里面
+         * 如果有值小于0，则弹窗无法完整展现在视窗里面
+         * 此时应该居中展现之
+         */
+        for (var prop in css) {
+            if (css.hasOwnProperty(prop) && css[prop] < 0 && this.isCenterForFallback) {
+                this.__log('Popup: the popup can show all in the viewport, so center it as fallback');
+                return this.__center();
+            }
+        }
+
         popup.css(css);
 
     },
