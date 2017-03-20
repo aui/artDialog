@@ -38,7 +38,7 @@ dialog.oncreate = function (api) {
             height: '100%',
             allowtransparency: 'yes',
             frameborder: 'no',
-            scrolling: 'no'
+            scrolling: 'yes'
         })
         .on('load', function () {
             var test;
@@ -56,6 +56,43 @@ dialog.oncreate = function (api) {
                 
                 if (!options.height) {
                     api.height($iframe.contents().height());
+                    // 节流, 避免在事件流中频繁执行回调函数浪费浏览器资源
+                    // fn为回调函数; wait为回调执行的间隔时间, 单位ms; context为执行环境
+                    var throttle = function (fn, wait, context) {
+                        var tid = null;
+                        var lastTime;
+                        context = context || this;
+                        return function thrttl () {
+                            var now = +new Date();
+                            if (!lastTime) lastTime = now;
+                            var remain = wait - (now - lastTime);
+                            if (remain <= 0) {
+                                clearTimeout(tid);
+                                tid = null;
+                                fn.call(context);
+                                lastTime = now;
+                            } else if(!tid) {
+                                tid = setTimeout(thrttl, remain);
+                            }
+                        }
+                    }
+                    // 调节iframe高度, 触发时每200ms执行一次
+                    var adjustHeight = throttle(function () {
+                        // iframe高度取iframe内容高度和其父窗口高度的最小值
+                        // 120px 为对话框本身 header和footer占用高度
+                        api.height(Math.min($iframe.contents().height(), $(window).height() - 120));
+                    }, 200);
+                    // iframe内容变化时调整iframe高度
+                    // 事件 DOMSubtreeModified 针对标准浏览器
+                    // 事件 propertychange 则针对IE
+                    $iframe.contents().on('DOMSubtreeModified propertychange',adjustHeight);
+                    // 父窗口大小改变时调整iframe大小
+                    $(window).on('resize', adjustHeight);
+                    // 在对话框移除时去掉事件绑定
+                    api.onbeforeremove = function () {
+                        $iframe.contents().off('DOMSubtreeModified propertychange',adjustHeight);
+                        $(window).off('resize', adjustHeight);
+                    }
                 }
             }
 
