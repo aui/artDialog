@@ -1,4 +1,4 @@
-/*! artDialog v6.0.5 | https://github.com/aui/artDialog */
+/*! art.dialog v6.0.5 | https://github.com/aui/artDialog */
 !(function () {
 
 var __modules__ = {};

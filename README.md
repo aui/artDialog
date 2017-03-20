@@ -48,4 +48,4 @@ AngularJS 版本：<https://github.com/aui/angular-popups>
 
 ##	授权协议
 
-免费，且开源，基于[LGPL](./LICENSE.md)协议。
+免费，且开源，基于[LGPL-3.0](./LICENSE.md)协议。
