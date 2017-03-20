@@ -67,6 +67,19 @@ var artDialog = function (options, ok, cancel) {
         options.fixed = false;
     }
 
+    // 自定义样式 在原有基本样式的基础上进行窗体风格的修改 最好配合skin属性使用
+    if(typeof options.cssUri === 'string' && options.cssUri !=='' && (options.cssUri !== css) ){
+        var fn = require[require.toUrl ? 'toUrl' : 'resolve'];
+        if (fn) {
+            var myCss  = fn(options.cssUri);
+            myCss = '<link rel="stylesheet" href="' + myCss + '" />';
+            if ($('base')[0]) {
+                $('base').before(myCss);
+            } else {
+                $('head').append(myCss);
+            }
+        }
+    }
 
     // 快捷关闭支持：点击对话框外快速关闭对话框
     if (options.quickClose) {

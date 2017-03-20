@@ -105,8 +105,8 @@ dialog.oncreate = function (api) {
 
     // 拖拽支持
     $(api.node).on(drag.types.start, '[i=title]', function (event) {
-        // 排除气泡类型的对话框
-        if (!api.follow) {
+        // 排除气泡类型的对话框 并且api.drag不是false
+        if (!api.follow && api.drag !== false) {
             api.focus();
             drag.create(api.node, event);
         }
