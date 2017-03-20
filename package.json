@@ -1,6 +1,6 @@
 {
-    "name": "artDialog",
-    "version": "6.0.5",
+    "name": "art.dialog",
+    "version": "6.0.6",
     "readmeFilename": "README.md",
     "description": "经典的网页对话框组件，内外皆用心雕琢",
     "homepage": "https://github.com/aui/artDialog",
@@ -13,16 +13,12 @@
         "url": "https://github.com/aui/artDialog.git"
     },
     "main": "./src/dialog.js",
-    "dependencies": {
-        "jquery": "*"
-    },
     "devDependencies": {
-        "grunt-cli": "*",
-        "grunt": "*",
-        "grunt-contrib-uglify": "*",
+        "jquery": "^2.1.4",
+        "grunt-cli": "^0.1.13",
+        "grunt": "^0.4.5",
+        "grunt-contrib-uglify": "^0.5.0",
         "grunt-unwrap": "*"
     },
-    "license": "LGPL"
+    "license": "LGPL-3.0"
 }
-        
-        
