@@ -71,7 +71,6 @@ var artDialog = function (options, ok, cancel) {
     // 快捷关闭支持：点击对话框外快速关闭对话框
     if (options.quickClose) {
         options.modal = true;
-        options.backdropOpacity = 0;
     }
     
 
@@ -454,8 +453,19 @@ $.extend(prototype, {
     _trigger: function (id) {
         var fn = this.callbacks[id];
             
-        return typeof fn !== 'function' || fn.call(this) !== false ?
-            this.close().remove() : this;
+        if (typeof fn !== 'function' || fn.call(this) !== false) {
+
+            // 根据是否isAutoRemove来判断是否需要执行remove()
+            if (this.isAutoRemove) {
+                res = this.close().remove();
+            } else {
+                res = this.close();
+            }
+        } else {
+            res = this;
+        }
+
+        return res;
     }
     
 });
