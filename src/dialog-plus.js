@@ -1,19 +1,8 @@
-/*!
- * artDialog-plus
- * Date: 2013-11-09
- * https://github.com/aui/artDialog
- * (c) 2009-2014 TangBin, http://www.planeArt.cn
- *
- * This is licensed under the GNU LGPL, version 2.1 or later.
- * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
- */
-define(function (require) {
-
 var $ = require('jquery');
 var dialog = require('./dialog');
 var drag = require('./drag');
 
-dialog.oncreate = function (api) {
+dialog.oncreate = function(api) {
 
     var options = api.options;
     var originalOptions = options.original;
@@ -32,40 +21,40 @@ dialog.oncreate = function (api) {
         $iframe = $('<iframe />');
 
         $iframe.attr({
-            src: url,
-            name: api.id,
-            width: '100%',
-            height: '100%',
-            allowtransparency: 'yes',
-            frameborder: 'no',
-            scrolling: 'no'
-        })
-        .on('load', function () {
-            var test;
-            
-            try {
-                // 跨域测试
-                test = $iframe[0].contentWindow.frameElement;
-            } catch (e) {}
+                src: url,
+                name: api.id,
+                width: '100%',
+                height: '100%',
+                allowtransparency: 'yes',
+                frameborder: 'no',
+                scrolling: 'no'
+            })
+            .on('load', function() {
+                var test;
 
-            if (test) {
+                try {
+                    // 跨域测试
+                    test = $iframe[0].contentWindow.frameElement;
+                } catch (e) {}
 
-                if (!options.width) {
-                    api.width($iframe.contents().width());
+                if (test) {
+
+                    if (!options.width) {
+                        api.width($iframe.contents().width());
+                    }
+
+                    if (!options.height) {
+                        api.height($iframe.contents().height());
+                    }
                 }
-                
-                if (!options.height) {
-                    api.height($iframe.contents().height());
+
+                if (oniframeload) {
+                    oniframeload.call(api);
                 }
-            }
 
-            if (oniframeload) {
-                oniframeload.call(api);
-            }
+            });
 
-        });
-
-        api.addEventListener('beforeremove', function () {
+        api.addEventListener('beforeremove', function() {
 
             // 重要！需要重置iframe地址，否则下次出现的对话框在IE6、7无法聚焦input
             // IE删除iframe后，iframe仍然会留在内存中出现上述问题，置换src是最容易解决的方法
@@ -85,12 +74,12 @@ dialog.oncreate = function (api) {
     // 如果对话框配置来自 iframe
     if (!(originalOptions instanceof Object)) {
 
-        var un = function () {
+        var un = function() {
             api.close().remove();
         };
 
         // 找到那个 iframe
-        for (var i = 0; i < frames.length; i ++) {
+        for (var i = 0; i < frames.length; i++) {
             try {
                 if (originalOptions instanceof frames[i].Object) {
                     // 让 iframe 刷新的时候也关闭对话框，
@@ -98,13 +87,13 @@ dialog.oncreate = function (api) {
                     $(frames[i]).one('unload', un);
                     break;
                 }
-            } catch (e) {} 
+            } catch (e) {}
         }
     }
 
 
     // 拖拽支持
-    $(api.node).on(drag.types.start, '[i=title]', function (event) {
+    $(api.node).on(drag.types.start, '[i=title]', function(event) {
         // 排除气泡类型的对话框
         if (!api.follow) {
             api.focus();
@@ -116,7 +105,7 @@ dialog.oncreate = function (api) {
 
 
 
-dialog.get = function (id) {
+dialog.get = function(id) {
 
     // 从 iframe 传入 window 对象
     if (id && id.frameElement) {
@@ -129,7 +118,7 @@ dialog.get = function (id) {
                 return api;
             }
         }
-    // 直接传入 id 的情况
+        // 直接传入 id 的情况
     } else if (id) {
         return dialog.list[id];
     }
@@ -138,6 +127,4 @@ dialog.get = function (id) {
 
 
 
-return dialog;
-
-});
+module.exports = dialog;

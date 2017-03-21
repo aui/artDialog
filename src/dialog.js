@@ -1,67 +1,41 @@
-/*!
- * artDialog
- * Date: 2014-11-09
- * https://github.com/aui/artDialog
- * (c) 2009-2014 TangBin, http://www.planeArt.cn
- *
- * This is licensed under the GNU LGPL, version 2.1 or later.
- * For details, see: http://www.gnu.org/licenses/lgpl-2.1.html
- */
-define(function (require) {
+require('../css/dialog.css');
 
 var $ = require('jquery');
 var Popup = require('./popup');
 var defaults = require('./dialog-config');
-var css = defaults.cssUri;
-
-
-// css loader: RequireJS & SeaJS
-if (css) {
-    var fn = require[require.toUrl ? 'toUrl' : 'resolve'];
-    if (fn) {
-        css = fn(css);
-        css = '<link rel="stylesheet" href="' + css + '" />';
-        if ($('base')[0]) {
-            $('base').before(css);
-        } else {
-            $('head').append(css);
-        } 
-    }
-}
-
 
 var _count = 0;
 var _expando = new Date() - 0; // Date.now()
 var _isIE6 = !('minWidth' in $('html')[0].style);
-var _isMobile = 'createTouch' in document && !('onmousemove' in document)
-    || /(iPhone|iPad|iPod)/i.test(navigator.userAgent);
+var _isMobile = 'createTouch' in document && !('onmousemove' in document) ||
+    /(iPhone|iPad|iPod)/i.test(navigator.userAgent);
 var _isFixed = !_isIE6 && !_isMobile;
 
 
-var artDialog = function (options, ok, cancel) {
+var artDialog = function(options, ok, cancel) {
 
     var originalOptions = options = options || {};
-    
+
 
     if (typeof options === 'string' || options.nodeType === 1) {
-    
-        options = {content: options, fixed: !_isMobile};
+
+        options = { content: options, fixed: !_isMobile };
     }
-    
+
 
     options = $.extend(true, {}, artDialog.defaults, options);
     options.original = originalOptions;
 
     var id = options.id = options.id || _expando + _count;
     var api = artDialog.get(id);
-    
-    
+
+
     // 如果存在同名的对话框对象，则直接返回
     if (api) {
         return api.focus();
     }
-    
-    
+
+
     // 目前主流移动设备对fixed支持不好，禁用此特性
     if (!_isFixed) {
         options.fixed = false;
@@ -73,7 +47,7 @@ var artDialog = function (options, ok, cancel) {
         options.modal = true;
         options.backdropOpacity = 0;
     }
-    
+
 
     // 按钮组
     if (!$.isArray(options.button)) {
@@ -85,7 +59,7 @@ var artDialog = function (options, ok, cancel) {
     if (cancel !== undefined) {
         options.cancel = cancel;
     }
-    
+
     if (options.cancel) {
         options.button.push({
             id: 'cancel',
@@ -94,13 +68,13 @@ var artDialog = function (options, ok, cancel) {
             display: options.cancelDisplay
         });
     }
-    
-    
+
+
     // 确定按钮
     if (ok !== undefined) {
         options.ok = ok;
     }
-    
+
     if (options.ok) {
         options.button.push({
             id: 'ok',
@@ -109,16 +83,16 @@ var artDialog = function (options, ok, cancel) {
             autofocus: true
         });
     }
-    
+
 
     return artDialog.list[id] = new artDialog.create(options);
 };
 
-var popup = function () {};
+var popup = function() {};
 popup.prototype = Popup.prototype;
 var prototype = artDialog.prototype = new popup();
 
-artDialog.create = function (options) {
+artDialog.create = function(options) {
     var that = this;
 
     $.extend(this, new Popup());
@@ -130,8 +104,8 @@ artDialog.create = function (options) {
     this.options = options;
     this._popup = $popup;
 
-    
-    $.each(options, function (name, value) {
+
+    $.each(options, function(name, value) {
         if (typeof that[name] === 'function') {
             that[name](value);
         } else {
@@ -157,13 +131,13 @@ artDialog.create = function (options) {
 
     // 关闭按钮
     this._$('close')
-    .css('display', this.cancel === false ? 'none' : '')
-    .attr('title', this.cancelValue)
-    .on('click', function (event) {
-        that._trigger('cancel');
-        event.preventDefault();
-    });
-    
+        .css('display', this.cancel === false ? 'none' : '')
+        .attr('title', this.cancelValue)
+        .on('click', function(event) {
+            that._trigger('cancel');
+            event.preventDefault();
+        });
+
 
     // 添加视觉参数
     this._$('dialog').addClass(this.skin);
@@ -173,28 +147,26 @@ artDialog.create = function (options) {
     // 点击任意空白处关闭对话框
     if (options.quickClose) {
         $backdrop
-        .on(
-            'onmousedown' in document ? 'mousedown' : 'click',
-            function () {
-            that._trigger('cancel');
-            return false;// 阻止抢夺焦点
-        });
+            .on(
+                'onmousedown' in document ? 'mousedown' : 'click',
+                function() {
+                    that._trigger('cancel');
+                    return false; // 阻止抢夺焦点
+                });
     }
 
 
     // 遮罩设置
-    this.addEventListener('show', function () {
+    this.addEventListener('show', function() {
         $backdrop.css({
             opacity: 0,
             background: options.backdropBackground
-        }).animate(
-            {opacity: options.backdropOpacity}
-        , 150);
+        }).animate({ opacity: options.backdropOpacity }, 150);
     });
 
 
     // ESC 快捷键关闭对话框
-    this._esc = function (event) {
+    this._esc = function(event) {
         var target = event.target;
         var nodeName = target.nodeName;
         var rinput = /^input|textarea$/i;
@@ -205,21 +177,21 @@ artDialog.create = function (options) {
         if (!isTop || rinput.test(nodeName) && target.type !== 'button') {
             return;
         }
-        
+
         if (keyCode === 27) {
             that._trigger('cancel');
         }
     };
 
     $(document).on('keydown', this._esc);
-    this.addEventListener('remove', function () {
+    this.addEventListener('remove', function() {
         $(document).off('keydown', this._esc);
         delete artDialog.list[this.id];
     });
 
 
-    _count ++;
-    
+    _count++;
+
     artDialog.oncreate(this);
 
     return this;
@@ -237,7 +209,7 @@ $.extend(prototype, {
      * @name artDialog.prototype.show
      * @param   {HTMLElement Object, Event Object}  指定位置（可选）
      */
-    
+
     /**
      * 显示对话框（模态）
      * @name artDialog.prototype.showModal
@@ -326,36 +298,36 @@ $.extend(prototype, {
      * @event
      */
 
-    
+
     /**
      * 设置内容
      * @param    {String, HTMLElement}   内容
      */
-    content: function (html) {
-    
+    content: function(html) {
+
         var $content = this._$('content');
 
         // HTMLElement
         if (typeof html === 'object') {
             html = $(html);
             $content.empty('').append(html.show());
-            this.addEventListener('beforeremove', function () {
+            this.addEventListener('beforeremove', function() {
                 $('body').append(html.hide());
             });
-        // String
+            // String
         } else {
             $content.html(html);
         }
-                
+
         return this.reset();
     },
-    
-    
+
+
     /**
      * 设置标题
      * @param    {String}   标题内容
      */
-    title: function (text) {
+    title: function(text) {
         this._$('title').text(text);
         this._$('header')[text ? 'show' : 'hide']();
         return this;
@@ -363,14 +335,14 @@ $.extend(prototype, {
 
 
     /** 设置宽度 */
-    width: function (value) {
+    width: function(value) {
         this._$('content').css('width', value);
         return this.reset();
     },
 
 
     /** 设置高度 */
-    height: function (value) {
+    height: function(value) {
         this._$('content').css('height', value);
         return this.reset();
     },
@@ -381,19 +353,19 @@ $.extend(prototype, {
      * @param   {Array, String}
      * Options: value, callback, autofocus, disabled 
      */
-    button: function (args) {
+    button: function(args) {
         args = args || [];
         var that = this;
         var html = '';
         var number = 0;
         this.callbacks = {};
-        
-           
+
+
         if (typeof args === 'string') {
             html = args;
-            number ++;
+            number++;
         } else {
-            $.each(args, function (i, val) {
+            $.each(args, function(i, val) {
 
                 var id = val.id = val.id || val.value;
                 var style = '';
@@ -403,29 +375,29 @@ $.extend(prototype, {
                 if (val.display === false) {
                     style = ' style="display:none"';
                 } else {
-                    number ++;
+                    number++;
                 }
 
                 html +=
-                  '<button'
-                + ' type="button"'
-                + ' i-id="' + id + '"'
-                + style
-                + (val.disabled ? ' disabled' : '')
-                + (val.autofocus ? ' autofocus class="ui-dialog-autofocus"' : '')
-                + '>'
-                +   val.value
-                + '</button>';
+                    '<button' +
+                    ' type="button"' +
+                    ' i-id="' + id + '"' +
+                    style +
+                    (val.disabled ? ' disabled' : '') +
+                    (val.autofocus ? ' autofocus class="ui-dialog-autofocus"' : '') +
+                    '>' +
+                    val.value +
+                    '</button>';
 
                 that._$('button')
-                .on('click', '[i-id=' + id +']', function (event) {                
-                    var $this = $(this);
-                    if (!$this.attr('disabled')) {// IE BUG
-                        that._trigger(id);
-                    }
-                
-                    event.preventDefault();
-                });
+                    .on('click', '[i-id=' + id + ']', function(event) {
+                        var $this = $(this);
+                        if (!$this.attr('disabled')) { // IE BUG
+                            that._trigger(id);
+                        }
+
+                        event.preventDefault();
+                    });
 
             });
         }
@@ -437,27 +409,27 @@ $.extend(prototype, {
     },
 
 
-    statusbar: function (html) {
+    statusbar: function(html) {
         this._$('statusbar')
-        .html(html)[html ? 'show' : 'hide']();
+            .html(html)[html ? 'show' : 'hide']();
 
         return this;
     },
 
 
-    _$: function (i) {
+    _$: function(i) {
         return this._popup.find('[i=' + i + ']');
     },
-    
-    
+
+
     // 触发按钮回调函数
-    _trigger: function (id) {
+    _trigger: function(id) {
         var fn = this.callbacks[id];
-            
+
         return typeof fn !== 'function' || fn.call(this) !== false ?
             this.close().remove() : this;
     }
-    
+
 });
 
 
@@ -467,7 +439,7 @@ artDialog.oncreate = $.noop;
 
 
 /** 获取最顶层的对话框API */
-artDialog.getCurrent = function () {
+artDialog.getCurrent = function() {
     return Popup.current;
 };
 
@@ -478,10 +450,10 @@ artDialog.getCurrent = function () {
  * @param    {String}    对话框 ID
  * @return   {Object}    对话框 API (实例)
  */
-artDialog.get = function (id) {
-    return id === undefined
-    ? artDialog.list
-    : artDialog.list[id];
+artDialog.get = function(id) {
+    return id === undefined ?
+        artDialog.list :
+        artDialog.list[id];
 };
 
 artDialog.list = {};
@@ -495,8 +467,4 @@ artDialog.defaults = defaults;
 
 
 
-return artDialog;
-
-});
-
-
+module.exports = artDialog;

@@ -1,243 +1,331 @@
 <!doctype html>
 <html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<style>
-body {
-  max-width: 620px;
-  margin: auto;
-  font-family: Helvetica, arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: white;
-  padding: 30px;
-}
-body > *:first-child {
-  margin-top: 0 !important;
-}
-body > *:last-child {
-  margin-bottom: 0 !important;
-}
-a {
-  color: #4183C4;
-}
-h1, h2, h3, h4, h5, h6 {
-  margin: 20px 0 10px;
-  padding: 0;
-  font-weight: bold;
-  -webkit-font-smoothing: antialiased;
-  cursor: text;
-  position: relative;
-}
-h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
-  text-decoration: none;
-}
-h1 tt, h1 code {
-  font-size: inherit;
-}
-h2 tt, h2 code {
-  font-size: inherit;
-}
-h3 tt, h3 code {
-  font-size: inherit;
-}
-h4 tt, h4 code {
-  font-size: inherit;
-}
-h5 tt, h5 code {
-  font-size: inherit;
-}
-h6 tt, h6 code {
-  font-size: inherit;
-}
-h1 {
-  font-size: 28px;
-  color: black;
-  text-align: center;
-}
-h6 {
-  text-align: center;
-}
-h2 {
-  font-size: 24px;
-  border-bottom: 1px solid #cccccc;
-  color: black;
-}
-h3 {
-  font-size: 18px;
-}
-h4 {
-  font-size: 16px;
-}
-h5 {
-  font-size: 14px;
-}
-h6 {
-  color: #777777;
-  font-size: 14px;
-}
-p, blockquote, ul, ol, dl, li, table, pre {
-  margin: 15px 0;
-}
-hr {
-  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
-  border: 0 none;
-  color: #cccccc;
-  height: 4px;
-  padding: 0;
-}
-body > h2:first-child {
-  margin-top: 0;
-  padding-top: 0;
-}
-body > h1:first-child {
-  margin-top: 0;
-  padding-top: 0;
-}
-body > h1:first-child + h2 {
-  margin-top: 0;
-  padding-top: 0;
-}
-body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
-  margin-top: 0;
-  padding-top: 0;
-}
-a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
-  margin-top: 0;
-  padding-top: 0;
-}
-h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
-  margin-top: 0;
-}
-li p.first {
-  display: inline-block;
-}
-li {
-  margin: 0;
-}
-ul, ol {
-  padding-left: 30px;
-}
-ul :first-child, ol :first-child {
-  margin-top: 0;
-}
-dl {
-  padding: 0;
-}
-dl dt {
-  font-size: 14px;
-  font-weight: bold;
-  font-style: italic;
-  padding: 0;
-  margin: 15px 0 5px;
-}
-dl dd {
-  margin: 0 0 15px;
-  padding: 0 15px;
-}
-blockquote {
-  border-left: 2px solid #dddddd;
-  padding: 0 15px;
-  color: #777777;
-}
-blockquote > :first-child {
-  margin-top: 0;
-}
-blockquote > :last-child {
-  margin-bottom: 0;
-}
-table {
-  padding: 0;
-  border-collapse: collapse;
-}
-tr {
-  border-top: 1px solid #cccccc;
-  background-color: white;
-  margin: 0;
-  padding: 0;
-}
-tr:nth-child(2n) {
-  background-color: #f8f8f8;
-}
-th {
-  font-weight: bold;
-  border: 1px solid #cccccc;
-  text-align: left;
-  margin: 0;
-  padding: 6px 13px;
-}
-td {
-  border: 1px solid #cccccc;
-  text-align: left;
-  margin: 0;
-  padding: 6px 13px;
-}
-th :first-child, td :first-child {
-  margin-top: 0;
-}
-th :last-child, td :last-child {
-  margin-bottom: 0;
-}
-img {
-  max-width: 100%;
-}
-code, tt {
-  margin: 0 2px;
-  padding: 0 5px;
-  white-space: nowrap;
-  border: 1px solid #eaeaea;
-  background-color: #f8f8f8;
-  border-radius: 3px;
-}
-pre code {
-  margin: 0;
-  padding: 0;
-  white-space: pre;
-  border: none;
-  background: transparent;
-}
-pre {
-  background-color: #303030;
-  font-size: 13px;
-  line-height: 19px;
-  overflow: auto;
-  padding: 6px 10px;
-}
-pre code {
-  color: #f2f2f2;
-  border: none;
-  padding: 0;
-  font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal;
-  margin-bottom: 30px;
-  font-size: 14px;
-}
-pre tt {
-  background-color: transparent;
-  border: none;
-}
-@media print {
-  table, pre {
-    page-break-inside: avoid;
-  }
-}
 
-</style>
-<title>artDialog</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <style>
+        body {
+            max-width: 620px;
+            margin: auto;
+            font-family: Helvetica, arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: white;
+            padding: 30px;
+        }
+        
+        body>*:first-child {
+            margin-top: 0 !important;
+        }
+        
+        body>*:last-child {
+            margin-bottom: 0 !important;
+        }
+        
+        a {
+            color: #4183C4;
+        }
+        
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 20px 0 10px;
+            padding: 0;
+            font-weight: bold;
+            -webkit-font-smoothing: antialiased;
+            cursor: text;
+            position: relative;
+        }
+        
+        h1:hover a.anchor,
+        h2:hover a.anchor,
+        h3:hover a.anchor,
+        h4:hover a.anchor,
+        h5:hover a.anchor,
+        h6:hover a.anchor {
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+            text-decoration: none;
+        }
+        
+        h1 tt,
+        h1 code {
+            font-size: inherit;
+        }
+        
+        h2 tt,
+        h2 code {
+            font-size: inherit;
+        }
+        
+        h3 tt,
+        h3 code {
+            font-size: inherit;
+        }
+        
+        h4 tt,
+        h4 code {
+            font-size: inherit;
+        }
+        
+        h5 tt,
+        h5 code {
+            font-size: inherit;
+        }
+        
+        h6 tt,
+        h6 code {
+            font-size: inherit;
+        }
+        
+        h1 {
+            font-size: 28px;
+            color: black;
+            text-align: center;
+        }
+        
+        h6 {
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 24px;
+            border-bottom: 1px solid #cccccc;
+            color: black;
+        }
+        
+        h3 {
+            font-size: 18px;
+        }
+        
+        h4 {
+            font-size: 16px;
+        }
+        
+        h5 {
+            font-size: 14px;
+        }
+        
+        h6 {
+            color: #777777;
+            font-size: 14px;
+        }
+        
+        p,
+        blockquote,
+        ul,
+        ol,
+        dl,
+        li,
+        table,
+        pre {
+            margin: 15px 0;
+        }
+        
+        hr {
+            background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+            border: 0 none;
+            color: #cccccc;
+            height: 4px;
+            padding: 0;
+        }
+        
+        body>h2:first-child {
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        body>h1:first-child {
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        body>h1:first-child+h2 {
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        body>h3:first-child,
+        body>h4:first-child,
+        body>h5:first-child,
+        body>h6:first-child {
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        a:first-child h1,
+        a:first-child h2,
+        a:first-child h3,
+        a:first-child h4,
+        a:first-child h5,
+        a:first-child h6 {
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        h1 p,
+        h2 p,
+        h3 p,
+        h4 p,
+        h5 p,
+        h6 p {
+            margin-top: 0;
+        }
+        
+        li p.first {
+            display: inline-block;
+        }
+        
+        li {
+            margin: 0;
+        }
+        
+        ul,
+        ol {
+            padding-left: 30px;
+        }
+        
+        ul :first-child,
+        ol :first-child {
+            margin-top: 0;
+        }
+        
+        dl {
+            padding: 0;
+        }
+        
+        dl dt {
+            font-size: 14px;
+            font-weight: bold;
+            font-style: italic;
+            padding: 0;
+            margin: 15px 0 5px;
+        }
+        
+        dl dd {
+            margin: 0 0 15px;
+            padding: 0 15px;
+        }
+        
+        blockquote {
+            border-left: 2px solid #dddddd;
+            padding: 0 15px;
+            color: #777777;
+        }
+        
+        blockquote> :first-child {
+            margin-top: 0;
+        }
+        
+        blockquote> :last-child {
+            margin-bottom: 0;
+        }
+        
+        table {
+            padding: 0;
+            border-collapse: collapse;
+        }
+        
+        tr {
+            border-top: 1px solid #cccccc;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+        
+        tr:nth-child(2n) {
+            background-color: #f8f8f8;
+        }
+        
+        th {
+            font-weight: bold;
+            border: 1px solid #cccccc;
+            text-align: left;
+            margin: 0;
+            padding: 6px 13px;
+        }
+        
+        td {
+            border: 1px solid #cccccc;
+            text-align: left;
+            margin: 0;
+            padding: 6px 13px;
+        }
+        
+        th :first-child,
+        td :first-child {
+            margin-top: 0;
+        }
+        
+        th :last-child,
+        td :last-child {
+            margin-bottom: 0;
+        }
+        
+        img {
+            max-width: 100%;
+        }
+        
+        code,
+        tt {
+            margin: 0 2px;
+            padding: 0 5px;
+            white-space: nowrap;
+            border: 1px solid #eaeaea;
+            background-color: #f8f8f8;
+            border-radius: 3px;
+        }
+        
+        pre code {
+            margin: 0;
+            padding: 0;
+            white-space: pre;
+            border: none;
+            background: transparent;
+        }
+        
+        pre {
+            background-color: #303030;
+            font-size: 13px;
+            line-height: 19px;
+            overflow: auto;
+            padding: 6px 10px;
+        }
+        
+        pre code {
+            color: #f2f2f2;
+            border: none;
+            padding: 0;
+            font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        pre tt {
+            background-color: transparent;
+            border: none;
+        }
+        
+        @media print {
+            table,
+            pre {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+    <title>artDialog</title>
 
 </head>
+
 <body>
-<h1>artDialog</h1>
-
+    <h1>artDialog</h1>
 <p><a href="http://aui.github.io/artDialog/">首页</a> &gt; <a href="http://aui.github.io/artDialog/doc/index.html">文档与示例</a></p>
-
-<hr />
-
 <p>artDialog —— 经典、优雅的网页对话框控件。</p>
-
 <ol>
 <li>支持普通与 12 方向气泡状对话框</li>
 <li>完善的焦点处理，自动焦点附加与回退</li>
@@ -246,16 +334,11 @@ pre tt {
 <li>支持标准与模态对话框</li>
 <li>丰富且友好的编程接口</li>
 <li>能自适应内容尺寸</li>
-<li>仅 4kb (gzip)</li>
 </ol>
-
-
 <h2>文档导航</h2>
-
 <ul>
 <li><a href="#module">引入 artDialog</a></li>
 <li><a href="#quickref">快速参考</a>
-
 <ul>
 <li><a href="#quickref-basic">普通对话框</a></li>
 <li><a href="#quickref-modal">模态对话框</a></li>
@@ -269,7 +352,6 @@ pre tt {
 </ul>
 </li>
 <li><a href="#api">方法</a>
-
 <ul>
 <li><a href="#api-show">show([anchor])</a></li>
 <li><a href="#api-showModal">showModal([anchor])</a></li>
@@ -290,10 +372,8 @@ pre tt {
 </ul>
 </li>
 <li><a href="#option">选项</a>
-
 <ul>
 <li>内容
-
 <ul>
 <li><a href="#option-title">title</a></li>
 <li><a href="#option-content">content</a></li>
@@ -301,7 +381,6 @@ pre tt {
 </ul>
 </li>
 <li>按钮
-
 <ul>
 <li><a href="#option-ok">ok</a></li>
 <li><a href="#option-okValue">okValue</a></li>
@@ -312,7 +391,6 @@ pre tt {
 </ul>
 </li>
 <li>外观
-
 <ul>
 <li><a href="#option-width">width</a></li>
 <li><a href="#option-height">height</a></li>
@@ -321,7 +399,6 @@ pre tt {
 </ul>
 </li>
 <li>交互
-
 <ul>
 <li><a href="#option-fixed">fixed</a></li>
 <li><a href="#option-align">align</a></li>
@@ -331,7 +408,6 @@ pre tt {
 </ul>
 </li>
 <li>事件
-
 <ul>
 <li><a href="#option-onshow">onshow</a></li>
 <li><a href="#option-onbeforeremove">onbeforeremove</a></li>
@@ -343,972 +419,709 @@ pre tt {
 </ul>
 </li>
 <li>高级
-
 <ul>
 <li><a href="#option-id">id</a></li>
 </ul>
 </li>
-</ul>
-</li>
 <li><a href="#property">属性</a>
-
 <ul>
 <li><a href="#property-open">open</a></li>
 <li><a href="#property-returnValue">returnValue</a></li>
 </ul>
 </li>
-<li><a href="#other">其他</a>
-
-<ul>
-<li><a href="#other-skin">自定义样式</a></li>
-<li><a href="#other-grunt">源码构建</a></li>
-<li><a href="#other-upgrade">artDialog v5 升级 v6 参考</a></li>
-<li><a href="#other-support">支持</a></li>
 </ul>
 </li>
 </ul>
-
-
-<h2><span id="module">引入 artDialog</span></h2>
-
+<h2>引入 artDialog</h2>
+<p><i id="module"></i></p>
 <h3>1.直接引用</h3>
-
-<pre><code>&lt;script src="lib/jquery-1.10.2.js"&gt;&lt;/script&gt;
-&lt;link rel="stylesheet" href="css/ui-dialog.css"&gt;
-&lt;script src="dist/dialog-min.js"&gt;&lt;/script&gt;
+<pre><code>&lt;script src=&quot;lib/jquery-1.10.2.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;dist/dialog.js&quot;&gt;&lt;/script&gt;
 //..
 </code></pre>
-
-<h3>2.作为 RequireJS 或 SeaJS 的模块引入</h3>
-
-<pre><code>var dialog = require('./src/dialog');
+<h3>2.作为 Webpack、RequireJS 或 SeaJS 的模块引入</h3>
+<p>使用 Npm 安装 <code>art.dialog</code></p>
+<pre><code>npm install --save-dev art.dialog
+</code></pre>
+<pre><code>var dialog = require('art.dialog');
 //..
 </code></pre>
-
-<p><strong>注意：</strong>内部依赖全局模块<code>require('jquery')</code>，请注意全局模块配置是否正确。<a href="../test/show.html">seajs加载示例</a></p>
-
-<blockquote><ul>
+<p>**注意：**内部依赖全局模块<code>require('jquery')</code>，请注意全局模块配置是否正确</p>
+<blockquote>
+<ul>
 <li>如果需要支持 <a href="#quickref-iframe">iframe</a> 内容与拖拽，请引用加强版 dialog-plus.js</li>
 <li>jquery 最低要求版本为<code>1.7+</code></li>
 </ul>
 </blockquote>
-
-<h2><span id="quickref">快速参考</span></h2>
-
-<h3><span id="quickref-basic">普通对话框</span></h3>
-
+<h2>快速参考</h2>
+<p><i id="quickref"></i></p>
+<h3>普通对话框</h3>
+<p><i id="quickref-basic"></i></p>
 <pre><code>var d = dialog({
-    title: '欢迎',
-    content: '欢迎使用 artDialog 对话框组件！'
+	title: '欢迎',
+	content: '欢迎使用 artDialog 对话框组件！'
 });
 d.show();
 </code></pre>
-
-<h3><span id="quickref-modal">模态对话框</span></h3>
-
+<h3>模态对话框</h3>
+<p><i id="quickref-modal"></i></p>
 <pre><code>var d = dialog({
-    title: 'message',
-    content: '&lt;input autofocus /&gt;'
+	title: 'message',
+	content: '&lt;input autofocus /&gt;'
 });
 d.showModal();
 </code></pre>
-
-<h3><span id="quickref-bubble">气泡浮层</span></h3>
-
+<h3>气泡浮层</h3>
+<p><i id="quickref-bubble"></i></p>
 <pre><code>var d = dialog({
-    content: 'Hello World!',
-    quickClose: true// 点击空白处快速关闭
+	content: 'Hello World!',
+	quickClose: true// 点击空白处快速关闭
 });
 d.show(document.getElementById('quickref-bubble'));
 </code></pre>
-
 <p><a href="../test/align.html">12 个方向定位演示</a></p>
-
-<h3><span id="quickref-button">添加按钮</span></h3>
-
+<h3>添加按钮</h3>
+<p><i id="quickref-button"></i></p>
 <p>1.确定与取消按钮：</p>
-
 <pre><code>var d = dialog({
-    title: '提示',
-    content: '按钮回调函数返回 false 则不许关闭',
-    okValue: '确定',
-    ok: function () {
-        this.title('提交中…');
-        return false;
-    },
-    cancelValue: '取消',
-    cancel: function () {}
+	title: '提示',
+	content: '按钮回调函数返回 false 则不许关闭',
+	okValue: '确定',
+	ok: function () {
+		this.title('提交中…');
+		return false;
+	},
+	cancelValue: '取消',
+	cancel: function () {}
 });
 d.show();
 </code></pre>
-
 <p>2.指定更多按钮：</p>
-
 <p>请参考 <a href="#option-button"><code>button</code></a> 方法或参数。</p>
-
-<h3><span id="quickref-close">控制对话框关闭</span></h3>
-
+<h3>控制对话框关闭</h3>
+<p><i id="quickref-close"></i></p>
 <pre><code>var d = dialog({
-    content: '对话框将在两秒内关闭'
+	content: '对话框将在两秒内关闭'
 });
 d.show();
 setTimeout(function () {
-    d.close().remove();
+	d.close().remove();
 }, 2000);
 </code></pre>
-
-<h3><span id="quickref-statusbar">给对话框左下脚添加复选框</span></h3>
-
+<h3>给对话框左下脚添加复选框</h3>
+<p><i id="quickref-statusbar"></i></p>
 <pre><code>var d = dialog({
-    title: '欢迎',
-    content: '欢迎使用 artDialog 对话框组件！',
-    ok: function () {},
-    statusbar: '&lt;label&gt;&lt;input type="checkbox"&gt;不再提醒&lt;/label&gt;'
+	title: '欢迎',
+	content: '欢迎使用 artDialog 对话框组件！',
+	ok: function () {},
+	statusbar: '&lt;label&gt;&lt;input type=&quot;checkbox&quot;&gt;不再提醒&lt;/label&gt;'
 });
 d.show();
 </code></pre>
-
-<h3><span id="quickref-callback">点按钮不关闭对话框</span></h3>
-
+<h3>点按钮不关闭对话框</h3>
+<p><i id="quickref-callback"></i></p>
 <p>按钮事件返回 false 则不会触发关闭。</p>
-
 <pre><code>var d = dialog({
-    title: '欢迎',
-    content: '欢迎使用 artDialog 对话框组件！',
-    ok: function () {
-        var that = this;
-        this.title('正在提交..');
-        setTimeout(function () {
-            that.close().remove();
-        }, 2000);
-        return false;
-    },
-    cancel: function () {
-        alert('不许关闭');
-        return false;
-    }
+	title: '欢迎',
+	content: '欢迎使用 artDialog 对话框组件！',
+	ok: function () {
+		var that = this;
+		this.title('正在提交..');
+		setTimeout(function () {
+			that.close().remove();
+		}, 2000);
+		return false;
+	},
+	cancel: function () {
+		alert('不许关闭');
+		return false;
+	}
 });
 d.show();
 </code></pre>
-
-<h3><span id="quickref-cancel">不显示关闭按钮</span></h3>
-
+<h3>不显示关闭按钮</h3>
+<p><i id="quickref-cancel"></i></p>
 <pre><code>var d = dialog({
-    title: '欢迎',
-    content: '欢迎使用 artDialog 对话框组件！',
-    cancel: false,
-    ok: function () {}
+	title: '欢迎',
+	content: '欢迎使用 artDialog 对话框组件！',
+	cancel: false,
+	ok: function () {}
 });
 d.show();
 </code></pre>
-
-<h3><span id="quickref-iframe">创建 iframe 内容</span></h3>
-
+<h3>创建 iframe 内容</h3>
+<p><i id="quickref-iframe"></i></p>
 <p>artDialog 提供了一个增强版用来支持复杂的 iframe 套嵌的页面，可以在顶层页面创建一个可供 iframe 访问的对话框创建方法，例如：</p>
-
-<pre><code>seajs.use(['dialog/src/dialog-plus'], function (dialog) {
-    window.dialog = dialog;
+<pre><code>require(['art.dialog/dist/dialog-plus'], function (dialog) {
+	window.dialog = dialog;
 });
 //..
 </code></pre>
-
 <p>然后子页面就可以通过<code>top.dialog</code>控制对话框了。</p>
-
 <p><a href="../test/iframe/index.html">打开示例页面</a></p>
-
-<blockquote><p>  小提示：增强版的<a href="#option">选项</a>比标准版多了<code>url</code>、<code>oniframeload</code>这几个字段。</p></blockquote>
-
-<h2><span id="api">方法</span></h2>
-
+<blockquote>
+<p>小提示：增强版的<a href="#option">选项</a>比标准版多了<code>url</code>、<code>oniframeload</code>这几个字段。</p>
+</blockquote>
+<h2>方法</h2>
+<p><i id="api"></i></p>
 <p>若无特别说明，方法均支持链式调用。</p>
-
-<h3><span id="api-show">show([anchor])</span></h3>
-
+<h3>show([anchor])</h3>
+<p><i id="api-show"></i></p>
 <p>显示对话框。</p>
-
 <p>默认居中显示，支持传入元素节点或者事件对象。</p>
-
 <ul>
-<li>参数类型为<code>HTMLElement</code>：可吸附到元素上，同时对话框将呈现气泡样式。</li>
-<li>参数类型为<code>Event Object</code>：根据<code>event.pageX</code>与<code>event.pageY</code>定位。</li>
+<li>参数类型为<code>HTMLElement</code>：可吸附到元素上，同时对话框将呈现气泡样式。
+*参数类型为<code>Event Object</code>：根据<code>event.pageX</code>与<code>event.pageY</code>定位。</li>
 </ul>
-
-
 <h4>示例</h4>
-
 <pre><code>var d = dialog();
 d.content('hello world');
 d.show(document.getElementById('api-show'));
 </code></pre>
-
 <pre><code>var d = dialog({
-    id: 'api-show-dialog',
-    quickClose: true,
-    content: '右键菜单'
+	id: 'api-show-dialog',
+	quickClose: true,
+	content: '右键菜单'
 });
 $(document).on('contextmenu', function (event) {
-    d.show(event);
-    return d.destroyed;
+	d.show(event);
+	return d.destroyed;
 });
 </code></pre>
-
-<h3><span id="api-showModal">showModal([anchor])</span></h3>
-
+<h3>showModal([anchor])</h3>
+<p><i id="api-showModal"></i></p>
 <p>显示一个模态对话框。</p>
-
 <p>其余特性与参数可参见<code>show([anchor])</code>方法。</p>
-
 <h4>示例</h4>
-
 <pre><code>var d = dialog({
-    title: 'message',
-    content: '&lt;input autofocus /&gt;'
+	title: 'message',
+	content: '&lt;input autofocus /&gt;'
 });
 d.showModal();
 </code></pre>
-
-<h3><span id="api-close">close([result])</span></h3>
-
+<h3>close([result])</h3>
+<p><i id="api-close"></i></p>
 <p>关闭（隐藏）对话框。</p>
-
 <p>可接收一个返回值，可以参见 <a href="#property-returnValue">returnValue</a>。</p>
-
 <p><strong>注意</strong>：<code>close()</code>方法只隐藏对话框，不会在 DOM 中删除，删除请使用<code>remove()</code>方法。</p>
-
-<h3><span id="api-remove">remove()</span></h3>
-
+<h3>remove()</h3>
+<p><i id="api-remove"></i></p>
 <p>销毁对话框。</p>
-
 <p><strong>注意</strong>：不同于<code>close([result])</code>方法，<code>remove()</code>方法会从 DOM 中移出对话框相关节点，销毁后的对话框无法再次使用。</p>
-
 <p>对话框按钮点击后默认会依次触发 <code>close()</code>、<code>remove()</code> 方法。如果想手动控制对话框关闭可以如下操作：</p>
-
 <pre><code>var d = dialog();
 // [..]
 d.close().remove();
 </code></pre>
-
-<h3><span id="api-content">content(html)</span></h3>
-
+<h3>content(html)</h3>
+<p><i id="api-content"></i></p>
 <p>写入对话框内容。</p>
-
 <p><code>html</code>参数支持<code>String</code>、<code>HTMLElement</code>类型。</p>
-
 <h4>示例</h4>
-
 <p>传入字符串：</p>
-
 <pre><code>var d = dialog();
 d.content('hello world');
 d.show();
 </code></pre>
-
 <p>传入元素节点：</p>
-
 <pre><code>//..
 var elem = document.getElementById('test');
 dialog({
-    content: elem,
-    id: 'EF893L'
+	content: elem,
+	id: 'EF893L'
 }).show();
 </code></pre>
-
-<blockquote><p>v6.0.4 更新：隐藏元素将会自动显示，并且对话框卸载的时候会放回到<code>body</code>中</p></blockquote>
-
-<h3><span id="api-title">title(text)</span></h3>
-
+<blockquote>
+<p>v6.0.4 更新：隐藏元素将会自动显示，并且对话框卸载的时候会放回到<code>body</code>中</p>
+</blockquote>
+<h3>title(text)</h3>
+<p><i id="api-title"></i></p>
 <p>写入对话框标题。</p>
-
 <h4>示例</h4>
-
 <pre><code>var d = dialog();
 d.title('hello world');
 d.show();
 </code></pre>
-
-<h3><span id="api-width">width(value)</span></h3>
-
+<h3>width(value)</h3>
+<p><i id="api-width"></i></p>
 <p>设置对话框宽度。</p>
-
 <h3>示例</h3>
-
 <pre><code>dialog({
-    content: 'hello world'
+	content: 'hello world'
 })
 .width(320)
 .show();
 </code></pre>
-
-<h3><span id="api-height">height(value)</span></h3>
-
+<h3>height(value)</h3>
+<p><i id="api-height"></i></p>
 <p>设置对话框高度。</p>
-
 <h3>示例</h3>
-
 <pre><code>dialog({
-    content: 'hello world'
+	content: 'hello world'
 })
 .height(320)
 .show();
 </code></pre>
-
-<h3><span id="api-reset">reset()</span></h3>
-
+<h3>reset()</h3>
+<p><i id="api-reset"></i></p>
 <p>手动刷新对话框位置。</p>
-
 <p>通常动态改变了内容尺寸后需要刷新对话框位置。</p>
-
-<h3><span id="api-button">button(args)</span></h3>
-
+<h3>button(args)</h3>
+<p><i id="api-button"></i></p>
 <p>自定义按钮。</p>
-
 <p>参数请参考 <a href="#option-button">选项<code>button</code></a>；同时支持传入 HTML 字符串填充按钮区域。</p>
-
-<h3><span id="api-focus">focus()</span></h3>
-
+<h3>focus()</h3>
+<p><i id="api-focus"></i></p>
 <p>聚焦对话框（置顶）。</p>
-
-<h3><span id="api-blur">blur()</span></h3>
-
+<h3>blur()</h3>
+<p><i id="api-blur"></i></p>
 <p>让对话框失去焦点。</p>
-
-<h3><span id="api-addEventListener">addEventListener(type, callback)</span></h3>
-
+<h3>addEventListener(type, callback)</h3>
+<p><i id="api-addEventListener"></i></p>
 <p>添加事件。</p>
-
 <p>支持的事件有：<code>show</code>、<code>close</code>、<code>beforeremove</code>、<code>remove</code>、<code>reset</code>、<code>focus</code>、<code>blur</code></p>
-
-<h3><span id="api-removeEventListener">removeEventListener(type, callback)</span></h3>
-
+<h3>removeEventListener(type, callback)</h3>
+<p><i id="api-removeEventListener"></i></p>
 <p>删除事件。</p>
-
-<h3><span id="api-dialog-get">dialog.get(id)</span></h3>
-
+<h3>dialog.get(id)</h3>
+<p><i id="api-dialog-get"></i></p>
 <p>根据获取打开的对话框实例。</p>
-
 <p><strong>注意</strong>：这是一个静态方法。</p>
-
-<h3><span id="api-dialog-getCurrent">dialog.getCurrent()</span></h3>
-
+<h3>dialog.getCurrent()</h3>
+<p><i id="api-dialog-getCurrent"></i></p>
 <p>获取当前（置顶）对话框实例。</p>
-
 <p><strong>注意</strong>：这是一个静态方法。</p>
-
-<h2><span id="option">配置参数</span></h2>
-
-<h3><span id="option-content">content</span></h3>
-
+<h2>配置参数</h2>
+<p><i id="option"></i></p>
+<h3>content</h3>
+<p><i id="option-content"></i></p>
 <p>设置消息内容。</p>
-
 <h4>类型</h4>
-
 <p>String, HTMLElement</p>
-
 <h4>示例</h4>
-
 <p>传入字符串：</p>
-
 <pre><code>dialog({
-    content: 'hello world!'
+	content: 'hello world!'
 }).show();
 </code></pre>
-
 <p>传入元素节点：</p>
-
 <pre><code>//..
 var elem = document.getElementById('test');
 dialog({
-    content: elem,
-    id: 'EF893L'
+	content: elem,
+	id: 'EF893L'
 }).show();
 </code></pre>
-
-<h3><span id="option-title">title</span></h3>
-
+<h3>title</h3>
+<p><i id="option-title"></i></p>
 <p>标题内容。</p>
-
 <h4>类型</h4>
-
 <p>String</p>
-
 <h4>示例</h4>
-
 <pre><code>dialog({
-    title: 'hello world!'
+	title: 'hello world!'
 }).show();
 </code></pre>
-
-<h3><span id="option-statusbar">statusbar</span></h3>
-
+<h3>statusbar</h3>
+<p><i id="option-statusbar"></i></p>
 <p>状态栏区域 HTML 代码。</p>
-
 <p>可以实现类似“不再提示”的复选框。<strong>注意</strong>：必须有按钮才会显示。</p>
-
 <h4>类型</h4>
-
 <p>String</p>
-
 <h4>示例</h4>
-
 <pre><code>var d = dialog({
-    title: '欢迎',
-    content: '欢迎使用 artDialog 对话框组件！',
-    ok: function () {},
-    statusbar: '&lt;label&gt;&lt;input type="checkbox"&gt;不再提醒&lt;/label&gt;'
+	title: '欢迎',
+	content: '欢迎使用 artDialog 对话框组件！',
+	ok: function () {},
+	statusbar: '&lt;label&gt;&lt;input type=&quot;checkbox&quot;&gt;不再提醒&lt;/label&gt;'
 });
 d.show();
 </code></pre>
-
-<h3><span id="option-ok">ok</span></h3>
-
+<h3>ok</h3>
+<p><i id="option-ok"></i></p>
 <p>确定按钮。</p>
-
 <p>回调函数<code>this</code>指向<code>dialog</code>对象，执行完毕默认关闭对话框，若返回 false 则阻止关闭。</p>
-
 <h4>类型</h4>
-
 <p>Function</p>
-
 <h4>示例</h4>
-
 <pre><code>dialog({
-    ok: function () {
-        this
-        .title('消息')
-        .content('hello world!')
-        .width(130);
-        return false;
-    }
+	ok: function () {
+		this
+		.title('消息')
+		.content('hello world!')
+		.width(130);
+		return false;
+	}
 }).show();
 </code></pre>
-
-<h3><span id="option-okValue">okValue</span></h3>
-
-<p>(默认值: <code>"ok"</code>)  确定按钮文本。</p>
-
+<h3>okValue</h3>
+<p><i id="option-okValue"></i></p>
+<p>(默认值: <code>&quot;ok&quot;</code>)  确定按钮文本。</p>
 <h4>类型</h4>
-
 <p>String</p>
-
 <h4>示例</h4>
-
 <pre><code>dialog({
-    okValue: '猛击我',
-    ok: function () {
-        this.content('hello world!');
-        return false;
-    }
+	okValue: '猛击我',
+	ok: function () {
+		this.content('hello world!');
+		return false;
+	}
 }).show();
 </code></pre>
-
-<h3><span id="option-cancel">cancel</span></h3>
-
+<h3>cancel</h3>
+<p><i id="option-cancel"></i></p>
 <p>取消按钮。</p>
-
 <p>取消按钮也等同于标题栏的关闭按钮，若值为<code>false</code>则不显示关闭按钮。回调函数<code>this</code>指向<code>dialog</code>对象，执行完毕默认关闭对话框，若返回<code>false</code>则阻止关闭。</p>
-
 <h4>类型</h4>
-
 <p>Function, Boolean</p>
-
 <h4>示例</h4>
-
 <pre><code>dialog({
-    title: '消息',
-    ok: function () {},
-    cancel: function () {
-        alert('取消');
-    }
+	title: '消息',
+	ok: function () {},
+	cancel: function () {
+		alert('取消');
+	}
 }).show();
 </code></pre>
-
 <pre><code>dialog({
-    title: '消息',
-    content: '不显示关闭按钮',
-    ok: function () {},
-    cancel: false
+	title: '消息',
+	content: '不显示关闭按钮',
+	ok: function () {},
+	cancel: false
 }).show();
 </code></pre>
-
-<h3><span id="option-cancelValue">cancelValue</span></h3>
-
-<p>(默认值: <code>"cancel"</code>) 取消按钮文本。</p>
-
+<h3>cancelValue</h3>
+<p><i id="option-cancelValue"></i></p>
+<p>(默认值: <code>&quot;cancel&quot;</code>) 取消按钮文本。</p>
 <h4>类型</h4>
-
 <p>String</p>
-
 <h4>示例</h4>
-
 <pre><code>dialog({
-    cancelValue: '取消我',
-    cancel: function () {
-        alert('关闭');
-    }
+	cancelValue: '取消我',
+	cancel: function () {
+		alert('关闭');
+	}
 }).show();
 </code></pre>
-
-<h3><span id="option-cancelDisplay">cancelDisplay</span></h3>
-
+<h3>cancelDisplay</h3>
+<p><i id="option-cancelDisplay"></i></p>
 <p>(默认值: <code>true</code>) 是否显示取消按钮。</p>
-
 <h4>类型</h4>
-
 <p>Boolean</p>
-
 <h4>示例</h4>
-
 <pre><code>dialog({
-    title: '提示',
-    content: '这是一个禁止关闭的对话框，并且没有取消按钮',
-    cancel: function () {
-        alert('禁止关闭');
-        return false;
-    },
-    cancelDisplay: false
+	title: '提示',
+	content: '这是一个禁止关闭的对话框，并且没有取消按钮',
+	cancel: function () {
+		alert('禁止关闭');
+		return false;
+	},
+	cancelDisplay: false
 }).show();
 </code></pre>
-
-<h3><span id="option-button">button</span></h3>
-
+<h3>button</h3>
+<p><i id="option-button"></i></p>
 <p>自定义按钮组。</p>
-
 <h4>类型</h4>
-
 <p>Array</p>
-
 <h4>选项</h4>
-
 <table>
 <thead>
 <tr>
-<th>名称 </th>
-<th> 类型 </th>
-<th> 描述</th>
+<th>名称</th>
+<th>类型</th>
+<th>描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>value </td>
-<td> String </td>
-<td> 按钮显示文本</td>
+<td>value</td>
+<td>String</td>
+<td>按钮显示文本</td>
 </tr>
 <tr>
-<td>callback </td>
-<td> Function </td>
-<td> (可选) 回调函数<code>this</code>指向<code>dialog</code>对象，执行完毕默认关闭与销毁对话框（依次执行<code>close()</code>与<code>remove()</code>），若返回<code>false</code>则阻止关闭与销毁</td>
+<td>callback</td>
+<td>Function</td>
+<td>(可选) 回调函数<code>this</code>指向<code>dialog</code>对象，执行完毕默认关闭与销毁对话框（依次执行<code>close()</code>与<code>remove()</code>），若返回<code>false</code>则阻止关闭与销毁</td>
 </tr>
 <tr>
-<td>autofocus </td>
-<td> Boolean </td>
-<td> (默认值:<code>false</code>) 是否自动聚焦</td>
+<td>autofocus</td>
+<td>Boolean</td>
+<td>(默认值:<code>false</code>) 是否自动聚焦</td>
 </tr>
 <tr>
-<td>disabled </td>
-<td> Boolean </td>
-<td> (默认值: <code>false</code>) 是否禁用</td>
+<td>disabled</td>
+<td>Boolean</td>
+<td>(默认值: <code>false</code>) 是否禁用</td>
 </tr>
 </tbody>
 </table>
-
-
 <h4>示例</h4>
-
 <pre><code>dialog({
-    button: [
-        {
-            value: '同意',
-            callback: function () {
-                this
-                .content('你同意了');
-                return false;
-            },
-            autofocus: true
-        },
-        {
-            value: '不同意',
-            callback: function () {
-                alert('你不同意')
-            }
-        },
-        {
-            id: 'button-disabled',
-            value: '无效按钮',
-            disabled: true
-        },
-        {
-            value: '关闭我'
-        }
-    ]
+	button: [
+		{
+			value: '同意',
+			callback: function () {
+				this
+				.content('你同意了');
+				return false;
+			},
+			autofocus: true
+		},
+		{
+			value: '不同意',
+			callback: function () {
+				alert('你不同意')
+			}
+		},
+		{
+			id: 'button-disabled',
+			value: '无效按钮',
+			disabled: true
+		},
+		{
+			value: '关闭我'
+		}
+	]
 }).show();
 </code></pre>
-
-<h3><span id="option-width">width</span></h3>
-
+<h3>width</h3>
+<p><i id="option-width"></i></p>
 <p>设置对话框 <strong>内容</strong> 宽度。</p>
-
 <h4>类型</h4>
-
 <p>String, Number</p>
-
 <h4>示例</h4>
-
 <pre><code>dialog({
-    width: 460
+	width: 460
 }).show();
 </code></pre>
-
 <pre><code>dialog({
-    width: '20em'
+	width: '20em'
 }).show();
 </code></pre>
-
-<h3><span id="option-height">height</span></h3>
-
+<h3>height</h3>
+<p><i id="option-height"></i></p>
 <p>设置对话框 <strong>内容</strong> 高度。</p>
-
 <h4>类型</h4>
-
 <p>String, Number</p>
-
 <h4>示例</h4>
-
 <pre><code>dialog({
-    height: 460
+	height: 460
 }).show();
 </code></pre>
-
 <pre><code>dialog({
-    height: '20em'
+	height: '20em'
 }).show();
 </code></pre>
-
-<h3><span id="option-skin">skin</span></h3>
-
+<h3>skin</h3>
+<p><i id="option-skin"></i></p>
 <p>设置对话框额外的<code>className</code>参数。</p>
-
 <p>多个<code>className</code>请使用空格隔开。</p>
-
 <h4>类型</h4>
-
 <p>String</p>
-
 <h4>示例</h4>
-
 <pre><code>//..
 dialog({
-    skin: 'min-dialog tips'
+	skin: 'min-dialog tips'
 }).show();
 </code></pre>
-
-<h3><span id="option-padding">padding</span></h3>
-
+<h3>padding</h3>
+<p><i id="option-padding"></i></p>
 <p>(默认值: <em>继承 css 文件设置</em>) 设置消息内容与消息容器的填充边距，即 style <code>padding</code>属性</p>
-
 <h4>类型</h4>
-
 <p>String</p>
-
 <h4>示例</h4>
-
 <pre><code>dialog({
-    content: 'hello world',
-    padding: 0
+	content: 'hello world',
+	padding: 0
 }).show();
 </code></pre>
-
-<h3><span id="option-fixed">fixed</span></h3>
-
+<h3>fixed</h3>
+<p><i id="option-fixed"></i></p>
 <p>(默认值: <code>false</code>) 开启固定定位。</p>
-
 <p>固定定位是 css2.1 <code>position</code>的一个属性，它能固定在浏览器某个地方，也不受滚动条拖动影响。IE6 与部分移动浏览器对其支持不好，内部会转成绝对定位。</p>
-
 <h4>类型</h4>
-
 <p>Boolean</p>
-
 <h4>示例</h4>
-
 <pre><code>dialog({
-    fixed: true,
-    title: '消息',
-    content: '请拖动滚动条查看'
+	fixed: true,
+	title: '消息',
+	content: '请拖动滚动条查看'
 }).show();
 </code></pre>
-
-<h3><span id="option-align">align</span></h3>
-
-<p>(默认值: <code>"bottom left"</code>) 设置对话框与其他元素的对齐方式。</p>
-
+<h3>align</h3>
+<p><i id="option-align"></i></p>
+<p>(默认值: <code>&quot;bottom left&quot;</code>) 设置对话框与其他元素的对齐方式。</p>
 <p>如果<code>show(elem)</code>与<code>showModal(elem)</code>传入元素，<code>align</code>参数方可生效，支持如下对齐方式：</p>
-
 <ul>
-<li><code>"top left"</code></li>
-<li><code>"top"</code></li>
-<li><code>"top right"</code></li>
-<li><code>"right top"</code></li>
-<li><code>"right"</code></li>
-<li><code>"right bottom"</code></li>
-<li><code>"bottom right"</code></li>
-<li><code>"bottom"</code></li>
-<li><code>"bottom left"</code></li>
-<li><code>"left bottom"</code></li>
-<li><code>"left"</code></li>
-<li><code>"left top"</code></li>
+<li><code>&quot;top left&quot;</code></li>
+<li><code>&quot;top&quot;</code></li>
+<li><code>&quot;top right&quot;</code></li>
+<li><code>&quot;right top&quot;</code></li>
+<li><code>&quot;right&quot;</code></li>
+<li><code>&quot;right bottom&quot;</code></li>
+<li><code>&quot;bottom right&quot;</code></li>
+<li><code>&quot;bottom&quot;</code></li>
+<li><code>&quot;bottom left&quot;</code></li>
+<li><code>&quot;left bottom&quot;</code></li>
+<li><code>&quot;left&quot;</code></li>
+<li><code>&quot;left top&quot;</code></li>
 </ul>
-
-
-<h3>类型</h3>
-
+<p>###类型</p>
 <p>String</p>
-
 <h3>示例</h3>
-
 <pre><code>var d = dialog({
-    align: 'left',
-    content: 'Hello World!',
-    quickClose: true
+	align: 'left',
+	content: 'Hello World!',
+	quickClose: true
 });
 d.show(document.getElementById('option-align'));
 </code></pre>
-
 <p><a href="../test/align.html">12 个方向定位演示</a></p>
-
-<h3><span id="option-autofocus">autofocus</span></h3>
-
+<h3>autofocus</h3>
+<p><i id="option-autofocus"></i></p>
 <p>(默认值: <code>true</code>) 是否支持自动聚焦。</p>
-
 <h4>类型</h4>
-
 <p>Boolean</p>
-
-<h3><span id="option-quickClose">quickClose</span></h3>
-
+<h3>quickClose</h3>
+<p><i id="option-quickClose"></i></p>
 <p>(默认值: false) 是否点击空白出快速关闭。</p>
-
 <h4>类型</h4>
-
 <p>Boolean</p>
-
 <h3>示例</h3>
-
 <pre><code>var d = dialog({
-    content: '点击空白处快速关闭',
-    quickClose: true
+	content: '点击空白处快速关闭',
+	quickClose: true
 });
 d.show(document.getElementById('option-quickClose'));
 </code></pre>
-
-<h3><span id="option-zIndex">zIndex</span></h3>
-
+<h3>zIndex</h3>
+<p><i id="option-zIndex"></i></p>
 <p>(默认值: <code>1024</code>) 重置全局<code>zIndex</code>初始值，用来改变对话框叠加高度。</p>
-
 <p>比如有时候配合外部浮动层 UI 组件，但是它们可能默认<code>zIndex</code>没有对话框高，导致无法浮动到对话框之上，这个时候你就可以给对话框指定一个较小的<code>zIndex</code>值。</p>
-
 <p>请注意这是一个会影响到全局的配置，后续出现的对话框叠加高度将重新按此累加。</p>
-
 <h4>类型</h4>
-
 <p>Number</p>
-
 <h4>示例</h4>
-
 <pre><code>dialog({
-    zIndex: 87
+	zIndex: 87
 }).show();
 </code></pre>
-
-<h3><span id="option-onshow">onshow</span></h3>
-
+<h3>onshow</h3>
+<p><i id="option-onshow"></i></p>
 <p>对话框打开的事件。</p>
-
 <p>回调函数<code>this</code>指向<code>dialog</code>对象。</p>
-
 <h4>类型</h4>
-
 <p>Function</p>
-
 <h4>示例</h4>
-
 <pre><code>var d = dialog({
-    content: 'loading..',
-    onshow: function () {
-        this.content('dialog ready');
-    }
+	content: 'loading..',
+	onshow: function () {
+		this.content('dialog ready');
+	}
 });
 d.show();
 </code></pre>
-
-<h3><span id="option-onclose">onclose</span></h3>
-
+<h3>onclose</h3>
+<p><i id="option-onclose"></i></p>
 <p>对话框关闭后执行的事件。</p>
-
 <p>回调函数<code>this</code>指向<code>dialog</code>对象。</p>
-
 <h4>类型</h4>
-
 <p>Function</p>
-
 <h4>示例</h4>
-
 <pre><code>var d = dialog({
-    onclose: function () {
-        alert('对话框已经关闭');
-    },
-    ok: function () {}
+	onclose: function () {
+		alert('对话框已经关闭');
+	},
+	ok: function () {}
 });
 d.show();
 </code></pre>
-
-<h3><span id="option-onbeforeremove">onbeforeremove</span></h3>
-
+<h3>onbeforeremove</h3>
+<p><i id="option-onbeforeremove"></i></p>
 <p>对话框销毁之前事件。</p>
-
 <p>回调函数<code>this</code>指向<code>dialog</code>对象。</p>
-
 <h4>类型</h4>
-
 <p>Function</p>
-
-<h3><span id="option-onremove">onremove</span></h3>
-
+<h3>onremove</h3>
+<p><i id="option-onremove"></i></p>
 <p>对话框销毁事件。</p>
-
 <p>回调函数<code>this</code>指向<code>dialog</code>对象。</p>
-
 <h4>类型</h4>
-
 <p>Function</p>
-
 <h4>示例</h4>
-
 <pre><code>var d = dialog({
-    onclose: function () {
-        alert('对话框已经关闭');
-    },
-    onremove: function () {
-        alert('对话框已经销毁');
-    },
-    ok: function () {}
+	onclose: function () {
+		alert('对话框已经关闭');
+	},
+	onremove: function () {
+		alert('对话框已经销毁');
+	},
+	ok: function () {}
 });
 d.show();
 </code></pre>
-
-<h3><span id="option-onfocus">onfocus</span></h3>
-
+<h3>onfocus</h3>
+<p><i id="option-onfocus"></i></p>
 <p>对话框获取焦点事件。</p>
-
 <p>回调函数<code>this</code>指向<code>dialog</code>对象。</p>
-
 <h4>类型</h4>
-
 <p>Function</p>
-
-<h3><span id="option-onblur">onblur</span></h3>
-
+<h3>onblur</h3>
+<p><i id="option-onblur"></i></p>
 <p>对话框失去焦点事件。</p>
-
 <p>回调函数<code>this</code>指向<code>dialog</code>对象。</p>
-
 <h4>类型</h4>
-
 <p>Function</p>
-
-<h3><span id="option-onreset">onreset</span></h3>
-
+<h3>onreset</h3>
+<p><i id="option-onreset"></i></p>
 <p>对话框位置重置事件。</p>
-
 <p>回调函数<code>this</code>指向<code>dialog</code>对象。</p>
-
 <h4>类型</h4>
-
 <p>Function</p>
-
-<h3><span id="option-id">id</span></h3>
-
+<h3>id</h3>
+<p><i id="option-id"></i></p>
 <p>设定对话框唯一标识。</p>
-
 <ol>
 <li>可防止重复 ID 对话框弹出。</li>
 <li>支持使用<code>dialog.get(id)</code>获取某个对话框的接口。</li>
 </ol>
-
-
-<h4>类型</h4>
-
+<p>####类型</p>
 <p>String</p>
-
 <h4>示例</h4>
-
 <pre><code>dialog({
-    id: 'id-demo',
-    content: '再次点击运行看看'
+	id: 'id-demo',
+	content: '再次点击运行看看'
 }).show();
 dialog.get('id-demo').title('8888888888');
 </code></pre>
-
-<h2><span id="property">属性</span></h2>
-
-<h3><span id="property-open">open</span></h3>
-
+<h2>属性</h2>
+<p><i id="property"></i></p>
+<h3>open</h3>
+<p><i id="property-open"></i></p>
 <p>判断对话框是否被打开。</p>
-
-<h3><span id="property-returnValue">returnValue</span></h3>
-
+<h3>returnValue</h3>
+<p><i id="property-returnValue"></i></p>
 <p>对话框返回值。</p>
-
 <h4>示例</h4>
-
 <pre><code>var d = dialog({
-    title: '消息',
-    content: '&lt;input id="property-returnValue-demo" value="1" /&gt;',
-    ok: function () {
-        var value = $('#property-returnValue-demo').val();
-        this.close(value);
-        this.remove();
-    }
+	title: '消息',
+	content: '&lt;input id=&quot;property-returnValue-demo&quot; value=&quot;1&quot; /&gt;',
+	ok: function () {
+		var value = $('#property-returnValue-demo').val();
+		this.close(value);
+		this.remove();
+	}
 });
 d.addEventListener('close', function () {
-    alert(this.returnValue);
+	alert(this.returnValue);
 });
 d.show();
 </code></pre>
-
-<h2><span id="other">其他</span></h2>
-
-<h3><span id="other-skin">自定义样式</span></h3>
-
-<p>打开配置文件： src/dialog-config.js，其中<code>cssUir</code>字段是 css 文件的路径，<code>innerHTML</code>字段则是 artDialog 的模板。修改这两个字段即可很方便的设计属于自己的皮肤。</p>
-
-<p>一套皮肤可以添加不同的<code>className</code>实现多种状态，可参考 <a href="#option-skin">skin</a> 选项。</p>
-
-<h3><span id="other-grunt">源码构建</span></h3>
-
-<p>使用 <a href="http://gruntjs.cn">GruntJS</a> 在 artDialog 源码根目录执行即可。</p>
-
-<h3><span id="other-upgrade">artDialog v5 升级 v6 参考</span></h3>
-
-<p><a href="https://github.com/aui/artDialog/wiki/artDialog-v5%E5%8D%87%E7%BA%A7v6%E5%8F%82%E8%80%83">https://github.com/aui/artDialog/wiki/artDialog-v5%E5%8D%87%E7%BA%A7v6%E5%8F%82%E8%80%83</a></p>
-
-<h3><span id="other-support">支持</span></h3>
-
-<p>artDialog 是基于 <a href="https://github.com/aui/artDialog/blob/master/LICENSE.md">LGPL</a> 协议免费开源的程序，问题反馈可在 <a href="https://github.com/aui/artDialog/issues?state=open">Github issues</a> 上进行（为了保证效率，请务必描述清楚你的问题，例如包含 artDialog 版本号、浏览器版本等必要信息，有 demo 甚佳。不合格问题将可能会被关闭）。</p>
-
-<hr />
-
-<p><a href="https://github.com/aui/artDialog/blob/master/LICENSE.md">artDialog 商业授权</a></p>
-
 <script src="../lib/jquery-1.10.2.js"></script>
-
-
-<p><link rel="stylesheet" href="../css/ui-dialog.css" /></p>
-
 <script src="../dist/dialog-plus.js"></script>
-
-
-<p><link rel="stylesheet" href="./css/doc.css" /></p>
-
+<link rel="stylesheet" href="./css/doc.css" />
 <script src="./js/doc.js"></script>
-
 </body>
+
 </html>

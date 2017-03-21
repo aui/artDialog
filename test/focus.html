@@ -1,70 +1,63 @@
 <!doctype html>
 <html lang="zh">
+
 <head>
-	<meta charset="UTF-8">
-	<title>test</title>
+    <meta charset="UTF-8">
+    <title>test</title>
 </head>
+
 <body>
-<button data-event="test">test1</button>
-<br />
-<button data-event="test2">test2</button> <input id="input" />
-<script src="../lib/sea.js"></script>
-<script>
-seajs.config({
-  alias: {
-    "jquery": "jquery-1.10.2.js"
-  }
-});
-</script>
+    <button data-event="test">test1</button>
+    <br />
+    <button data-event="test2">test2</button> <input id="input" />
+    <script src="../lib/jquery-1.10.2.js"></script>
+    <script src="../dist/dialog.js"></script>
 
-<script>
-if (!this.console) {
-	this.console = {
-		log: function () {}
-	};
-}
-
-seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
-
-	$(document).on('focusin', function (event) {
-		console.log('activeElement', event.target);
-	});
-
-	$('button[data-event=test]').on('click', function () {
-		console.log('根据浏览器规则，此时焦点应该在按钮上');
-
-		var d = dialog({
-			quickClose: true,
-			content: 'hello world',
-			follow: this,
-			onclose: function () {
-				console.log('对话框执行close()操作，此时焦点应该恢复到对话框出现之前的元素上');
-			}
-		});
-
-		d.show();
-		console.log('对话框执行show()方法，焦点应该在对话框上');
-	});
-	
-	$('button[data-event=test2]').on('click', function () {
-		console.log('根据浏览器规则，此时焦点应该在按钮上');
-
-		var d = dialog({
-			quickClose: true,
-			content: '输入错误，请重新输入',
-			onclose: function () {
-				$('#input').focus();
-				console.log('对话框执行close()操作，如果开发者对焦点操作，那么将使用开发者的设置');
-			},
-			follow: $('#input')[0]
-		});
-
-		d.show();
-		console.log('对话框执行show()方法，焦点应该在对话框上');
-	});
+    <script>
+        if (!this.console) {
+            this.console = {
+                log: function() {}
+            };
+        }
 
 
-});
-</script>
+        $(document).on('focusin', function(event) {
+            console.log('activeElement', event.target);
+        });
+
+        $('button[data-event=test]').on('click', function() {
+            console.log('根据浏览器规则，此时焦点应该在按钮上');
+
+            var d = dialog({
+                quickClose: true,
+                content: 'hello world',
+                follow: this,
+                onclose: function() {
+                    console.log('对话框执行close()操作，此时焦点应该恢复到对话框出现之前的元素上');
+                }
+            });
+
+            d.show();
+            console.log('对话框执行show()方法，焦点应该在对话框上');
+        });
+
+        $('button[data-event=test2]').on('click', function() {
+            console.log('根据浏览器规则，此时焦点应该在按钮上');
+
+            var d = dialog({
+                quickClose: true,
+                content: '输入错误，请重新输入',
+                onclose: function() {
+                    $('#input').focus();
+                    console.log('对话框执行close()操作，如果开发者对焦点操作，那么将使用开发者的设置');
+                },
+                follow: $('#input')[0]
+            });
+
+            d.show();
+            console.log('对话框执行show()方法，焦点应该在对话框上');
+        });
+    </script>
 </body>
+
 </html>

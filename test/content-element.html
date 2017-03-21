@@ -1,59 +1,55 @@
 <!doctype html>
 <html>
+
 <head>
-	<meta charset="UTF-8">
-	<title>test</title>
+    <meta charset="UTF-8">
+    <title>test</title>
 </head>
+
 <body>
-<button id="test2">1. content(elem).show()</button> <button id="test3">2. close()</button> <button id="test4">3. show()</button> <button id="test5">4. close().remove()</button>
-<div id="test-content" style="display:none"><p>我是隐藏的DOM节点<button id="test">alert</button></p></div>
-<script src="../lib/sea.js"></script>
-<script>
-seajs.config({
-  alias: {
-    "jquery": "jquery-1.10.2.js"
-  }
-});
-</script>
+    <button id="test2">1. content(elem).show()</button> <button id="test3">2. close()</button> <button id="test4">3. show()</button> <button id="test5">4. close().remove()</button>
+    <div id="test-content" style="display:none">
+        <p>我是隐藏的DOM节点<button id="test">alert</button></p>
+    </div>
+    <script src="../lib/jquery-1.10.2.js"></script>
+    <script src="../dist/dialog.js"></script>
 
-<script>
-seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
-	window.dialog = dialog;
-	$('#test').on('click', function () {
-		alert('click')
-	});
-	
-	var d = dialog({
-		title: '消息',
-		content: '风吹起的青色衣衫，夕阳里的温暖容颜，你比以前更加美丽，像盛开的花<br>——许巍《难忘的一天》',
-		okValue: '确 定'
-	});
+    <script>
+        window.dialog = dialog;
+        $('#test').on('click', function() {
+            alert('click')
+        });
 
-	var elem = document.getElementById('test-content');
+        var d = dialog({
+            title: '消息',
+            content: '风吹起的青色衣衫，夕阳里的温暖容颜，你比以前更加美丽，像盛开的花<br>——许巍《难忘的一天》',
+            okValue: '确 定'
+        });
 
-	$('#test2').on('click', function () {
-		d.content(elem).show();
-	});
+        var elem = document.getElementById('test-content');
 
-	$('#test3').on('click', function () {
-		d.close();
-	});
+        $('#test2').on('click', function() {
+            d.content(elem).show();
+        });
 
-	$('#test4').on('click', function () {
-		d.show();
-	});
+        $('#test3').on('click', function() {
+            d.close();
+        });
 
-	$('#test5').on('click', function () {
-		d.close().remove();
-	});
+        $('#test4').on('click', function() {
+            d.show();
+        });
 
-	d.addEventListener('remove', function () {
-		$('#test2, #test3, #test4, #test5').off('click').on('click', function () {
-			alert('对话框已经销毁');
-		});
-	});
+        $('#test5').on('click', function() {
+            d.close().remove();
+        });
 
-});
-</script>
+        d.addEventListener('remove', function() {
+            $('#test2, #test3, #test4, #test5').off('click').on('click', function() {
+                alert('对话框已经销毁');
+            });
+        });
+    </script>
 </body>
+
 </html>

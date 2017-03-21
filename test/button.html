@@ -1,56 +1,43 @@
 <!doctype html>
 <html>
+
 <head>
-	<meta charset="UTF-8">
-	<title>test</title>
+    <meta charset="UTF-8">
+    <title>test</title>
 </head>
+
 <body>
-<script src="../lib/sea.js"></script>
-<script>
-seajs.config({
-  alias: {
-    "jquery": "jquery-1.10.2.js"
-  }
-});
-</script>
+    <script src="../lib/jquery-1.10.2.js"></script>
+    <script src="../dist/dialog.js"></script>
 
-<script>
-seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
-	
-	var d = dialog({
-		title: '消息',
-		content: '风吹起的青色衣衫，夕阳里的温暖容颜，你比以前更加美丽，像盛开的花<br>——许巍《难忘的一天》',
-	    button: [
-	        {
-	            value: '同意',
-	            callback: function () {
-	                this
-	                .content('你同意了');
-	                return false;
-	            },
-	            autofocus: true
-	        },
-	        {
-	            value: '不同意',
-	            callback: function () {
-	                alert('你不同意')
-	            }
-	        },
-	        {
-	            id: 'button-disabled',
-	            value: '无效按钮',
-	            disabled: true
-	        },
-	        {
-	            value: '关闭我'
-	        }
-	    ]
-	});
+    <script>
+        var d = dialog({
+            title: '消息',
+            content: '风吹起的青色衣衫，夕阳里的温暖容颜，你比以前更加美丽，像盛开的花<br>——许巍《难忘的一天》',
+            button: [{
+                value: '同意',
+                callback: function() {
+                    this
+                        .content('你同意了');
+                    return false;
+                },
+                autofocus: true
+            }, {
+                value: '不同意',
+                callback: function() {
+                    alert('你不同意')
+                }
+            }, {
+                id: 'button-disabled',
+                value: '无效按钮',
+                disabled: true
+            }, {
+                value: '关闭我'
+            }]
+        });
 
-	d.show();
-
-
-});
-</script>
+        d.show();
+    </script>
 </body>
+
 </html>

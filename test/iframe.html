@@ -1,46 +1,42 @@
 <!doctype html>
 <html>
+
 <head>
-	<meta charset="UTF-8">
-	<title>iframe - test</title>
-	<style>
-		body {
-			
-			margin: 0;
-		}
-		#doc {
-			height: 560px;
-		}
-		#doc iframe {
-			display: block;
-			width: 550px;
-			border: 1px solid #CCC;
-			height: 450px;
-			margin: 100px auto 0 auto;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <title>iframe - test</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        
+        #doc {
+            height: 560px;
+        }
+        
+        #doc iframe {
+            display: block;
+            width: 550px;
+            border: 1px solid #CCC;
+            height: 450px;
+            margin: 100px auto 0 auto;
+        }
+    </style>
 </head>
+
 <body>
-<script>
-!/http/.test(location.protocol) && document.write('<h1>请在服务端预览（Chrome 浏览器本地访问 iframe 会跨域无权限）</h1>');
-</script>
-<div id="doc">
-	<iframe id="test-iframe" src="about:blank" data-src="show-element.html"></iframe>
-</div>
-<script src="../lib/sea.js"></script>
-<script>
-seajs.config({
-  alias: {
-    "jquery": "jquery-1.10.2.js"
-  }
-});
-</script>
-<script>
-seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
-	window.dialog = dialog;
-	var $iframe = $('#test-iframe');
-	$iframe.attr('src', $iframe.data('src'));
-});
-</script>
+    <script>
+        !/http/.test(location.protocol) && document.write('<h1>请在服务端预览（Chrome 浏览器本地访问 iframe 会跨域无权限）</h1>');
+    </script>
+    <div id="doc">
+        <iframe id="test-iframe" src="about:blank" data-src="show-element.html"></iframe>
+    </div>
+    <script src="../lib/jquery-1.10.2.js"></script>
+    <script src="../dist/dialog.js"></script>
+    <script>
+        window.dialog = dialog;
+        var $iframe = $('#test-iframe');
+        $iframe.attr('src', $iframe.data('src'));
+    </script>
 </body>
+
 </html>

@@ -1,139 +1,148 @@
 <!doctype html>
 <html lang="zh">
-<head>
-	<meta charset="UTF-8">
-	<title>test</title>
-	<style>
-	#follow-elem {
-		width: 120px;
-		height: 120px;
-		position: absolute;
-		left: 50%;
-		margin-left: -60px;
-		top: 38%;
-		margin-top: -40px;
-		background: #e3f5ff;
-		border:1px solid #abd3ea;
-		border-radius: 6px;
-	}
-	#follow-elem input {
-		width: 14px;
-		height: 14px;
-		position: absolute;
-		cursor: pointer;
-	}
-	#follow-elem .nw {
-		left: 14px;
-		top: 0;
-	}
-	#follow-elem .n {
-		left: 50%;
-		margin-left: -7px;
-		top: 0;
-	}
-	#follow-elem .ne {
-		right: 14px;
-		top: 0;
-	}
-	#follow-elem .en {
-		right: 0;
-		top: 14px;
-	}
-	#follow-elem .e {
-		right: 0;
-		top: 50%;
-		margin-top: -7px;
-	}
-	#follow-elem .es {
-		right: 0;
-		bottom: 14px;
-	}
-	#follow-elem .se {
-		right: 14px;
-		bottom: 0;
-	}
-	#follow-elem .s {
-		left: 50%;
-		margin-left: -7px;
-		bottom: 0;
-	}
-	#follow-elem .sw {
-		left: 14px;
-		bottom: 0;
-	}
-	#follow-elem .ws {
-		left: 0;
-		bottom: 14px;
-	}
-	#follow-elem .w {
-		left: 0;
-		top: 50%;
-		margin-top: -7px;
-	}
-	#follow-elem .wn {
-		left: 0;
-		top: 14px;
-	}
 
-	code {
-		color: #888;
-	}
-	code strong {
-		color: #000;
-	}
-	</style>
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+    <style>
+        #follow-elem {
+            width: 120px;
+            height: 120px;
+            position: absolute;
+            left: 50%;
+            margin-left: -60px;
+            top: 38%;
+            margin-top: -40px;
+            background: #e3f5ff;
+            border: 1px solid #abd3ea;
+            border-radius: 6px;
+        }
+        
+        #follow-elem input {
+            width: 14px;
+            height: 14px;
+            position: absolute;
+            cursor: pointer;
+        }
+        
+        #follow-elem .nw {
+            left: 14px;
+            top: 0;
+        }
+        
+        #follow-elem .n {
+            left: 50%;
+            margin-left: -7px;
+            top: 0;
+        }
+        
+        #follow-elem .ne {
+            right: 14px;
+            top: 0;
+        }
+        
+        #follow-elem .en {
+            right: 0;
+            top: 14px;
+        }
+        
+        #follow-elem .e {
+            right: 0;
+            top: 50%;
+            margin-top: -7px;
+        }
+        
+        #follow-elem .es {
+            right: 0;
+            bottom: 14px;
+        }
+        
+        #follow-elem .se {
+            right: 14px;
+            bottom: 0;
+        }
+        
+        #follow-elem .s {
+            left: 50%;
+            margin-left: -7px;
+            bottom: 0;
+        }
+        
+        #follow-elem .sw {
+            left: 14px;
+            bottom: 0;
+        }
+        
+        #follow-elem .ws {
+            left: 0;
+            bottom: 14px;
+        }
+        
+        #follow-elem .w {
+            left: 0;
+            top: 50%;
+            margin-top: -7px;
+        }
+        
+        #follow-elem .wn {
+            left: 0;
+            top: 14px;
+        }
+        
+        code {
+            color: #888;
+        }
+        
+        code strong {
+            color: #000;
+        }
+    </style>
 </head>
+
 <body>
-<pre><code>var follow = document.getElementById('follow-elem');
+    <pre><code>var follow = document.getElementById('follow-elem');
 var d = dialog({
 	align: '<strong id="test-align-value">bottom left</strong>',
 	content: 'hello world'
 });
 d.show(follow);</code></pre>
 
-<div id="follow-elem">
-	<input type="radio" name="align" value="top left" class="nw" title="top left">
-	<input type="radio" name="align" value="top" class="n" title="top">
-	<input type="radio" name="align" value="top right" class="ne" title="top right">
-	<input type="radio" name="align" value="right top" class="en" title="right top">
-	<input type="radio" name="align" value="right" class="e" title="right">
-	<input type="radio" name="align" value="right bottom" class="es" title="right bottom">
-	<input type="radio" name="align" value="bottom right" class="se" title="bottom right">
-	<input type="radio" name="align" value="bottom" class="s" title="bottom">
-	<input type="radio" name="align" value="bottom left" class="sw" title="bottom left" checked>
-	<input type="radio" name="align" value="left bottom" class="ws" title="left bottom">
-	<input type="radio" name="align" value="left" class="w" title="left">
-	<input type="radio" name="align" value="left top" class="wn" title="left top">
-</div>
+    <div id="follow-elem">
+        <input type="radio" name="align" value="top left" class="nw" title="top left">
+        <input type="radio" name="align" value="top" class="n" title="top">
+        <input type="radio" name="align" value="top right" class="ne" title="top right">
+        <input type="radio" name="align" value="right top" class="en" title="right top">
+        <input type="radio" name="align" value="right" class="e" title="right">
+        <input type="radio" name="align" value="right bottom" class="es" title="right bottom">
+        <input type="radio" name="align" value="bottom right" class="se" title="bottom right">
+        <input type="radio" name="align" value="bottom" class="s" title="bottom">
+        <input type="radio" name="align" value="bottom left" class="sw" title="bottom left" checked>
+        <input type="radio" name="align" value="left bottom" class="ws" title="left bottom">
+        <input type="radio" name="align" value="left" class="w" title="left">
+        <input type="radio" name="align" value="left top" class="wn" title="left top">
+    </div>
 
 
-<script src="../lib/sea.js"></script>
-<script>
-seajs.config({
-  alias: {
-    "jquery": "jquery-1.10.2.js"
-  }
-});
-</script>
+    <script src="../lib/jquery-1.10.2.js"></script>
+    <script src="../dist/dialog.js"></script>
 
-<script>
-seajs.use(['jquery', '../src/dialog'], function ($, dialog) {
-	var follow = $('#follow-elem')[0];
-	var d = dialog({
-		align: 'bottom left',
-		content: 'hello world'
-	});
-	d.show(follow);
+    <script>
+        var follow = $('#follow-elem')[0];
+        var d = dialog({
+            align: 'bottom left',
+            content: 'hello world'
+        });
+        d.show(follow);
 
-	$('#follow-elem').on('click', '[type=radio]', function () {
-		if (d.open) {
-			var align = $(this).val();
-			d.align = align;
-			d.show(follow);
-			$('#test-align-value').html(align);
-		}
-	});
-});
-</script>
+        $('#follow-elem').on('click', '[type=radio]', function() {
+            if (d.open) {
+                var align = $(this).val();
+                d.align = align;
+                d.show(follow);
+                $('#test-align-value').html(align);
+            }
+        });
+    </script>
 </body>
+
 </html>
