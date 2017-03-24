@@ -345,7 +345,7 @@
 <li><a href="#quickref-bubble">气泡浮层</a></li>
 <li><a href="#quickref-button">添加按钮</a></li>
 <li><a href="#quickref-close">控制对话框关闭</a></li>
-<li><a href="#quickref-statusbar">给对话框左下脚添加复选框</a></li>
+<li><a href="#quickref-statusbar">给对话框左下角添加复选框</a></li>
 <li><a href="#quickref-callback">点按钮不关闭对话框</a></li>
 <li><a href="#quickref-cancel">不显示关闭按钮</a></li>
 <li><a href="#quickref-iframe">创建 iframe 内容</a></li>
@@ -508,7 +508,7 @@ setTimeout(function () {
 	d.close().remove();
 }, 2000);
 </code></pre>
-<h3>给对话框左下脚添加复选框</h3>
+<h3>给对话框左下角添加复选框</h3>
 <p><i id="quickref-statusbar"></i></p>
 <pre><code>var d = dialog({
 	title: '欢迎',
@@ -570,8 +570,8 @@ d.show();
 <p>显示对话框。</p>
 <p>默认居中显示，支持传入元素节点或者事件对象。</p>
 <ul>
-<li>参数类型为<code>HTMLElement</code>：可吸附到元素上，同时对话框将呈现气泡样式。
-*参数类型为<code>Event Object</code>：根据<code>event.pageX</code>与<code>event.pageY</code>定位。</li>
+<li>参数类型为<code>HTMLElement</code>：可吸附到元素上，同时对话框将呈现气泡样式。</li>
+<li>参数类型为<code>Event Object</code>：根据<code>event.pageX</code>与<code>event.pageY</code>定位。</li>
 </ul>
 <h4>示例</h4>
 <pre><code>var d = dialog();
@@ -967,7 +967,7 @@ dialog({
 <li><code>&quot;left&quot;</code></li>
 <li><code>&quot;left top&quot;</code></li>
 </ul>
-<p>###类型</p>
+<h3>类型</h3>
 <p>String</p>
 <h3>示例</h3>
 <pre><code>var d = dialog({
@@ -1086,7 +1086,7 @@ d.show();
 <li>可防止重复 ID 对话框弹出。</li>
 <li>支持使用<code>dialog.get(id)</code>获取某个对话框的接口。</li>
 </ol>
-<p>####类型</p>
+<h4>类型</h4>
 <p>String</p>
 <h4>示例</h4>
 <pre><code>dialog({
@@ -1122,6 +1122,7 @@ d.show();
 <script src="../dist/dialog-plus.js"></script>
 <link rel="stylesheet" href="./css/doc.css" />
 <script src="./js/doc.js"></script>
+
 </body>
 
 </html>
