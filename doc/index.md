@@ -21,7 +21,7 @@ artDialog —— 经典、优雅的网页对话框控件。
   * [气泡浮层](#quickref-bubble)
   * [添加按钮](#quickref-button)
   * [控制对话框关闭](#quickref-close)
-  * [给对话框左下脚添加复选框](#quickref-statusbar)
+  * [给对话框左下角添加复选框](#quickref-statusbar)
   * [点按钮不关闭对话框](#quickref-callback)
   * [不显示关闭按钮](#quickref-cancel)
   * [创建 iframe 内容](#quickref-iframe)
@@ -183,7 +183,7 @@ setTimeout(function () {
 }, 2000);
 ```
 
-### 给对话框左下脚添加复选框
+### 给对话框左下角添加复选框
 <i id="quickref-statusbar"></i>
 
 ```
@@ -265,7 +265,7 @@ require(['art.dialog/dist/dialog-plus'], function (dialog) {
 默认居中显示，支持传入元素节点或者事件对象。
 
 *  参数类型为``HTMLElement``：可吸附到元素上，同时对话框将呈现气泡样式。
-   *参数类型为``Event Object``：根据``event.pageX``与``event.pageY``定位。
+*  参数类型为``Event Object``：根据``event.pageX``与``event.pageY``定位。
 
  #### 示例
 
