@@ -820,7 +820,7 @@ dialog({
 * ``"left"``
 * ``"left top"``
 
- ###类型
+ ### 类型
 
 String
 
@@ -1010,7 +1010,7 @@ Function
 1.  可防止重复 ID 对话框弹出。
 2.  支持使用``dialog.get(id)``获取某个对话框的接口。
 
- ####类型
+ #### 类型
 
 String
 
