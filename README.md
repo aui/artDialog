@@ -64,7 +64,7 @@ npm install --save-dev art-dialog
 免费，且开源，基于[LGPL-3.0](./LICENSE.md)协议。
 
 
-[npm-image]: https://img.shields.io/npm/v/art.dialog.svg
-[npm-url]: https://npmjs.org/package/art.dialog
-[downloads-image]: https://img.shields.io/npm/dm/art.dialog.svg
-[downloads-url]: https://npmjs.org/package/art.dialog
+[npm-image]: https://img.shields.io/npm/v/art-dialog.svg
+[npm-url]: https://npmjs.org/package/art-dialog
+[downloads-image]: https://img.shields.io/npm/dm/art-dialog.svg
+[downloads-url]: https://npmjs.org/package/art-dialog

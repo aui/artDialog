@@ -440,10 +440,10 @@
 //..
 </code></pre>
 <h3>2.作为 Webpack、RequireJS 或 SeaJS 的模块引入</h3>
-<p>使用 Npm 安装 <code>art.dialog</code></p>
-<pre><code>npm install --save-dev art.dialog
+<p>使用 Npm 安装 <code>art-dialog</code></p>
+<pre><code>npm install --save-dev art-dialog
 </code></pre>
-<pre><code>var dialog = require('art.dialog');
+<pre><code>var dialog = require('art-dialog');
 //..
 </code></pre>
 <p>**注意：**内部依赖全局模块<code>require('jquery')</code>，请注意全局模块配置是否正确</p>
@@ -552,7 +552,7 @@ d.show();
 <h3>创建 iframe 内容</h3>
 <p><i id="quickref-iframe"></i></p>
 <p>artDialog 提供了一个增强版用来支持复杂的 iframe 套嵌的页面，可以在顶层页面创建一个可供 iframe 访问的对话框创建方法，例如：</p>
-<pre><code>require(['art.dialog/dist/dialog-plus'], function (dialog) {
+<pre><code>require(['art-dialog/dist/dialog-plus'], function (dialog) {
 	window.dialog = dialog;
 });
 //..

@@ -92,14 +92,14 @@ artDialog —— 经典、优雅的网页对话框控件。
 
 ### 2.作为 Webpack、RequireJS 或 SeaJS 的模块引入
 
-使用 Npm 安装 `art.dialog`
+使用 Npm 安装 `art-dialog`
 
 ```
-npm install --save-dev art.dialog
+npm install --save-dev art-dialog
 ```
 
 ```
-var dialog = require('art.dialog');
+var dialog = require('art-dialog');
 //..
 ```
 
@@ -240,7 +240,7 @@ d.show();
 artDialog 提供了一个增强版用来支持复杂的 iframe 套嵌的页面，可以在顶层页面创建一个可供 iframe 访问的对话框创建方法，例如：
 
 ```
-require(['art.dialog/dist/dialog-plus'], function (dialog) {
+require(['art-dialog/dist/dialog-plus'], function (dialog) {
 	window.dialog = dialog;
 });
 //..
