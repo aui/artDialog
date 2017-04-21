@@ -1,3 +1,4 @@
+var path = require('path');
 var webpack = require('webpack');
 var version = require('./package.json').version;
 
@@ -7,7 +8,7 @@ module.exports = {
         'dialog-plus': './src/dialog-plus.js'
     },
     output: {
-        path: 'dist',
+        path: path.resolve(__dirname, 'dist'),
         filename: '[name].js',
         library: `dialog`,
         libraryTarget: 'umd'
@@ -16,7 +17,7 @@ module.exports = {
         new webpack.BannerPlugin('art.dialog@' + version + ' | https://github.com/aui/artDialog')
     ],
     externals: {
-        jquery: 'jQuery'
+        jquery: 'jquery'
     },
     module: {
         loaders: [
