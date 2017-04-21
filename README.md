@@ -1,5 +1,6 @@
 #	artDialog
 
+[![CDNJS](https://img.shields.io/cdnjs/v/artDialog.svg)](https://cdnjs.com/libraries/artDialog)
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
 
