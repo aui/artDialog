@@ -1,8 +1,8 @@
 #	artDialog
 
 [![CDNJS](https://img.shields.io/cdnjs/v/artDialog.svg)](https://cdnjs.com/libraries/artDialog)
-[![NPM Version][npm-image]][npm-url]
-[![NPM Downloads][downloads-image]][downloads-url]
+[![NPM Version](https://img.shields.io/npm/v/art-dialog.svg)](https://npmjs.org/package/art-dialog)
+[![NPM Downloads](https://img.shields.io/npm/dm/art-dialog.svg)](https://npmjs.org/package/art-dialog)
 
 artDialog——经典、优雅的网页对话框控件。
 
@@ -62,9 +62,3 @@ npm install --save-dev art-dialog
 ##	授权协议
 
 免费，且开源，基于[LGPL-3.0](./LICENSE.md)协议。
-
-
-[npm-image]: https://img.shields.io/npm/v/art-dialog.svg
-[npm-url]: https://npmjs.org/package/art-dialog
-[downloads-image]: https://img.shields.io/npm/dm/art-dialog.svg
-[downloads-url]: https://npmjs.org/package/art-dialog
