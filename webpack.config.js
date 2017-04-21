@@ -13,7 +13,7 @@ module.exports = {
         libraryTarget: 'umd'
     },
     plugins: [
-        new webpack.BannerPlugin('art.dialog@' + version + ' | https://github.com/aui/artDialog')
+        new webpack.BannerPlugin('art-dialog@' + version + ' | https://github.com/aui/artDialog')
     ],
     externals: {
         jquery: 'jQuery'
