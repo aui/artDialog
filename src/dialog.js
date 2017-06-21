@@ -390,7 +390,7 @@ $.extend(prototype, {
                     '</button>';
 
                 that._$('button')
-                    .on('click', '[i-id=' + id + ']', function(event) {
+                    .on('click', '[i-id="' + id + '"]', function(event) {
                         var $this = $(this);
                         if (!$this.attr('disabled')) { // IE BUG
                             that._trigger(id);
