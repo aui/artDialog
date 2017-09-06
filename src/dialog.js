@@ -389,20 +389,18 @@ $.extend(prototype, {
                     val.value +
                     '</button>';
 
-                that._$('button')
-                    .on('click', '[i-id=' + id + ']', function(event) {
-                        var $this = $(this);
-                        if (!$this.attr('disabled')) { // IE BUG
-                            that._trigger(id);
-                        }
-
-                        event.preventDefault();
-                    });
-
             });
         }
 
-        this._$('button').html(html);
+        this._$('button').html(html).off('.art.button').on('click.art.button', '[i-id]', function (event) {
+            var $this = $(this),
+                id = $this.attr("i-id");
+            if (!$this.attr('disabled')) {// IE BUG
+                that._trigger(id);
+            }
+
+            event.preventDefault();
+        });
         this._$('footer')[number ? 'show' : 'hide']();
 
         return this;
