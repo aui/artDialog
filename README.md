@@ -62,3 +62,5 @@ npm install --save-dev art-dialog
 ##	授权协议
 
 免费，且开源，基于[LGPL-3.0](./LICENSE.md)协议。
+
+[\[AD\] 前端招聘：在海边写代码](https://juejin.im/post/5a2651d06fb9a0451c3a40ad)
