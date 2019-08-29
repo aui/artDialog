@@ -17,7 +17,7 @@ module.exports = {
         new webpack.BannerPlugin('art-dialog@' + version + ' | https://github.com/aui/artDialog')
     ],
     externals: {
-        jquery: 'jQuery'
+        jquery: 'jquery'
     },
     module: {
         loaders: [
